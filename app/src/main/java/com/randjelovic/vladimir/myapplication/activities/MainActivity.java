@@ -1,7 +1,9 @@
-package com.randjelovic.vladimir.myapplication;
+package com.randjelovic.vladimir.myapplication.activities;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+
+import com.randjelovic.vladimir.myapplication.R;
 
 public class MainActivity extends AppCompatActivity {
 

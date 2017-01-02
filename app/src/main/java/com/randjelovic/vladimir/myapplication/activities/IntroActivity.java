@@ -1,11 +1,11 @@
-package com.randjelovic.vladimir.myapplication;
+package com.randjelovic.vladimir.myapplication.activities;
 
 import android.content.Intent;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.view.Menu;
-import android.widget.Toast;
+
+import com.randjelovic.vladimir.myapplication.R;
 
 public class IntroActivity extends AppCompatActivity {
 
