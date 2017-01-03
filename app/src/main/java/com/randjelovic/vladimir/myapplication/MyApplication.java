@@ -11,6 +11,8 @@ public class MyApplication extends Application {
 
     private static Context appContext;
     private static boolean authenticated;
+    private static String basicAuth;
+
 
     public void onCreate() {
         super.onCreate();
@@ -25,6 +27,14 @@ public class MyApplication extends Application {
     public static boolean isAuthenticated() {
         return MyApplication.authenticated;
     }
-    public static void setAuthenticated(boolean value) {authenticated=value;}
+    public static void setAuthenticated(boolean value) {MyApplication.authenticated=value;}
+
+    public static String getBasicAuth() {
+        return MyApplication.basicAuth;
+    }
+    public static void setBasicAuth(String basicAuth) {MyApplication.basicAuth=basicAuth;}
+
 }
+
+
 
