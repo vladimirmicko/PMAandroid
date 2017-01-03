@@ -1,10 +1,12 @@
 package com.randjelovic.vladimir.myapplication.activities;
 
+import android.app.Application;
 import android.content.Intent;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
+import com.randjelovic.vladimir.myapplication.MyApplication;
 import com.randjelovic.vladimir.myapplication.R;
 
 public class IntroActivity extends AppCompatActivity {
@@ -13,6 +15,7 @@ public class IntroActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_intro);
+
 
         new Handler().postDelayed(new Runnable(){
             @Override

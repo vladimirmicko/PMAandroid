@@ -9,16 +9,15 @@ import android.content.Context;
 
 public class MyApplication extends Application {
 
-
-    private static Context mContext;
+    private static Context appContext;
 
     public void onCreate() {
         super.onCreate();
-        mContext = getApplicationContext();
+        MyApplication.appContext = getApplicationContext();
     }
 
     public static Context getAppContext() {
-        return mContext;
+        return MyApplication.appContext;
     }
 
 }
