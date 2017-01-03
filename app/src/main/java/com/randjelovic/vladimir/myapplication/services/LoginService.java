@@ -28,7 +28,7 @@ public class LoginService extends AsyncTask<String, Integer, String> {
         try {
             URL url = new URL(MyApplication.getAppContext().getResources().getString(R.string.url_authenticate));
             urlConnection = (HttpURLConnection) url.openConnection();
-            String userCredentials = "vlada:vlada";
+            String userCredentials = strings[0]+":"+strings[1];
             String basicAuth = "Basic " + new String(Base64.encode(userCredentials.getBytes(), Base64.NO_WRAP));
             urlConnection.setRequestProperty("Authorization", basicAuth);
             urlConnection.setRequestMethod("GET");
