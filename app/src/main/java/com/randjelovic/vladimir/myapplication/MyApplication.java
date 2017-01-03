@@ -10,15 +10,21 @@ import android.content.Context;
 public class MyApplication extends Application {
 
     private static Context appContext;
+    private static boolean authenticated;
 
     public void onCreate() {
         super.onCreate();
         MyApplication.appContext = getApplicationContext();
+        authenticated=false;
     }
 
     public static Context getAppContext() {
         return MyApplication.appContext;
     }
 
+    public static boolean isAuthenticated() {
+        return MyApplication.authenticated;
+    }
+    public static void setAuthenticated(boolean value) {authenticated=value;}
 }
 

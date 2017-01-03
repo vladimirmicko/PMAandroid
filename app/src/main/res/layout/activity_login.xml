@@ -90,8 +90,6 @@
                     android:id="@+id/btLogin"
                     android:textAlignment="center" />
             </TableRow>
-
-
         </TableLayout>
     </LinearLayout>
 </RelativeLayout>

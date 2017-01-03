@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">PrimingTests</string>
+
+    <!--Authentication-->
+    <string name="unauthorised">Username or password is not correct!</string>
+    <string name="login_successful">Login sucessful!</string>
+    <string name="authentication_error">Login failed!</string>
 </resources>

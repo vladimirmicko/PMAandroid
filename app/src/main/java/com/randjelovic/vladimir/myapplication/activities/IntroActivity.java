@@ -16,7 +16,6 @@ public class IntroActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_intro);
 
-
         new Handler().postDelayed(new Runnable(){
             @Override
             public void run() {
