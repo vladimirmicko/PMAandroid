@@ -22,13 +22,14 @@
         app:srcCompat="@drawable/intro" />
 
     <TextView
-        android:text="Priming Testing"
+        android:text="@string/app_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/textView"
         android:textSize="30sp"
         android:textStyle="normal|bold"
         android:textAlignment="textEnd"
+        android:gravity="fill_horizontal"
         android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"

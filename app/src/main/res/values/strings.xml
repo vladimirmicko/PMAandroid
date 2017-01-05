@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">PrimingTests</string>
+    <string name="app_name">Priming testing</string>
 
     <!--Authentication-->
     <string name="unauthorised">Username or password is not correct!</string>
