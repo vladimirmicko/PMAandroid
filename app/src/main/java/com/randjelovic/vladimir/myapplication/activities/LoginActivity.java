@@ -97,7 +97,7 @@ public class LoginActivity extends AppCompatActivity {
             Toast.makeText(MyApplication.getAppContext(), result, Toast.LENGTH_LONG).show();
 
             if(MyApplication.isAuthenticated()){
-                Intent mainIntent = new Intent(LoginActivity.this,MainActivity.class);
+                Intent mainIntent = new Intent(LoginActivity.this,SelectorActivity.class);
                 LoginActivity.this.startActivity(mainIntent);
                 LoginActivity.this.finish();
             }

@@ -5,4 +5,7 @@
     <string name="unauthorised">Username or password is not correct!</string>
     <string name="login_successful">Login sucessful!</string>
     <string name="authentication_error">Login failed!</string>
+    <string name="title_activity_selector">SelectorActivity</string>
+    <string name="action_settings">Settings</string>
+    <string name="section_format">Hello World from section: %1$d</string>
 </resources>

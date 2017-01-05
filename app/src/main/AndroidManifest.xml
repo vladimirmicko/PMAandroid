@@ -3,6 +3,7 @@
     package="com.randjelovic.vladimir.myapplication">
 
     <uses-permission android:name="android.permission.INTERNET" />
+
     <application
         android:name=".MyApplication"
         android:allowBackup="true"
@@ -13,11 +14,15 @@
         <activity android:name=".activities.IntroActivity">
             <intent-filter>
                 <category android:name="android.intent.category.LAUNCHER" />
+
                 <action android:name="android.intent.action.MAIN" />
             </intent-filter>
         </activity>
-        <activity android:name=".activities.LoginActivity"></activity>
-        <activity android:name=".activities.MainActivity"></activity>
+        <activity android:name=".activities.LoginActivity" />
+        <activity
+            android:name=".activities.SelectorActivity"
+            android:label="@string/title_activity_selector"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
 </manifest>
