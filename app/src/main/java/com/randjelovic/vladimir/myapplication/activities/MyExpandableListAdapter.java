@@ -11,18 +11,16 @@ import android.widget.CheckedTextView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.randjelovic.vladimir.myapplication.MyApplication;
 import com.randjelovic.vladimir.myapplication.R;
 
 public class MyExpandableListAdapter extends BaseExpandableListAdapter {
 
 	private final SparseArray<Group> groups;
 	public LayoutInflater inflater;
-	public Activity activity;
-
-	public MyExpandableListAdapter(Activity act, SparseArray<Group> groups) {
-		activity = act;
+	public MyExpandableListAdapter(LayoutInflater inflater, SparseArray<Group> groups) {
 		this.groups = groups;
-		inflater = act.getLayoutInflater();
+		this.inflater = inflater;
 	}
 
 	@Override
@@ -48,7 +46,7 @@ public class MyExpandableListAdapter extends BaseExpandableListAdapter {
 		convertView.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				Toast.makeText(activity, children,
+				Toast.makeText(MyApplication.getAppContext(), children,
 						Toast.LENGTH_SHORT).show();
 			}
 		});

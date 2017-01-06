@@ -34,7 +34,7 @@ public class SelectorActivity extends AppCompatActivity {
      * {@link android.support.v4.app.FragmentStatePagerAdapter}.
      */
     private SectionsPagerAdapter mSectionsPagerAdapter;
-    SparseArray<Group> groups = new SparseArray<Group>();
+
 
     /**
      * The {@link ViewPager} that will host the section contents.
@@ -69,20 +69,6 @@ public class SelectorActivity extends AppCompatActivity {
         });
 
 
-        ExpandableListView listView = (ExpandableListView) findViewById(R.id.listView);
-        MyExpandableListAdapter adapter = new MyExpandableListAdapter(this, groups);
-        listView.setAdapter(adapter);
-    }
-
-
-    public void createData() {
-        for (int j = 0; j < 5; j++) {
-            Group group = new Group("Test " + j);
-            for (int i = 0; i < 5; i++) {
-                group.children.add("Sub Item" + i);
-            }
-            groups.append(j, group);
-        }
     }
 
 
@@ -117,6 +103,10 @@ public class SelectorActivity extends AppCompatActivity {
          * fragment.
          */
         private static final String ARG_SECTION_NUMBER = "section_number";
+        SparseArray<Group> groups = new SparseArray<Group>();
+        ExpandableListView listView;
+        MyExpandableListAdapter adapter;
+
 
         public PlaceholderFragment() {
         }
@@ -137,8 +127,13 @@ public class SelectorActivity extends AppCompatActivity {
         public View onCreateView(LayoutInflater inflater, ViewGroup container,
                                  Bundle savedInstanceState) {
             View rootView=null;
+
             if(getArguments().getInt(ARG_SECTION_NUMBER) == 1){
                 rootView = inflater.inflate(R.layout.fragment_testing, container, false);
+                createData();
+                MyExpandableListAdapter adapter = new MyExpandableListAdapter(inflater, groups);
+                listView = (ExpandableListView) rootView.findViewById(R.id.listView);
+                listView.setAdapter(adapter);
 //                TextView textView = (TextView) rootView.findViewById(R.id.section_label);
 //                textView.setText(getString(R.string.section_format, getArguments().getInt(ARG_SECTION_NUMBER)));
             }
@@ -153,6 +148,24 @@ public class SelectorActivity extends AppCompatActivity {
                 textView.setText(getString(R.string.section_format, getArguments().getInt(ARG_SECTION_NUMBER)));
             }
             return rootView;
+        }
+
+        @Override
+        public void onViewCreated(View view, Bundle savedInstanceState) {
+            super.onViewCreated(view, savedInstanceState);
+
+
+        }
+
+
+        public void createData() {
+            for (int j = 0; j < 5; j++) {
+                Group group = new Group("Test " + j);
+                for (int i = 0; i < 5; i++) {
+                    group.children.add("Sub Item" + i);
+                }
+                groups.append(j, group);
+            }
         }
     }
 
