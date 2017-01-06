@@ -8,24 +8,16 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.randjelovic.vladimir.myapplication.activities.SelectorActivity$PlaceholderFragment">
 
-
-    <ScrollView
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true">
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
 
-        <LinearLayout
+        <ExpandableListView
+            android:id="@+id/listView"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
-            <ExpandableListView
-                android:id="@+id/listView"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" >
-            </ExpandableListView>
+            android:layout_height="wrap_content"></ExpandableListView>
 
-        </LinearLayout>
-    </ScrollView>
+    </LinearLayout>
+
 </RelativeLayout>
