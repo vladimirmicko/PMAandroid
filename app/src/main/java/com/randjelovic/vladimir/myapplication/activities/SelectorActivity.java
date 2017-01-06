@@ -67,10 +67,7 @@ public class SelectorActivity extends AppCompatActivity {
                         .setAction("Action", null).show();
             }
         });
-
-
     }
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -134,8 +131,6 @@ public class SelectorActivity extends AppCompatActivity {
                 MyExpandableListAdapter adapter = new MyExpandableListAdapter(inflater, groups);
                 listView = (ExpandableListView) rootView.findViewById(R.id.listView);
                 listView.setAdapter(adapter);
-//                TextView textView = (TextView) rootView.findViewById(R.id.section_label);
-//                textView.setText(getString(R.string.section_format, getArguments().getInt(ARG_SECTION_NUMBER)));
             }
             else if(getArguments().getInt(ARG_SECTION_NUMBER) == 2){
                 rootView = inflater.inflate(R.layout.fragment_results, container, false);
@@ -153,10 +148,7 @@ public class SelectorActivity extends AppCompatActivity {
         @Override
         public void onViewCreated(View view, Bundle savedInstanceState) {
             super.onViewCreated(view, savedInstanceState);
-
-
         }
-
 
         public void createData() {
             for (int j = 0; j < 5; j++) {
