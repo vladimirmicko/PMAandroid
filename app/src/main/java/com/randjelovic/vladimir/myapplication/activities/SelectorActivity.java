@@ -11,12 +11,14 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.os.Bundle;
+import android.util.SparseArray;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
+import android.widget.ExpandableListView;
 import android.widget.TextView;
 
 import com.randjelovic.vladimir.myapplication.R;
@@ -32,6 +34,7 @@ public class SelectorActivity extends AppCompatActivity {
      * {@link android.support.v4.app.FragmentStatePagerAdapter}.
      */
     private SectionsPagerAdapter mSectionsPagerAdapter;
+    SparseArray<Group> groups = new SparseArray<Group>();
 
     /**
      * The {@link ViewPager} that will host the section contents.
@@ -65,6 +68,21 @@ public class SelectorActivity extends AppCompatActivity {
             }
         });
 
+
+        ExpandableListView listView = (ExpandableListView) findViewById(R.id.listView);
+        MyExpandableListAdapter adapter = new MyExpandableListAdapter(this, groups);
+        listView.setAdapter(adapter);
+    }
+
+
+    public void createData() {
+        for (int j = 0; j < 5; j++) {
+            Group group = new Group("Test " + j);
+            for (int i = 0; i < 5; i++) {
+                group.children.add("Sub Item" + i);
+            }
+            groups.append(j, group);
+        }
     }
 
 
