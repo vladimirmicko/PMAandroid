@@ -6,12 +6,12 @@ package data.models;
 
 public class Slide
 {
-    private long id;
+    private Long id;
     private String slideName;
     private int delay;
     private byte[] primingImage;
     private byte[] testImage;
-    private long testId;
+    private Long testId;
 
     public int getDelay() {
         return delay;
@@ -21,11 +21,11 @@ public class Slide
         this.delay = delay;
     }
 
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -53,11 +53,11 @@ public class Slide
         this.testImage = testImage;
     }
 
-    public long getTestId() {
+    public Long getTestId() {
         return testId;
     }
 
-    public void setTestId(long testId) {
+    public void setTestId(Long testId) {
         this.testId = testId;
     }
 }

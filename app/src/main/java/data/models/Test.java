@@ -8,9 +8,9 @@ import java.util.Date;
 
 public class Test {
 
-    private long id;
+    private Long id;
     private String testName;
-    private int numberOfSlides;
+    private String description;
     private String creationDate;
 
     // constructors
@@ -30,20 +30,20 @@ public class Test {
         this.creationDate = creationDate;
     }
 
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
-    public int getNumberOfSlides() {
-        return numberOfSlides;
+    public String getDescription() {
+        return description;
     }
 
-    public void setNumberOfSlides(int numberOfSlides) {
-        this.numberOfSlides = numberOfSlides;
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public String getTestName() {

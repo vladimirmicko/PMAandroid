@@ -21,31 +21,31 @@ import data.models.Test;
 public class TestDao {
 
     public static final String KEY_ID = "id";
-    public static final String KEY_CREATED_AT = "created_at";
     public static final String KEY_TEST_NAME = "test_name";
-    public static final String KEY_NUMBER_OF_SLIDES = "number_of_slides";
+    public static final String KEY_DESCRIPTION = "description";
+    public static final String KEY_CREATION_DATE = "creation_date";
 
     public static final String TABLE_TESTS = "tests";
 
     public static final String CREATE_TABLE_TESTS = "CREATE TABLE " + TABLE_TESTS + "("
             + KEY_ID + " INTEGER PRIMARY KEY,"
             + KEY_TEST_NAME + " TEXT,"
-            + KEY_CREATED_AT + " DATETIME" + ")";
+            + KEY_DESCRIPTION + " TEXT,"
+            + KEY_CREATION_DATE + " DATETIME" + ")";
 
     private static final String LOG = TestDao.class.getName();
-    private SQLiteDatabase db;
     private DbHelper dbHelper;
 
     public TestDao() {
         dbHelper = new DbHelper(MyApplication.getAppContext());
-        db = dbHelper.getWritableDatabase();
     }
 
     public Test mapper(Cursor c) {
         Test test = new Test();
-        test.setId(c.getInt(c.getColumnIndex(KEY_ID)));
+        test.setId(c.getLong(c.getColumnIndex(KEY_ID)));
         test.setTestName(c.getString(c.getColumnIndex(KEY_TEST_NAME)));
-        test.setCreationDate(c.getString(c.getColumnIndex(KEY_CREATED_AT)));
+        test.setCreationDate(c.getString(c.getColumnIndex(KEY_DESCRIPTION)));
+        test.setCreationDate(c.getString(c.getColumnIndex(KEY_CREATION_DATE)));
         return test;
     }
 
@@ -53,18 +53,19 @@ public class TestDao {
         ContentValues values = new ContentValues();
         values.put(KEY_ID, test.getId());
         values.put(KEY_TEST_NAME, test.getTestName());
-        values.put(KEY_CREATED_AT, dbHelper.getDateTime());
+        values.put(KEY_DESCRIPTION, test.getTestName());
+        values.put(KEY_CREATION_DATE, dbHelper.getDateTime());
         return values;
     }
 
-    public long insert(Test test) {
+    public Long insert(Test test) {
         SQLiteDatabase db = dbHelper.getWritableDatabase();
         ContentValues values = mapper(test);
-        long test_id = db.insert(TABLE_TESTS, null, values);
+        Long test_id = db.insert(TABLE_TESTS, null, values);
         return test_id;
     }
 
-    public Test getTestById(long id) {
+    public Test getTestById(Long id) {
         SQLiteDatabase db = dbHelper.getReadableDatabase();
         String selectQuery = "SELECT  * FROM " + TABLE_TESTS + " WHERE " + KEY_ID + " = ?";
         Log.e(LOG, selectQuery);
@@ -98,7 +99,7 @@ public class TestDao {
         return db.update(TABLE_TESTS, values, KEY_ID + " = ?", new String[]{String.valueOf(test.getId())});
     }
 
-    public void delete(long id) {
+    public void delete(Long id) {
         SQLiteDatabase db = dbHelper.getWritableDatabase();
         SlideDao slideDao = new SlideDao();
         List<Slide> slideList = slideDao.getAllSlidesByTest(id);
@@ -106,6 +107,18 @@ public class TestDao {
             slideDao.delete(slide.getId());
         }
         db.delete(TABLE_TESTS, KEY_ID + " = ?", new String[]{String.valueOf(id)});
+    }
+
+    public DbHelper getDbHelper() {
+        return dbHelper;
+    }
+
+    public void setDbHelper(DbHelper dbHelper) {
+        this.dbHelper = dbHelper;
+    }
+
+    public SQLiteDatabase getDb() {
+        return dbHelper.getReadableDatabase();
     }
 
 }

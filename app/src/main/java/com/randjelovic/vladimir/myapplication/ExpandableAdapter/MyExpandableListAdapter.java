@@ -1,5 +1,6 @@
 package com.randjelovic.vladimir.myapplication.expandableadapter;
 
+import android.util.Log;
 import android.util.SparseArray;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,6 +16,8 @@ import com.randjelovic.vladimir.myapplication.R;
 
 public class MyExpandableListAdapter extends BaseExpandableListAdapter {
 
+	private static final String TAG = MyExpandableListAdapter.class.getName();
+
 	private final SparseArray<Group> groups;
 	public LayoutInflater inflater;
 	public MyExpandableListAdapter(LayoutInflater inflater, SparseArray<Group> groups) {
@@ -29,6 +32,7 @@ public class MyExpandableListAdapter extends BaseExpandableListAdapter {
 
 	@Override
 	public long getChildId(int groupPosition, int childPosition) {
+		Log.d(TAG, "GroupPosition: " + groupPosition + "     childPosition: "+ childPosition);
 		return 0;
 	}
 

@@ -1,5 +1,6 @@
 package com.randjelovic.vladimir.myapplication.activities;
 
+import android.app.Application;
 import android.support.design.widget.TabLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -11,6 +12,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.os.Bundle;
+import android.util.Log;
 import android.util.SparseArray;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -25,6 +27,12 @@ import com.randjelovic.vladimir.myapplication.expandableadapter.Group;
 import com.randjelovic.vladimir.myapplication.expandableadapter.MyExpandableListAdapter;
 import com.randjelovic.vladimir.myapplication.R;
 
+import java.util.List;
+
+import data.dao.TestDao;
+import data.database.DbHelper;
+import data.models.Test;
+
 public class SelectorActivity extends AppCompatActivity {
 
     /**
@@ -36,6 +44,7 @@ public class SelectorActivity extends AppCompatActivity {
      * {@link android.support.v4.app.FragmentStatePagerAdapter}.
      */
     private SectionsPagerAdapter mSectionsPagerAdapter;
+    private static final String TAG = SelectorActivity.class.getName();
 
 
     /**
@@ -130,6 +139,7 @@ public class SelectorActivity extends AppCompatActivity {
             if(getArguments().getInt(ARG_SECTION_NUMBER) == 1){
                 rootView = inflater.inflate(R.layout.fragment_testing, container, false);
                 createData();
+                fillDb();
                 MyExpandableListAdapter adapter = new MyExpandableListAdapter(inflater, groups);
                 listView = (ExpandableListView) rootView.findViewById(R.id.listView);
                 listView.setAdapter(adapter);
@@ -152,6 +162,8 @@ public class SelectorActivity extends AppCompatActivity {
             super.onViewCreated(view, savedInstanceState);
         }
 
+
+
         public void createData() {
             for (int j = 0; j < 5; j++) {
                 Group group = new Group("Test " + j);
@@ -160,6 +172,20 @@ public class SelectorActivity extends AppCompatActivity {
                 }
                 groups.append(j, group);
             }
+        }
+
+        public void fillDb(){
+            TestDao testDao = new TestDao();
+//            testDao.getDbHelper().onUpgrade(testDao.getDb(), 1, 2);
+
+            Test test = new Test();
+            test.setTestName("Micko 2");
+            test.setDescription("Super test");
+            Long id = testDao.insert(test);
+
+            List lll = testDao.getAll();
+            Log.d(TAG, "Number of retrieved tests: " + lll.size());
+
         }
     }
 

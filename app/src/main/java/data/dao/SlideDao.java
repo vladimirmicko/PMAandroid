@@ -39,7 +39,6 @@ public class SlideDao {
 
 
     private static final String LOG = SlideDao.class.getName();
-    private SQLiteDatabase db;
     private DbHelper dbHelper;
 
     public SlideDao() {
@@ -48,12 +47,12 @@ public class SlideDao {
 
     public Slide mapper(Cursor c){
         Slide slide = new Slide();
-        slide.setId(c.getInt((c.getColumnIndex(KEY_ID))));
+        slide.setId(c.getLong((c.getColumnIndex(KEY_ID))));
         slide.setSlideName(c.getString(c.getColumnIndex(KEY_SLIDE_NAME)));
         slide.setDelay(c.getInt(c.getColumnIndex(KEY_SLIDE_NAME)));
         slide.setPrimingImage(c.getBlob(c.getColumnIndex(KEY_PRIMING_IMAGE)));
         slide.setTestImage(c.getBlob(c.getColumnIndex(KEY_TEST_IMAGE)));
-        slide.setTestId(c.getInt(c.getColumnIndex(KEY_TEST_ID)));
+        slide.setTestId(c.getLong(c.getColumnIndex(KEY_TEST_ID)));
         return slide;
     }
 
@@ -69,15 +68,15 @@ public class SlideDao {
     }
 
 
-    public long insert(Slide slide) {
+    public Long insert(Slide slide) {
         SQLiteDatabase db = dbHelper.getWritableDatabase();
         ContentValues values = mapper(slide);
-        long slideId = db.insert(TABLE_SLIDES, null, values);
+        Long slideId = db.insert(TABLE_SLIDES, null, values);
         return slideId;
     }
 
 
-    public List<Slide> getAllSlidesByTest(long id) {
+    public List<Slide> getAllSlidesByTest(Long id) {
         List<Slide> slideList = new ArrayList<Slide>();
         String selectQuery = "SELECT  * FROM " + TABLE_SLIDES + "WHERE " + KEY_TEST_ID + " = ?";
 
@@ -103,10 +102,22 @@ public class SlideDao {
     }
 
 
-    public void delete(long id) {
+    public void delete(Long id) {
         SQLiteDatabase db = dbHelper.getWritableDatabase();
         db.delete(TABLE_SLIDES, KEY_ID + " = ?", new String[] { String.valueOf(id) });
     }
 
 
+    public SQLiteDatabase getDb() {
+        return dbHelper.getReadableDatabase();
+    }
+
+
+    public DbHelper getDbHelper() {
+        return dbHelper;
+    }
+
+    public void setDbHelper(DbHelper dbHelper) {
+        this.dbHelper = dbHelper;
+    }
 }
