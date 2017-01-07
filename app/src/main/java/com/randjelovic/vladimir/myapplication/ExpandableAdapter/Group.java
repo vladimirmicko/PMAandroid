@@ -1,4 +1,4 @@
-package com.randjelovic.vladimir.myapplication.activities;
+package com.randjelovic.vladimir.myapplication.expandableadapter;
 
 import java.util.ArrayList;
 import java.util.List;

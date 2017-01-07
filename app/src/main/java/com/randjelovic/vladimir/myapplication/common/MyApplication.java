@@ -1,4 +1,4 @@
-package com.randjelovic.vladimir.myapplication;
+package com.randjelovic.vladimir.myapplication.common;
 
 import android.app.Application;
 import android.content.Context;

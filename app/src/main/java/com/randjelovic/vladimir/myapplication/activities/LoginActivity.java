@@ -11,7 +11,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.randjelovic.vladimir.myapplication.MyApplication;
+import com.randjelovic.vladimir.myapplication.common.MyApplication;
 import com.randjelovic.vladimir.myapplication.R;
 
 import java.net.HttpURLConnection;

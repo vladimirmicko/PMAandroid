@@ -1,6 +1,5 @@
-package com.randjelovic.vladimir.myapplication.activities;
+package com.randjelovic.vladimir.myapplication.expandableadapter;
 
-import android.app.Activity;
 import android.util.SparseArray;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,7 +10,7 @@ import android.widget.CheckedTextView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.randjelovic.vladimir.myapplication.MyApplication;
+import com.randjelovic.vladimir.myapplication.common.MyApplication;
 import com.randjelovic.vladimir.myapplication.R;
 
 public class MyExpandableListAdapter extends BaseExpandableListAdapter {

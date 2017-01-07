@@ -21,6 +21,8 @@ import android.view.ViewGroup;
 import android.widget.ExpandableListView;
 import android.widget.TextView;
 
+import com.randjelovic.vladimir.myapplication.expandableadapter.Group;
+import com.randjelovic.vladimir.myapplication.expandableadapter.MyExpandableListAdapter;
 import com.randjelovic.vladimir.myapplication.R;
 
 public class SelectorActivity extends AppCompatActivity {
