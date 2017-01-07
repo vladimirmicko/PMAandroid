@@ -78,7 +78,7 @@ public class SlideDao {
 
     public List<Slide> getAllSlidesByTest(Long id) {
         List<Slide> slideList = new ArrayList<Slide>();
-        String selectQuery = "SELECT  * FROM " + TABLE_SLIDES + "WHERE " + KEY_TEST_ID + " = ?";
+        String selectQuery = "SELECT  * FROM " + TABLE_SLIDES + " WHERE " + KEY_TEST_ID + " = ?";
 
         Log.e(LOG, selectQuery);
 

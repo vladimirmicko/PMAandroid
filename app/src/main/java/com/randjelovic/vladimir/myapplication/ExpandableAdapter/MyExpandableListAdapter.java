@@ -63,6 +63,7 @@ public class MyExpandableListAdapter extends BaseExpandableListAdapter {
 
 	@Override
 	public Object getGroup(int groupPosition) {
+		Log.d(TAG, "GET Group position: " + groupPosition);
 		return groups.get(groupPosition);
 	}
 
@@ -74,15 +75,18 @@ public class MyExpandableListAdapter extends BaseExpandableListAdapter {
 	@Override
 	public void onGroupCollapsed(int groupPosition) {
 		super.onGroupCollapsed(groupPosition);
+		Log.d(TAG, "Group Collapsed: "+groupPosition);
 	}
 
 	@Override
 	public void onGroupExpanded(int groupPosition) {
 		super.onGroupExpanded(groupPosition);
+		Log.d(TAG, "Group expanded: "+groupPosition);
 	}
 
 	@Override
 	public long getGroupId(int groupPosition) {
+		Log.d(TAG, "Group position: "+groupPosition);
 		return 0;
 	}
 

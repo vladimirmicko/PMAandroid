@@ -29,8 +29,10 @@ import com.randjelovic.vladimir.myapplication.R;
 
 import java.util.List;
 
+import data.dao.SlideDao;
 import data.dao.TestDao;
 import data.database.DbHelper;
+import data.models.Slide;
 import data.models.Test;
 
 public class SelectorActivity extends AppCompatActivity {
@@ -165,25 +167,47 @@ public class SelectorActivity extends AppCompatActivity {
 
 
         public void createData() {
-            for (int j = 0; j < 5; j++) {
-                Group group = new Group("Test " + j);
-                for (int i = 0; i < 5; i++) {
-                    group.children.add("Sub Item" + i);
+            TestDao testDao = new TestDao();
+            SlideDao slideDao = new SlideDao();
+            List<Test> testList = testDao.getAll();
+            Long j=0L;
+            for (Test test : testList) {
+                Group group = new Group(test.getTestName());
+                List<Slide> slideList = slideDao.getAllSlidesByTest(j);
+                for (Slide slide : slideList) {
+                    group.children.add(slide.getSlideName());
                 }
-                groups.append(j, group);
+                groups.append(j.intValue(), group);
+                j++;
             }
         }
 
         public void fillDb(){
             TestDao testDao = new TestDao();
+            SlideDao slideDao = new SlideDao();
 //            testDao.getDbHelper().onUpgrade(testDao.getDb(), 1, 2);
 
-            Test test = new Test();
-            test.setTestName("Micko 2");
-            test.setDescription("Super test");
-            Long id = testDao.insert(test);
+//            Test test = new Test();
+//            test.setTestName("Micko 4");
+//            test.setDescription("Super test");
+//            Long id = testDao.insert(test);
+
+//            Slide slide = new Slide();
+//            slide.setSlideName("Ovo je slide 1");
+//            slide.setTestId(2L);
+//            slideDao.insert(slide);
+//
+//            slide = new Slide();
+//            slide.setSlideName("Ovo je slide 2");
+//            slide.setTestId(2L);
+//            slideDao.insert(slide);
+
 
             List lll = testDao.getAll();
+            List s1 = slideDao.getAllSlidesByTest(1L);
+            List s2 = slideDao.getAllSlidesByTest(2L);
+            List s3 = slideDao.getAllSlidesByTest(3L);
+
             Log.d(TAG, "Number of retrieved tests: " + lll.size());
 
         }
