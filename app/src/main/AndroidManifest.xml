@@ -22,7 +22,8 @@
         <activity
             android:name=".activities.SelectorActivity"
             android:label="@string/title_activity_selector"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".activities.ShowPicture"></activity>
     </application>
 
 </manifest>

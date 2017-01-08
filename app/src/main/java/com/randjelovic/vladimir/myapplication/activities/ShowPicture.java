@@ -1,51 +1,55 @@
 package com.randjelovic.vladimir.myapplication.activities;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.media.Image;
 import android.os.AsyncTask;
-import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.os.Bundle;
 import android.util.Base64;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Toast;
 
-import com.randjelovic.vladimir.myapplication.common.MyApplication;
 import com.randjelovic.vladimir.myapplication.R;
+import com.randjelovic.vladimir.myapplication.common.MyApplication;
+import com.randjelovic.vladimir.myapplication.expandableadapter.MyExpandableListAdapter;
 
+import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
-public class LoginActivity extends AppCompatActivity {
+public class ShowPicture extends AppCompatActivity {
 
-    Button btLogin;
-    EditText etUsername;
-    EditText etPassword;
+    Button button;
+    ImageView image;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_login);
+        setContentView(R.layout.activity_show_picture);
+        button = (Button) findViewById(R.id.button);
+        image = (ImageView) findViewById(R.id.imageView);
 
-        btLogin = (Button) findViewById(R.id.btLogin);
-        etUsername = (EditText) findViewById(R.id.etUsername);
-        etPassword = (EditText) findViewById(R.id.etPassword);
-
-         btLogin.setOnClickListener(new View.OnClickListener() {
+        button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                new LoginService().execute(etUsername.getText().toString(),etPassword.getText().toString());
+                new ShowPicture.ShowPictureService().execute();
             }
         });
     }
 
 
-    public class LoginService extends AsyncTask<String, Integer, String> {
+    public class ShowPictureService extends AsyncTask<String, Integer, String> {
 
-        private static final String TAG = "Login";
+        private static final String TAG = "ShowPicture";
         private static final String AUTHENTICATION_TAG = "Basic ";
         private static final String AUTHENTICATION_HEADER = "Authorization";
+        private Bitmap image;
 
         @Override
         protected String doInBackground(String... strings) {
@@ -53,19 +57,17 @@ public class LoginActivity extends AppCompatActivity {
             String message = null;
             HttpURLConnection urlConnection = null;
             try {
-                URL url = new URL(MyApplication.getAppContext().getResources().getString(R.string.url_authenticate));
+                URL url = new URL(MyApplication.getAppContext().getResources().getString(R.string.url_showPicture));
                 urlConnection = (HttpURLConnection) url.openConnection();
-                String userCredentials = strings[0]+":"+strings[1];
-                String basicAuth = AUTHENTICATION_TAG + new String(Base64.encode(userCredentials.getBytes(), Base64.NO_WRAP));
-                MyApplication.setBasicAuth(basicAuth);
-                urlConnection.setRequestProperty(AUTHENTICATION_HEADER, basicAuth);
+                urlConnection.setRequestProperty(AUTHENTICATION_HEADER, MyApplication.getBasicAuth());
+                urlConnection.setRequestProperty("fileName", "psychoaaaa.jpg");
                 urlConnection.setRequestMethod("GET");
 
                 publishProgress(1);
                 Integer responseCode = urlConnection.getResponseCode();
                 if (responseCode==200){
+                    image = BitmapFactory.decodeStream(urlConnection.getInputStream());
                     message=(MyApplication.getAppContext().getResources().getString(R.string.login_successful));
-                    MyApplication.setAuthenticated(true);
                 }
                 else if(responseCode==401){
                     message=(MyApplication.getAppContext().getResources().getString(R.string.unauthorised));
@@ -94,17 +96,10 @@ public class LoginActivity extends AppCompatActivity {
         protected void onPostExecute(String result) {
             super.onPostExecute(result);
             Log.d(TAG, "GET - Result: " + result);
-            Toast.makeText(MyApplication.getAppContext(), result, Toast.LENGTH_LONG).show();
+            Toast.makeText(MyApplication.getAppContext(), "Slika je prikazana: "+result, Toast.LENGTH_LONG).show();
+            ShowPicture.this.image.setImageBitmap(image);
 
-            if(MyApplication.isAuthenticated()){
-//                Intent mainIntent = new Intent(LoginActivity.this, SelectorActivity.class);
-                Intent mainIntent = new Intent(LoginActivity.this, ShowPicture.class);
-                LoginActivity.this.startActivity(mainIntent);
-                LoginActivity.this.finish();
-            }
         }
     }
-
-
 
 }
