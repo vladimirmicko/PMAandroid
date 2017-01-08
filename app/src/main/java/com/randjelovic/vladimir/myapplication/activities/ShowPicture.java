@@ -57,7 +57,8 @@ public class ShowPicture extends AppCompatActivity {
             String message = null;
             HttpURLConnection urlConnection = null;
             try {
-                URL url = new URL(MyApplication.getAppContext().getResources().getString(R.string.url_showPicture));
+//                URL url = new URL(MyApplication.getAppContext().getResources().getString(R.string.url_showPicture));
+                URL url = new URL(MyApplication.getAppContext().getResources().getString(R.string.url_showPictureFromDb));
                 urlConnection = (HttpURLConnection) url.openConnection();
                 urlConnection.setRequestProperty(AUTHENTICATION_HEADER, MyApplication.getBasicAuth());
                 urlConnection.setRequestProperty("fileName", "psychoaaaa.jpg");

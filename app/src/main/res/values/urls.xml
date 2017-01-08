@@ -2,4 +2,5 @@
 <resources>
     <string name="url_authenticate">http://10.0.2.2:8092/PMAspring/rest/security/authenticate</string>
     <string name="url_showPicture">http://10.0.2.2:8092/PMAspring/rest/demo/displayFile</string>
+    <string name="url_showPictureFromDb">http://10.0.2.2:8092/PMAspring/rest/demo/fileFromDb</string>
 </resources>
