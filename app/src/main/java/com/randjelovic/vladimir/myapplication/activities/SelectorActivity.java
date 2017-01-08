@@ -1,6 +1,7 @@
 package com.randjelovic.vladimir.myapplication.activities;
 
 import android.app.Application;
+import android.content.Intent;
 import android.support.design.widget.TabLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -99,6 +100,12 @@ public class SelectorActivity extends AppCompatActivity {
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
             return true;
+        }
+        if (id == R.id.item_show_picture) {
+
+            Intent mainIntent = new Intent(SelectorActivity.this, ShowPicture.class);
+            SelectorActivity.this.startActivity(mainIntent);
+//            SelectorActivity.this.finish();
         }
 
         return super.onOptionsItemSelected(item);
