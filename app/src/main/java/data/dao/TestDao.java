@@ -23,6 +23,7 @@ public class TestDao {
     public static final String KEY_ID = "id";
     public static final String KEY_TEST_NAME = "test_name";
     public static final String KEY_DESCRIPTION = "description";
+    public static final String KEY_PROMO_IMAGE = "promo_image";
     public static final String KEY_CREATION_DATE = "creation_date";
 
     public static final String TABLE_TESTS = "tests";
@@ -31,6 +32,7 @@ public class TestDao {
             + KEY_ID + " INTEGER PRIMARY KEY,"
             + KEY_TEST_NAME + " TEXT,"
             + KEY_DESCRIPTION + " TEXT,"
+            + KEY_PROMO_IMAGE + " BLOB,"
             + KEY_CREATION_DATE + " DATETIME" + ")";
 
     private static final String LOG = TestDao.class.getName();
@@ -45,6 +47,7 @@ public class TestDao {
         test.setId(c.getLong(c.getColumnIndex(KEY_ID)));
         test.setTestName(c.getString(c.getColumnIndex(KEY_TEST_NAME)));
         test.setCreationDate(c.getString(c.getColumnIndex(KEY_DESCRIPTION)));
+        test.setTestPromoImage(c.getBlob(c.getColumnIndex(KEY_PROMO_IMAGE)));
         test.setCreationDate(c.getString(c.getColumnIndex(KEY_CREATION_DATE)));
         return test;
     }
@@ -54,6 +57,7 @@ public class TestDao {
         values.put(KEY_ID, test.getId());
         values.put(KEY_TEST_NAME, test.getTestName());
         values.put(KEY_DESCRIPTION, test.getTestName());
+        values.put(KEY_PROMO_IMAGE, test.getTestPromoImage());
         values.put(KEY_CREATION_DATE, dbHelper.getDateTime());
         return values;
     }

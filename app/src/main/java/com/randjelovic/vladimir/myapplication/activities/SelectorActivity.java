@@ -99,7 +99,8 @@ public class SelectorActivity extends AppCompatActivity {
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
-            return true;
+            Intent mainIntent = new Intent(SelectorActivity.this, GetTest.class);
+            SelectorActivity.this.startActivity(mainIntent);
         }
         if (id == R.id.item_show_picture) {
 
@@ -147,8 +148,9 @@ public class SelectorActivity extends AppCompatActivity {
 
             if(getArguments().getInt(ARG_SECTION_NUMBER) == 1){
                 rootView = inflater.inflate(R.layout.fragment_testing, container, false);
+//                fillDb();
                 createData();
-                fillDb();
+
                 MyExpandableListAdapter adapter = new MyExpandableListAdapter(inflater, groups);
                 listView = (ExpandableListView) rootView.findViewById(R.id.listView);
                 listView.setAdapter(adapter);
@@ -192,28 +194,30 @@ public class SelectorActivity extends AppCompatActivity {
         public void fillDb(){
             TestDao testDao = new TestDao();
             SlideDao slideDao = new SlideDao();
-//            testDao.getDbHelper().onUpgrade(testDao.getDb(), 1, 2);
+            testDao.getDbHelper().onUpgrade(testDao.getDb(), 1, 2);
 
-//            Test test = new Test();
-//            test.setTestName("Micko 4");
-//            test.setDescription("Super test");
-//            Long id = testDao.insert(test);
+            Test test = new Test();
+            test.setTestName("Micko 1");
+            test.setDescription("Super test");
+            Long id = testDao.insert(test);
 
-//            Slide slide = new Slide();
-//            slide.setSlideName("Ovo je slide 1");
-//            slide.setTestId(2L);
-//            slideDao.insert(slide);
-//
-//            slide = new Slide();
-//            slide.setSlideName("Ovo je slide 2");
-//            slide.setTestId(2L);
-//            slideDao.insert(slide);
+            Slide slide = new Slide();
+            slide.setSlideName("Ovo je slide 1");
+            slide.setTestId(0L);
+            slideDao.insert(slide);
+
+            slide = new Slide();
+            slide.setSlideName("Ovo je slide 2");
+            slide.setTestId(0L);
+            slideDao.insert(slide);
 
 
             List lll = testDao.getAll();
             List s1 = slideDao.getAllSlidesByTest(1L);
-            List s2 = slideDao.getAllSlidesByTest(2L);
-            List s3 = slideDao.getAllSlidesByTest(3L);
+//            List s2 = slideDao.getAllSlidesByTest(2L);
+//            List s3 = slideDao.getAllSlidesByTest(3L);
+
+
 
             Log.d(TAG, "Number of retrieved tests: " + lll.size());
 

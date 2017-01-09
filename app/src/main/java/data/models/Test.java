@@ -12,6 +12,7 @@ public class Test {
     private String testName;
     private String description;
     private String creationDate;
+    private byte[] testPromoImage;
 
     // constructors
     public Test() {
@@ -52,5 +53,13 @@ public class Test {
 
     public void setTestName(String testName) {
         this.testName = testName;
+    }
+
+    public byte[] getTestPromoImage() {
+        return testPromoImage;
+    }
+
+    public void setTestPromoImage(byte[] testPromoImage) {
+        this.testPromoImage = testPromoImage;
     }
 }
