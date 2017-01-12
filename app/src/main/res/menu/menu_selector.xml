@@ -13,4 +13,10 @@
         android:orderInCategory="101"
         android:title="@string/show_picture"
         app:showAsAction="never" />
+
+    <item
+        android:id="@+id/restMapping"
+        android:orderInCategory="102"
+        android:title="@string/RestMapping"
+        app:showAsAction="never" />
 </menu>

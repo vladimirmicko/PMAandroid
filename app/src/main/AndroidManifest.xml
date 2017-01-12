@@ -24,7 +24,8 @@
             android:label="@string/title_activity_selector"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".activities.ShowPicture" />
-        <activity android:name=".activities.GetTest"></activity>
+        <activity android:name=".activities.GetTest" />
+        <activity android:name=".activities.GetTestWithMapper"></activity>
     </application>
 
 </manifest>

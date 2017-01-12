@@ -102,9 +102,15 @@ public class SelectorActivity extends AppCompatActivity {
             Intent mainIntent = new Intent(SelectorActivity.this, GetTest.class);
             SelectorActivity.this.startActivity(mainIntent);
         }
-        if (id == R.id.item_show_picture) {
 
+        if (id == R.id.item_show_picture) {
             Intent mainIntent = new Intent(SelectorActivity.this, ShowPicture.class);
+            SelectorActivity.this.startActivity(mainIntent);
+//            SelectorActivity.this.finish();
+        }
+
+        if (id == R.id.restMapping) {
+            Intent mainIntent = new Intent(SelectorActivity.this, GetTestWithMapper.class);
             SelectorActivity.this.startActivity(mainIntent);
 //            SelectorActivity.this.finish();
         }
