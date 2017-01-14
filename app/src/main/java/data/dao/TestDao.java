@@ -37,9 +37,11 @@ public class TestDao {
 
     private static final String LOG = TestDao.class.getName();
     private DbHelper dbHelper;
+    private SlideDao slideDao;
 
     public TestDao() {
         dbHelper = new DbHelper(MyApplication.getAppContext());
+        slideDao = new SlideDao();
     }
 
     public Test mapper(Cursor c) {
@@ -76,6 +78,8 @@ public class TestDao {
         Cursor c = db.rawQuery(selectQuery, new String[]{String.valueOf(id)});
         if (c != null) c.moveToFirst();
         Test test = mapper(c);
+        List<Slide> slideList = slideDao.getAllSlidesByTest(test.getId());
+        test.setSlideList(slideList);
         return test;
     }
 
@@ -91,6 +95,8 @@ public class TestDao {
         if (c.moveToFirst()) {
             do {
                 Test test = mapper(c);
+                List<Slide> slideList = slideDao.getAllSlidesByTest(test.getId());
+                test.setSlideList(slideList);
                 testList.add(test);
             } while (c.moveToNext());
         }

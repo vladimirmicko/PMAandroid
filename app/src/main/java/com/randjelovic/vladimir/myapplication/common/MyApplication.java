@@ -22,6 +22,7 @@ public class MyApplication extends Application {
     private static boolean authenticated;
     private static String basicAuth;
     private static List<Test> testList;
+    private static TestDao testDao;
 
 
     public void onCreate() {
@@ -31,13 +32,8 @@ public class MyApplication extends Application {
     }
 
     public static List<Test> loadTestsFromDb(){
-        TestDao testDao = new TestDao();
-        SlideDao slideDao = new SlideDao();
+        testDao = new TestDao();
         testList = testDao.getAll();
-        for (Test test : testList) {
-                List<Slide> slideList = slideDao.getAllSlidesByTest(test.getId());
-                test.setSlideList(slideList);
-        }
         return testList;
     }
 
