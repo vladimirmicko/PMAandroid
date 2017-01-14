@@ -1,5 +1,7 @@
 package com.randjelovic.vladimir.myapplication.expandableadapter;
 
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.util.Log;
 import android.util.SparseArray;
 import android.view.LayoutInflater;
@@ -7,6 +9,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.BaseExpandableListAdapter;
+import android.widget.Button;
 import android.widget.CheckedTextView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -20,6 +23,7 @@ public class MyExpandableListAdapter extends BaseExpandableListAdapter {
 
 	private final SparseArray<Group> groups;
 	public LayoutInflater inflater;
+
 	public MyExpandableListAdapter(LayoutInflater inflater, SparseArray<Group> groups) {
 		this.groups = groups;
 		this.inflater = inflater;
@@ -46,6 +50,16 @@ public class MyExpandableListAdapter extends BaseExpandableListAdapter {
 		}
 		text = (TextView) convertView.findViewById(R.id.textView1);
 		text.setText(children);
+
+        Button startButton = (Button) convertView.findViewById(R.id.button_start_test);
+        startButton.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(MyApplication.getAppContext(), "START BUTTON PRESSED",
+                        Toast.LENGTH_SHORT).show();
+            }
+        });
+
 		convertView.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
@@ -99,6 +113,8 @@ public class MyExpandableListAdapter extends BaseExpandableListAdapter {
 		Group group = (Group) getGroup(groupPosition);
 		((CheckedTextView) convertView).setText(group.string);
 		((CheckedTextView) convertView).setChecked(isExpanded);
+        Drawable drawable = new BitmapDrawable(convertView.getResources(), group.image);
+        ((CheckedTextView) convertView).setCheckMarkDrawable(drawable);
 		return convertView;
 	}
 

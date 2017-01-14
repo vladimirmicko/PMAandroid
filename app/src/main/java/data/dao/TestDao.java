@@ -48,7 +48,7 @@ public class TestDao {
         Test test = new Test();
         test.setId(c.getLong(c.getColumnIndex(KEY_ID)));
         test.setTestName(c.getString(c.getColumnIndex(KEY_TEST_NAME)));
-        test.setCreationDate(c.getString(c.getColumnIndex(KEY_DESCRIPTION)));
+        test.setDescription(c.getString(c.getColumnIndex(KEY_DESCRIPTION)));
         test.setTestPromoImage(c.getBlob(c.getColumnIndex(KEY_PROMO_IMAGE)));
         test.setCreationDate(c.getString(c.getColumnIndex(KEY_CREATION_DATE)));
         return test;
@@ -58,7 +58,7 @@ public class TestDao {
         ContentValues values = new ContentValues();
         values.put(KEY_ID, test.getId());
         values.put(KEY_TEST_NAME, test.getTestName());
-        values.put(KEY_DESCRIPTION, test.getTestName());
+        values.put(KEY_DESCRIPTION, test.getDescription());
         values.put(KEY_PROMO_IMAGE, test.getTestPromoImage());
         values.put(KEY_CREATION_DATE, dbHelper.getDateTime());
         return values;

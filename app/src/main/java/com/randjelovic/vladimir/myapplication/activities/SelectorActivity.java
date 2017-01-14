@@ -1,7 +1,7 @@
 package com.randjelovic.vladimir.myapplication.activities;
 
-import android.app.Application;
 import android.content.Intent;
+import android.graphics.BitmapFactory;
 import android.support.design.widget.TabLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -13,7 +13,6 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.os.Bundle;
-import android.util.Log;
 import android.util.SparseArray;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -25,17 +24,15 @@ import android.widget.ExpandableListView;
 import android.widget.TextView;
 
 import com.randjelovic.vladimir.myapplication.AsyncTasks.SynchDatabase;
-import com.randjelovic.vladimir.myapplication.common.MyApplication;
 import com.randjelovic.vladimir.myapplication.expandableadapter.Group;
 import com.randjelovic.vladimir.myapplication.expandableadapter.MyExpandableListAdapter;
 import com.randjelovic.vladimir.myapplication.R;
 
+import java.io.ByteArrayInputStream;
 import java.util.List;
 
 import data.dao.SlideDao;
 import data.dao.TestDao;
-import data.database.DbHelper;
-import data.models.Slide;
 import data.models.Test;
 
 public class SelectorActivity extends AppCompatActivity {
@@ -154,7 +151,6 @@ public class SelectorActivity extends AppCompatActivity {
 
             if(getArguments().getInt(ARG_SECTION_NUMBER) == 1){
                 rootView = inflater.inflate(R.layout.fragment_testing, container, false);
-//                fillDb();
                 createData();
 
                 MyExpandableListAdapter adapter = new MyExpandableListAdapter(inflater, groups);
@@ -189,6 +185,7 @@ public class SelectorActivity extends AppCompatActivity {
             for (Test test : testList) {
                 Group group = new Group(test.getTestName());
                 group.children.add(test.getDescription());
+                group.image= BitmapFactory.decodeStream(new ByteArrayInputStream(test.getTestPromoImage()));
 //                List<Slide> slideList = slideDao.getAllSlidesByTest(j);
 //                for (Slide slide : slideList) {
 //                    group.children.add(slide.getSlideName());
@@ -196,38 +193,6 @@ public class SelectorActivity extends AppCompatActivity {
                 groups.append(j.intValue(), group);
                 j++;
             }
-        }
-
-        public void fillDb(){
-            TestDao testDao = new TestDao();
-            SlideDao slideDao = new SlideDao();
-            testDao.getDbHelper().onUpgrade(testDao.getDb(), 1, 2);
-
-            Test test = new Test();
-            test.setTestName("Micko 1");
-            test.setDescription("Super test");
-            Long id = testDao.insert(test);
-
-            Slide slide = new Slide();
-            slide.setSlideName("Ovo je slide 1");
-            slide.setTestId(0L);
-            slideDao.insert(slide);
-
-            slide = new Slide();
-            slide.setSlideName("Ovo je slide 2");
-            slide.setTestId(0L);
-            slideDao.insert(slide);
-
-
-            List lll = testDao.getAll();
-            List s1 = slideDao.getAllSlidesByTest(1L);
-//            List s2 = slideDao.getAllSlidesByTest(2L);
-//            List s3 = slideDao.getAllSlidesByTest(3L);
-
-
-
-            Log.d(TAG, "Number of retrieved tests: " + lll.size());
-
         }
     }
 

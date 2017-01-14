@@ -12,4 +12,5 @@
     <string name="show_picture">Show picture</string>
     <string name="RestMapping">RestMapping</string>
     <string name="syncDb">SyncDb</string>
+    <string name="startTest">Start test</string>
 </resources>
