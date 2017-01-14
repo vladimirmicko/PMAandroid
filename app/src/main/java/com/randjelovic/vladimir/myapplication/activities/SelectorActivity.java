@@ -99,14 +99,11 @@ public class SelectorActivity extends AppCompatActivity {
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
-            Intent mainIntent = new Intent(SelectorActivity.this, GetTest.class);
-            SelectorActivity.this.startActivity(mainIntent);
+
         }
 
         if (id == R.id.item_show_picture) {
-            Intent mainIntent = new Intent(SelectorActivity.this, ShowPicture.class);
-            SelectorActivity.this.startActivity(mainIntent);
-//            SelectorActivity.this.finish();
+
         }
 
         if (id == R.id.restMapping) {
