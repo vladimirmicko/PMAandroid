@@ -8,6 +8,7 @@ import android.util.Log;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.fasterxml.jackson.core.type.TypeReference;
 import com.randjelovic.vladimir.myapplication.R;
 import com.randjelovic.vladimir.myapplication.activities.GetTestWithMapper;
 import com.randjelovic.vladimir.myapplication.common.MyApplication;
@@ -26,8 +27,11 @@ import org.springframework.web.client.RestTemplate;
 import java.io.ByteArrayInputStream;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
+import data.dao.SlideDao;
+import data.dao.TestDao;
 import data.models.Slide;
 import data.models.Test;
 
@@ -58,14 +62,28 @@ public class SynchDatabase extends AsyncTask<String, Integer, List<Test>> {
         HttpEntity<?> requestEntity = new HttpEntity<Object>(requestHeaders);
         RestTemplate restTemplate = new RestTemplate(true);
         restTemplate.getMessageConverters().add(new MappingJackson2HttpMessageConverter());
-        ResponseEntity<? extends ArrayList> responseEntityTests = null;
+        ResponseEntity<Test[]> responseEntityTests = null;
 
         try {
-            responseEntityTests = restTemplate.exchange(MyApplication.getAppContext().getResources().getString(R.string.url_tests), HttpMethod.GET, requestEntity, (new ArrayList<Test>()).getClass());
-            allTests=responseEntityTests.getBody();
+            responseEntityTests = restTemplate.exchange(MyApplication.getAppContext().getResources().getString(R.string.url_tests), HttpMethod.GET, requestEntity, Test[].class);
+            allTests= Arrays.asList(responseEntityTests.getBody());
+//            allTests=responseEntityTests.getBody();
         } catch (Exception e) {
             Log.v(TAG, "Exception: " + e.getMessage());
             throw e;
+        }
+
+
+        TestDao testDao = new TestDao();
+        SlideDao slideDao = new SlideDao();
+        testDao.getDbHelper().onUpgrade(testDao.getDb(), 1, 2);
+
+        for(Test test : allTests){
+            Long testId = testDao.insert(test);
+            for(Slide slide : test.getSlideList()){
+                slide.setTestId(testId);
+                slideDao.insert(slide);
+            }
         }
         return allTests;
     }

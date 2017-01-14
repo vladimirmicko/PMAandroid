@@ -3,6 +3,15 @@ package com.randjelovic.vladimir.myapplication.common;
 import android.app.Application;
 import android.content.Context;
 
+import com.randjelovic.vladimir.myapplication.expandableadapter.Group;
+
+import java.util.List;
+
+import data.dao.SlideDao;
+import data.dao.TestDao;
+import data.models.Slide;
+import data.models.Test;
+
 /**
  * Created by Vladimir on 1/2/2017.
  */
@@ -12,12 +21,24 @@ public class MyApplication extends Application {
     private static Context appContext;
     private static boolean authenticated;
     private static String basicAuth;
+    private static List<Test> testList;
 
 
     public void onCreate() {
         super.onCreate();
         MyApplication.appContext = getApplicationContext();
         authenticated=false;
+    }
+
+    public static List<Test> loadTestsFromDb(){
+        TestDao testDao = new TestDao();
+        SlideDao slideDao = new SlideDao();
+        testList = testDao.getAll();
+        for (Test test : testList) {
+                List<Slide> slideList = slideDao.getAllSlidesByTest(test.getId());
+                test.setSlideList(slideList);
+        }
+        return testList;
     }
 
     public static Context getAppContext() {
@@ -33,7 +54,8 @@ public class MyApplication extends Application {
         return MyApplication.basicAuth;
     }
     public static void setBasicAuth(String basicAuth) {MyApplication.basicAuth=basicAuth;}
-
+    public static List<Test> getTests() { return testList; }
+    public static void setTests(List<Test> tests) { MyApplication.testList = tests; }
 }
 
 

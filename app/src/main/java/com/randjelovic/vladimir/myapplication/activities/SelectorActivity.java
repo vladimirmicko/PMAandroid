@@ -25,6 +25,7 @@ import android.widget.ExpandableListView;
 import android.widget.TextView;
 
 import com.randjelovic.vladimir.myapplication.AsyncTasks.SynchDatabase;
+import com.randjelovic.vladimir.myapplication.common.MyApplication;
 import com.randjelovic.vladimir.myapplication.expandableadapter.Group;
 import com.randjelovic.vladimir.myapplication.expandableadapter.MyExpandableListAdapter;
 import com.randjelovic.vladimir.myapplication.R;
@@ -100,11 +101,13 @@ public class SelectorActivity extends AppCompatActivity {
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
-
+            new SynchDatabase(this).execute("la la");
+            List<Test> t1  = MyApplication.getTests();
         }
 
         if (id == R.id.item_show_picture) {
-            new SynchDatabase(this).execute("test");
+            List<Test> ttt = MyApplication.loadTestsFromDb();
+            List<Test> t1  = MyApplication.getTests();
         }
 
         if (id == R.id.restMapping) {
