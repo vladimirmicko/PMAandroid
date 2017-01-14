@@ -11,6 +11,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.randjelovic.vladimir.myapplication.AsyncTasks.SynchDatabase;
 import com.randjelovic.vladimir.myapplication.common.MyApplication;
 import com.randjelovic.vladimir.myapplication.R;
 
@@ -97,9 +98,9 @@ public class LoginActivity extends AppCompatActivity {
             Toast.makeText(MyApplication.getAppContext(), result, Toast.LENGTH_LONG).show();
 
             if(MyApplication.isAuthenticated()){
-                Intent mainIntent = new Intent(LoginActivity.this, SelectorActivity.class);
-//                Intent mainIntent = new Intent(LoginActivity.this, ShowPicture.class);
-                LoginActivity.this.startActivity(mainIntent);
+//                new SynchDatabase(LoginActivity.this).execute("");
+                Intent intent = new Intent(LoginActivity.this, SelectorActivity.class);
+                LoginActivity.this.startActivity(intent);
                 LoginActivity.this.finish();
             }
         }

@@ -40,12 +40,8 @@ public class MyApplication extends Application {
     public static Context getAppContext() {
         return MyApplication.appContext;
     }
-
-    public static boolean isAuthenticated() {
-        return MyApplication.authenticated;
-    }
+    public static boolean isAuthenticated() { return MyApplication.authenticated; }
     public static void setAuthenticated(boolean value) {MyApplication.authenticated=value;}
-
     public static String getBasicAuth() {
         return MyApplication.basicAuth;
     }

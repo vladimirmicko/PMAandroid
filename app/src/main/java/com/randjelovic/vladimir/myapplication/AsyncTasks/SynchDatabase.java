@@ -1,9 +1,12 @@
 package com.randjelovic.vladimir.myapplication.AsyncTasks;
 
+import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.widget.ImageView;
 import android.widget.Toast;
@@ -46,7 +49,7 @@ public class SynchDatabase extends AsyncTask<String, Integer, List<Test>> {
     private final String TAG = this.getClass().getName();
     private final String AUTHENTICATION_HEADER = "Authorization";
     private Context context;
-    private List<Test> allTests = null;
+    private List<Test> testList = null;
 
     public SynchDatabase(Context context) {
         this.context = context;
@@ -66,8 +69,8 @@ public class SynchDatabase extends AsyncTask<String, Integer, List<Test>> {
 
         try {
             responseEntityTests = restTemplate.exchange(MyApplication.getAppContext().getResources().getString(R.string.url_tests), HttpMethod.GET, requestEntity, Test[].class);
-            allTests= Arrays.asList(responseEntityTests.getBody());
-//            allTests=responseEntityTests.getBody();
+            testList= Arrays.asList(responseEntityTests.getBody());
+//            testList=responseEntityTests.getBody();
         } catch (Exception e) {
             Log.v(TAG, "Exception: " + e.getMessage());
             throw e;
@@ -78,14 +81,14 @@ public class SynchDatabase extends AsyncTask<String, Integer, List<Test>> {
         SlideDao slideDao = new SlideDao();
         testDao.getDbHelper().onUpgrade(testDao.getDb(), 1, 2);
 
-        for(Test test : allTests){
+        for(Test test : testList){
             Long testId = testDao.insert(test);
             for(Slide slide : test.getSlideList()){
                 slide.setTestId(testId);
                 slideDao.insert(slide);
             }
         }
-        return allTests;
+        return testList;
     }
 
     @Override
@@ -95,11 +98,10 @@ public class SynchDatabase extends AsyncTask<String, Integer, List<Test>> {
     }
 
     @Override
-    protected void onPostExecute(List<Test> allTests) {
-        super.onPostExecute(allTests);
-        Log.d(TAG, "GET - Result: " + allTests);
-
-
+    protected void onPostExecute(List<Test> testList) {
+        super.onPostExecute(testList);
+        MyApplication.loadTestsFromDb();
+        Log.d(TAG, "GET - Result: " + testList);
         Toast.makeText(MyApplication.getAppContext(), "All tests are synchronized! ", Toast.LENGTH_LONG).show();
 //        tempImage = BitmapFactory.decodeStream(new ByteArrayInputStream(response.getBody().getPrimingImage()));
 //        ImageView iii = GetTestWithMapper.this.image;

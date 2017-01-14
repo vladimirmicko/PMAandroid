@@ -11,4 +11,5 @@
     <string name="hello_world">Hallo Buddy</string>
     <string name="show_picture">Show picture</string>
     <string name="RestMapping">RestMapping</string>
+    <string name="syncDb">SyncDb</string>
 </resources>

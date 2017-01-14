@@ -50,6 +50,7 @@ public class SelectorActivity extends AppCompatActivity {
      */
     private SectionsPagerAdapter mSectionsPagerAdapter;
     private static final String TAG = SelectorActivity.class.getName();
+    private Intent starterIntent;
 
 
     /**
@@ -61,6 +62,9 @@ public class SelectorActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_selector);
+        starterIntent = getIntent();
+
+        new SynchDatabase(this).execute("");
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -100,20 +104,15 @@ public class SelectorActivity extends AppCompatActivity {
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            new SynchDatabase(this).execute("la la");
-            List<Test> t1  = MyApplication.getTests();
+        if (id == R.id.syncDb) {
+            finish();
+            startActivity(starterIntent);
         }
 
         if (id == R.id.item_show_picture) {
-            List<Test> ttt = MyApplication.loadTestsFromDb();
-            List<Test> t1  = MyApplication.getTests();
         }
 
         if (id == R.id.restMapping) {
-            Intent mainIntent = new Intent(SelectorActivity.this, GetTestWithMapper.class);
-            SelectorActivity.this.startActivity(mainIntent);
-//            SelectorActivity.this.finish();
         }
 
         return super.onOptionsItemSelected(item);
