@@ -31,6 +31,7 @@ import java.io.ByteArrayInputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.List;
 
 import data.models.Slide;
 import data.models.Test;
@@ -96,7 +97,7 @@ public class GetTestWithMapper extends AppCompatActivity {
 
             try {
                 if(strings[0].equals("test")) response = restTemplate.exchange("http://10.0.2.2:8092/PMAspring/rest/tests/1", HttpMethod.GET, requestEntity, Test.class);
-                if(strings[0].equals("slide")) response = restTemplate.exchange("http://10.0.2.2:8092/PMAspring/rest/tests/slides/1", HttpMethod.GET, requestEntity, Slide.class);
+                if(strings[0].equals("slide")) response = restTemplate.exchange("http://10.0.2.2:8092/PMAspring/rest/tests/1/slides", HttpMethod.GET, requestEntity, (new ArrayList<Slide>()).getClass());
             }
             catch(HttpClientErrorException e){
                 throw e;
