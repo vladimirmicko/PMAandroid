@@ -24,6 +24,7 @@ import android.view.ViewGroup;
 import android.widget.ExpandableListView;
 import android.widget.TextView;
 
+import com.randjelovic.vladimir.myapplication.AsyncTasks.SynchDatabase;
 import com.randjelovic.vladimir.myapplication.expandableadapter.Group;
 import com.randjelovic.vladimir.myapplication.expandableadapter.MyExpandableListAdapter;
 import com.randjelovic.vladimir.myapplication.R;
@@ -103,7 +104,7 @@ public class SelectorActivity extends AppCompatActivity {
         }
 
         if (id == R.id.item_show_picture) {
-
+            new SynchDatabase(this).execute("test");
         }
 
         if (id == R.id.restMapping) {
@@ -185,10 +186,11 @@ public class SelectorActivity extends AppCompatActivity {
             Long j=0L;
             for (Test test : testList) {
                 Group group = new Group(test.getTestName());
-                List<Slide> slideList = slideDao.getAllSlidesByTest(j);
-                for (Slide slide : slideList) {
-                    group.children.add(slide.getSlideName());
-                }
+                group.children.add(test.getDescription());
+//                List<Slide> slideList = slideDao.getAllSlidesByTest(j);
+//                for (Slide slide : slideList) {
+//                    group.children.add(slide.getSlideName());
+//                }
                 groups.append(j.intValue(), group);
                 j++;
             }

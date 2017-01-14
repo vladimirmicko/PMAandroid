@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="url_authenticate">http://10.0.2.2:8092/PMAspring/rest/security/authenticate</string>
-    <string name="url_showPicture">http://10.0.2.2:8092/PMAspring/rest/demo/displayFile</string>
-    <string name="url_showPictureFromDb">http://10.0.2.2:8092/PMAspring/rest/demo/fileFromDb</string>
+    <string name="url_tests">http://10.0.2.2:8092/PMAspring/rest/tests</string>
 </resources>

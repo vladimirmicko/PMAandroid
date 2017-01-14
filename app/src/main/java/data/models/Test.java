@@ -1,6 +1,7 @@
 package data.models;
 
 import java.util.Date;
+import java.util.List;
 
 /**
  * Created by Vladimir on 1/6/2017.
@@ -13,6 +14,7 @@ public class Test {
     private String description;
     private String creationDate;
     private byte[] testPromoImage;
+    private List<Slide> slideList;
 
     // constructors
     public Test() {
@@ -62,4 +64,8 @@ public class Test {
     public void setTestPromoImage(byte[] testPromoImage) {
         this.testPromoImage = testPromoImage;
     }
+
+    public List<Slide> getSlideList() { return slideList; }
+
+    public void setSlideList(List<Slide> slideList) { this.slideList = slideList; }
 }
