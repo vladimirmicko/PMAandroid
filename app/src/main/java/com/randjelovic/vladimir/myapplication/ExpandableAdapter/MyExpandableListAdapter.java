@@ -65,18 +65,16 @@ public class MyExpandableListAdapter extends BaseExpandableListAdapter {
                 Intent intent = new Intent(context, TestIntroActivity.class);
                 intent.putExtra("TEST_SELECTED", groupPosition);
                 context.startActivity(intent);
-                Toast.makeText(MyApplication.getAppContext(), "START BUTTON PRESSED",
-                        Toast.LENGTH_SHORT).show();
             }
         });
 
-		convertView.setOnClickListener(new OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				Toast.makeText(MyApplication.getAppContext(), children,
-						Toast.LENGTH_SHORT).show();
-			}
-		});
+//		convertView.setOnClickListener(new OnClickListener() {
+//			@Override
+//			public void onClick(View v) {
+//				Toast.makeText(MyApplication.getAppContext(), children,
+//						Toast.LENGTH_SHORT).show();
+//			}
+//		});
 		return convertView;
 	}
 

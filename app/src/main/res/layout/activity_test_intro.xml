@@ -24,7 +24,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:srcCompat="@drawable/test_intro"
-            android:layout_weight="5"
+            android:layout_weight="6"
             android:adjustViewBounds="true"
             android:id="@+id/test_intro" />
 
@@ -43,7 +43,7 @@
             android:text="Button"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
+            android:layout_weight="2"
             android:id="@+id/button_start_test" />
 
     </LinearLayout>

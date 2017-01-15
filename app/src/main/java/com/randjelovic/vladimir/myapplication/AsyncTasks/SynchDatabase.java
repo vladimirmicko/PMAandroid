@@ -87,7 +87,7 @@ public class SynchDatabase extends AsyncTask<String, Integer, List<Test>> {
         super.onPostExecute(testList);
         MyApplication.loadTestsFromDb();
         Log.d(TAG, "GET - Result: " + testList);
-        Toast.makeText(MyApplication.getAppContext(), "All tests are synchronized! ", Toast.LENGTH_LONG).show();
+        Toast.makeText(MyApplication.getAppContext(), R.string.test_synchronized, Toast.LENGTH_SHORT).show();
         taskListener.getContext().startActivity(taskListener.getStarterIntent());
         ((Activity) taskListener.getContext()).finish();
     }

@@ -98,7 +98,7 @@ public class LoginActivity extends AppCompatActivity {
         protected void onPostExecute(String result) {
             super.onPostExecute(result);
             Log.d(TAG, "GET - Result: " + result);
-            Toast.makeText(MyApplication.getAppContext(), result, Toast.LENGTH_LONG).show();
+            Toast.makeText(MyApplication.getAppContext(), result, Toast.LENGTH_SHORT).show();
 
             if(MyApplication.isAuthenticated()){
                 starterIntent = new Intent(LoginActivity.this, SelectorActivity.class);
