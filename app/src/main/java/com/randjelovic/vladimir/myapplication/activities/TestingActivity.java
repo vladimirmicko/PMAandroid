@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
+import android.widget.Button;
 import android.widget.ImageView;
 
 import com.randjelovic.vladimir.myapplication.R;
@@ -23,6 +24,10 @@ public class TestingActivity extends AppCompatActivity {
     private ImageView image = null;
     private Test test = null;
     private int imageIndex = 0;
+    private Button buttonBad;
+    private Button buttonGood;
+    private Button buttonStop;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,32 +37,70 @@ public class TestingActivity extends AppCompatActivity {
         test = MyApplication.getTests().get(testSelected);
         image = (ImageView) findViewById(R.id.testImage);
 
+        buttonBad = (Button) findViewById(R.id.button_bad);
+        buttonGood = (Button) findViewById(R.id.button_good);
+        buttonStop = (Button) findViewById(R.id.button_stop_test);
 
-        final Handler mHandler = new Handler();
+        buttonStop.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                TestingActivity.this.finish();
+            }
+        });
 
-        final Runnable mUpdateResults = new Runnable() {
+        buttonGood.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+            }
+        });
+
+
+        final Handler primeImageHandler = new Handler();
+        final Handler testImageHandler = new Handler();
+
+        final Runnable primeImageUpdateResults = new Runnable() {
             public void run() {
-                show();
+                showPrimeImage();
             }
         };
 
+        final Runnable testImageUpdateResults = new Runnable() {
+            public void run() {
+                showTestImage();
+            }
+        };
 
-        Timer timer = new Timer();
-        timer.schedule(new TimerTask() {
+        Timer primeTimer = new Timer();
+        primeTimer.schedule(new TimerTask() {
             @Override
             public void run() {
-                mHandler.post(mUpdateResults);
+                primeImageHandler.post(primeImageUpdateResults);
             }
-        }, 1000);
+        },  300);
+
+        Timer testTimer = new Timer();
+        testTimer.schedule(new TimerTask() {
+            @Override
+            public void run() {
+                testImageHandler.post(testImageUpdateResults);
+            }
+        },  1000);
+    }
+
+    private void showPrimeImage() {
+        image.setImageBitmap(BitmapFactory.decodeStream(new ByteArrayInputStream(test.getSlideList().get(imageIndex).getPrimingImage())));
+        int i = 1;
     }
 
 
-    private void show() {
+
+    private void showTestImage() {
         image.setImageBitmap(BitmapFactory.decodeStream(new ByteArrayInputStream(test.getSlideList().get(imageIndex).getTestImage())));
         imageIndex++;
-
-        Animation fade1 = new AlphaAnimation(0.0f, 1.0f);
-        fade1.setDuration(3000);
-        image.startAnimation(fade1);
+//
+//        Animation fade1 = new AlphaAnimation(0.0f, 1.0f);
+//        fade1.setDuration(3000);
+//        image.startAnimation(fade1);
     }
 }

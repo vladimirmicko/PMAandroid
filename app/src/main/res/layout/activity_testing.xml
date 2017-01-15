@@ -25,13 +25,12 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/activity_vertical_margin"
-            android:id="@+id/stop_test"
+            android:id="@+id/button_stop_test"
             android:layout_weight="1" />
 
         <ImageView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            app:srcCompat="@drawable/sand_watch"
             android:layout_weight="8"
             android:id="@+id/testImage" />
 
