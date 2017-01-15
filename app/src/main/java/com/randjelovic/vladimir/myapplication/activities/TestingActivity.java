@@ -1,5 +1,6 @@
 package com.randjelovic.vladimir.myapplication.activities;
 
+import android.content.Intent;
 import android.graphics.BitmapFactory;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
@@ -28,6 +29,13 @@ public class TestingActivity extends AppCompatActivity {
     private Button buttonGood;
     private Button buttonStop;
 
+    private Timer primeTimer;
+    private Timer testTimer;
+    private Handler primeImageHandler = null;
+    private Handler testImageHandler = null;
+    private Runnable primeImageUpdateResults;
+    private Runnable testImageUpdateResults;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,44 +63,56 @@ public class TestingActivity extends AppCompatActivity {
             }
         });
 
+        primeTimer = new Timer();
+        testTimer = new Timer();
 
-        final Handler primeImageHandler = new Handler();
-        final Handler testImageHandler = new Handler();
+        primeImageHandler = new Handler();
+        testImageHandler = new Handler();
 
-        final Runnable primeImageUpdateResults = new Runnable() {
+        primeImageUpdateResults = new Runnable() {
             public void run() {
                 showPrimeImage();
             }
         };
 
-        final Runnable testImageUpdateResults = new Runnable() {
+        testImageUpdateResults = new Runnable() {
             public void run() {
                 showTestImage();
             }
         };
 
-        Timer primeTimer = new Timer();
+
+        new Handler().postDelayed(new Runnable(){
+            @Override
+            public void run() {
+                activateSlides();
+            }
+        }, getResources().getInteger(R.integer.splash_time));
+    }
+
+    private void activateSlides(){
+
         primeTimer.schedule(new TimerTask() {
             @Override
             public void run() {
-                primeImageHandler.post(primeImageUpdateResults);
+                TestingActivity.this.primeImageHandler.post(TestingActivity.this.primeImageUpdateResults);
             }
         },  300);
 
-        Timer testTimer = new Timer();
+
         testTimer.schedule(new TimerTask() {
             @Override
             public void run() {
-                testImageHandler.post(testImageUpdateResults);
+                TestingActivity.this.testImageHandler.post(TestingActivity.this.testImageUpdateResults);
             }
         },  1000);
     }
+
 
     private void showPrimeImage() {
         image.setImageBitmap(BitmapFactory.decodeStream(new ByteArrayInputStream(test.getSlideList().get(imageIndex).getPrimingImage())));
         int i = 1;
     }
-
 
 
     private void showTestImage() {
