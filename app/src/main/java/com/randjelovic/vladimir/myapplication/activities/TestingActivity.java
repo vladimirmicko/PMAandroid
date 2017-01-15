@@ -59,7 +59,24 @@ public class TestingActivity extends AppCompatActivity {
         buttonGood.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                if(imageIndex < test.getSlideList().size()){
+                    activateSlides();
+                }
+                else{
 
+                }
+            }
+        });
+
+        buttonBad.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(imageIndex < test.getSlideList().size()){
+                    activateSlides();
+                }
+                else{
+
+                }
             }
         });
 
@@ -81,13 +98,12 @@ public class TestingActivity extends AppCompatActivity {
             }
         };
 
-
         new Handler().postDelayed(new Runnable(){
             @Override
             public void run() {
                 activateSlides();
             }
-        }, getResources().getInteger(R.integer.splash_time));
+        }, 1);
     }
 
     private void activateSlides(){
@@ -111,7 +127,6 @@ public class TestingActivity extends AppCompatActivity {
 
     private void showPrimeImage() {
         image.setImageBitmap(BitmapFactory.decodeStream(new ByteArrayInputStream(test.getSlideList().get(imageIndex).getPrimingImage())));
-        int i = 1;
     }
 
 
