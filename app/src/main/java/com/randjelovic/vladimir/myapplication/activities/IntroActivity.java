@@ -17,10 +17,9 @@ public class IntroActivity extends AppCompatActivity {
         new Handler().postDelayed(new Runnable(){
             @Override
             public void run() {
-                Intent mainIntent = new Intent(IntroActivity.this, ProgressBarActivity.class);
-                IntroActivity.this.startActivity(mainIntent);
-                IntroActivity.this.finish();
-            }
+                Intent intent = new Intent(IntroActivity.this, LoginActivity.class);
+                IntroActivity.this.startActivity(intent);
+                IntroActivity.this.finish(); }
         }, getResources().getInteger(R.integer.splash_time));
     }
 }

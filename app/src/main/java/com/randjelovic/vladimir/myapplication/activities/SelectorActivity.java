@@ -103,7 +103,6 @@ public class SelectorActivity extends AppCompatActivity implements TaskListener 
         //noinspection SimplifiableIfStatement
         if (id == R.id.syncDb) {
             new SynchDatabase(this).execute("");
-            finish();
         }
         return super.onOptionsItemSelected(item);
     }
