@@ -1,19 +1,11 @@
 package com.randjelovic.vladimir.myapplication.AsyncTasks;
 
 import android.app.Activity;
-import android.content.Context;
-import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
-import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
-import android.widget.ImageView;
 import android.widget.Toast;
 
-import com.fasterxml.jackson.core.type.TypeReference;
 import com.randjelovic.vladimir.myapplication.R;
-import com.randjelovic.vladimir.myapplication.activities.GetTestWithMapper;
 import com.randjelovic.vladimir.myapplication.common.MyApplication;
 
 import org.springframework.http.HttpEntity;
@@ -22,14 +14,8 @@ import org.springframework.http.HttpMethod;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
-import org.springframework.web.client.HttpClientErrorException;
-import org.springframework.web.client.HttpServerErrorException;
-import org.springframework.web.client.ResourceAccessException;
 import org.springframework.web.client.RestTemplate;
 
-import java.io.ByteArrayInputStream;
-import java.net.URL;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 

@@ -104,15 +104,7 @@ public class SelectorActivity extends AppCompatActivity implements TaskListener 
         if (id == R.id.syncDb) {
             new SynchDatabase(this).execute("");
             finish();
-//            startActivity(starterIntent);
         }
-
-        if (id == R.id.item_show_picture) {
-        }
-
-        if (id == R.id.restMapping) {
-        }
-
         return super.onOptionsItemSelected(item);
     }
 
@@ -163,7 +155,6 @@ public class SelectorActivity extends AppCompatActivity implements TaskListener 
             if(getArguments().getInt(ARG_SECTION_NUMBER) == 1){
                 rootView = inflater.inflate(R.layout.fragment_testing, container, false);
                 createData();
-
                 MyExpandableListAdapter adapter = new MyExpandableListAdapter(inflater, groups);
                 listView = (ExpandableListView) rootView.findViewById(R.id.listView);
                 listView.setAdapter(adapter);

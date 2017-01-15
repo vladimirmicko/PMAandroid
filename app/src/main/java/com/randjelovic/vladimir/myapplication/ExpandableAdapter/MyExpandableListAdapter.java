@@ -1,5 +1,8 @@
 package com.randjelovic.vladimir.myapplication.expandableadapter;
 
+import android.content.ContentValues;
+import android.content.Context;
+import android.content.Intent;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.util.Log;
@@ -14,6 +17,7 @@ import android.widget.CheckedTextView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.randjelovic.vladimir.myapplication.activities.TestingActivity;
 import com.randjelovic.vladimir.myapplication.common.MyApplication;
 import com.randjelovic.vladimir.myapplication.R;
 
@@ -23,6 +27,7 @@ public class MyExpandableListAdapter extends BaseExpandableListAdapter {
 
 	private final SparseArray<Group> groups;
 	public LayoutInflater inflater;
+    private Context context;
 
 	public MyExpandableListAdapter(LayoutInflater inflater, SparseArray<Group> groups) {
 		this.groups = groups;
@@ -41,20 +46,24 @@ public class MyExpandableListAdapter extends BaseExpandableListAdapter {
 	}
 
 	@Override
-	public View getChildView(int groupPosition, final int childPosition,
-							 boolean isLastChild, View convertView, ViewGroup parent) {
+	public View getChildView(final int groupPosition, final int childPosition,
+                             boolean isLastChild, View convertView, ViewGroup parent) {
 		final String children = (String) getChild(groupPosition, childPosition);
 		TextView text = null;
 		if (convertView == null) {
 			convertView = inflater.inflate(R.layout.listrow_details, null);
 		}
-		text = (TextView) convertView.findViewById(R.id.textView1);
+		text = (TextView) convertView.findViewById(R.id.test_list_item);
 		text.setText(children);
+        context = convertView.getContext();
 
         Button startButton = (Button) convertView.findViewById(R.id.button_start_test);
         startButton.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
+                Intent intent = new Intent(context, TestingActivity.class);
+                intent.putExtra("TEST_SELECTED", groupPosition);
+                context.startActivity(intent);
                 Toast.makeText(MyApplication.getAppContext(), "START BUTTON PRESSED",
                         Toast.LENGTH_SHORT).show();
             }

@@ -102,11 +102,8 @@ public class LoginActivity extends AppCompatActivity {
 
             if(MyApplication.isAuthenticated()){
                 starterIntent = new Intent(LoginActivity.this, SelectorActivity.class);
-//                LoginActivity.this.startActivity(starterIntent);
-                LoginActivity.this.finish();
                 new SynchDatabase(this).execute("");
-
-
+                LoginActivity.this.finish();
             }
         }
 
