@@ -113,7 +113,7 @@ public class TestingActivity extends AppCompatActivity {
             public void run() {
                 TestingActivity.this.primeImageHandler.post(TestingActivity.this.primeImageUpdateResults);
             }
-        },  300);
+        },  getResources().getInteger(R.integer.initial_delay));
 
 
         testTimer.schedule(new TimerTask() {
@@ -121,7 +121,7 @@ public class TestingActivity extends AppCompatActivity {
             public void run() {
                 TestingActivity.this.testImageHandler.post(TestingActivity.this.testImageUpdateResults);
             }
-        },  1000);
+        },  getResources().getInteger(R.integer.initial_delay)+test.getSlideList().get(imageIndex).getDelay());
     }
 
 

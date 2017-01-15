@@ -49,7 +49,7 @@ public class SlideDao {
         Slide slide = new Slide();
         slide.setId(c.getLong((c.getColumnIndex(KEY_ID))));
         slide.setSlideName(c.getString(c.getColumnIndex(KEY_SLIDE_NAME)));
-        slide.setDelay(c.getInt(c.getColumnIndex(KEY_SLIDE_NAME)));
+        slide.setDelay(c.getInt(c.getColumnIndex(KEY_DELAY)));
         slide.setPrimingImage(c.getBlob(c.getColumnIndex(KEY_PRIMING_IMAGE)));
         slide.setTestImage(c.getBlob(c.getColumnIndex(KEY_TEST_IMAGE)));
         slide.setTestId(c.getLong(c.getColumnIndex(KEY_TEST_ID)));
@@ -60,7 +60,7 @@ public class SlideDao {
         ContentValues values = new ContentValues();
         values.put(KEY_ID, slide.getId());
         values.put(KEY_SLIDE_NAME, slide.getSlideName());
-        values.put(KEY_DELAY, slide.getSlideName());
+        values.put(KEY_DELAY, slide.getDelay());
         values.put(KEY_PRIMING_IMAGE, slide.getPrimingImage());
         values.put(KEY_TEST_IMAGE, slide.getTestImage());
         values.put(KEY_TEST_ID, slide.getTestId());
