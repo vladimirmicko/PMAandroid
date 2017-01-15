@@ -1,5 +1,6 @@
 package com.randjelovic.vladimir.myapplication.activities;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -12,6 +13,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.randjelovic.vladimir.myapplication.AsyncTasks.SynchDatabase;
+import com.randjelovic.vladimir.myapplication.AsyncTasks.TaskListener;
 import com.randjelovic.vladimir.myapplication.common.MyApplication;
 import com.randjelovic.vladimir.myapplication.R;
 
@@ -20,9 +22,9 @@ import java.net.URL;
 
 public class LoginActivity extends AppCompatActivity {
 
-    Button btLogin;
-    EditText etUsername;
-    EditText etPassword;
+    private Button btLogin;
+    private EditText etUsername;
+    private EditText etPassword;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,11 +44,12 @@ public class LoginActivity extends AppCompatActivity {
     }
 
 
-    public class LoginService extends AsyncTask<String, Integer, String> {
+    public class LoginService extends AsyncTask<String, Integer, String> implements TaskListener {
 
         private static final String TAG = "Login";
         private static final String AUTHENTICATION_TAG = "Basic ";
         private static final String AUTHENTICATION_HEADER = "Authorization";
+        private Intent starterIntent = null;
 
         @Override
         protected String doInBackground(String... strings) {
@@ -98,14 +101,23 @@ public class LoginActivity extends AppCompatActivity {
             Toast.makeText(MyApplication.getAppContext(), result, Toast.LENGTH_LONG).show();
 
             if(MyApplication.isAuthenticated()){
-//                new SynchDatabase(LoginActivity.this).execute("");
-                Intent intent = new Intent(LoginActivity.this, SelectorActivity.class);
-                LoginActivity.this.startActivity(intent);
+                starterIntent = new Intent(LoginActivity.this, SelectorActivity.class);
+//                LoginActivity.this.startActivity(starterIntent);
                 LoginActivity.this.finish();
+                new SynchDatabase(this).execute("");
+
+
             }
         }
+
+        @Override
+        public Context getContext() {
+            return LoginActivity.this;
+        }
+
+        @Override
+        public Intent getStarterIntent() {
+            return starterIntent;
+        }
     }
-
-
-
 }

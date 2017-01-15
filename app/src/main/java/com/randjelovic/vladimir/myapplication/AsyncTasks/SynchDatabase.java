@@ -48,11 +48,11 @@ public class SynchDatabase extends AsyncTask<String, Integer, List<Test>> {
 
     private final String TAG = this.getClass().getName();
     private final String AUTHENTICATION_HEADER = "Authorization";
-    private Context context;
+    private TaskListener taskListener;
     private List<Test> testList = null;
 
-    public SynchDatabase(Context context) {
-        this.context = context;
+    public SynchDatabase(TaskListener taskListener) {
+        this.taskListener = taskListener;
     }
 
     @Override
@@ -70,7 +70,6 @@ public class SynchDatabase extends AsyncTask<String, Integer, List<Test>> {
         try {
             responseEntityTests = restTemplate.exchange(MyApplication.getAppContext().getResources().getString(R.string.url_tests), HttpMethod.GET, requestEntity, Test[].class);
             testList= Arrays.asList(responseEntityTests.getBody());
-//            testList=responseEntityTests.getBody();
         } catch (Exception e) {
             Log.v(TAG, "Exception: " + e.getMessage());
             throw e;
@@ -103,9 +102,8 @@ public class SynchDatabase extends AsyncTask<String, Integer, List<Test>> {
         MyApplication.loadTestsFromDb();
         Log.d(TAG, "GET - Result: " + testList);
         Toast.makeText(MyApplication.getAppContext(), "All tests are synchronized! ", Toast.LENGTH_LONG).show();
-//        tempImage = BitmapFactory.decodeStream(new ByteArrayInputStream(response.getBody().getPrimingImage()));
-//        ImageView iii = GetTestWithMapper.this.image;
-//        iii.setImageBitmap(tempImage);
+        taskListener.getContext().startActivity(taskListener.getStarterIntent());
+//        ((Activity) taskListener.getContext()).finish();
     }
 }
 

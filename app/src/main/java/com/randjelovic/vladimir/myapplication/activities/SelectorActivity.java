@@ -1,5 +1,6 @@
 package com.randjelovic.vladimir.myapplication.activities;
 
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.BitmapFactory;
 import android.support.design.widget.TabLayout;
@@ -24,6 +25,7 @@ import android.widget.ExpandableListView;
 import android.widget.TextView;
 
 import com.randjelovic.vladimir.myapplication.AsyncTasks.SynchDatabase;
+import com.randjelovic.vladimir.myapplication.AsyncTasks.TaskListener;
 import com.randjelovic.vladimir.myapplication.expandableadapter.Group;
 import com.randjelovic.vladimir.myapplication.expandableadapter.MyExpandableListAdapter;
 import com.randjelovic.vladimir.myapplication.R;
@@ -35,7 +37,7 @@ import data.dao.SlideDao;
 import data.dao.TestDao;
 import data.models.Test;
 
-public class SelectorActivity extends AppCompatActivity {
+public class SelectorActivity extends AppCompatActivity implements TaskListener {
 
     /**
      * The {@link android.support.v4.view.PagerAdapter} that will provide
@@ -60,8 +62,6 @@ public class SelectorActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_selector);
         starterIntent = getIntent();
-
-        new SynchDatabase(this).execute("");
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -102,8 +102,9 @@ public class SelectorActivity extends AppCompatActivity {
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.syncDb) {
+            new SynchDatabase(this).execute("");
             finish();
-            startActivity(starterIntent);
+//            startActivity(starterIntent);
         }
 
         if (id == R.id.item_show_picture) {
@@ -113,6 +114,16 @@ public class SelectorActivity extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public Context getContext() {
+        return this;
+    }
+
+    @Override
+    public Intent getStarterIntent() {
+        return starterIntent;
     }
 
     /**

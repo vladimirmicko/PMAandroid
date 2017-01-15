@@ -18,12 +18,13 @@
                 <action android:name="android.intent.action.MAIN" />
             </intent-filter>
         </activity>
+        <activity android:name=".activities.ProgressBarActivity"></activity>
         <activity android:name=".activities.LoginActivity" />
         <activity
             android:name=".activities.SelectorActivity"
             android:label="@string/title_activity_selector"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".activities.GetTestWithMapper"></activity>
+        <activity android:name=".activities.GetTestWithMapper" />
     </application>
 
 </manifest>
