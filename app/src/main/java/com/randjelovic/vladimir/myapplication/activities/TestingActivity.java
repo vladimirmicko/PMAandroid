@@ -48,7 +48,8 @@ public class TestingActivity extends AppCompatActivity {
             public void run() {
                 mHandler.post(mUpdateResults);
             }
-        }, 1000);}
+        }, 1000);
+    }
 
 
     private void show() {

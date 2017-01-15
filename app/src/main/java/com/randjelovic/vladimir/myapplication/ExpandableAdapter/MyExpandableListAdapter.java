@@ -17,6 +17,7 @@ import android.widget.CheckedTextView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.randjelovic.vladimir.myapplication.activities.TestIntroActivity;
 import com.randjelovic.vladimir.myapplication.activities.TestingActivity;
 import com.randjelovic.vladimir.myapplication.common.MyApplication;
 import com.randjelovic.vladimir.myapplication.R;
@@ -61,7 +62,7 @@ public class MyExpandableListAdapter extends BaseExpandableListAdapter {
         startButton.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(context, TestingActivity.class);
+                Intent intent = new Intent(context, TestIntroActivity.class);
                 intent.putExtra("TEST_SELECTED", groupPosition);
                 context.startActivity(intent);
                 Toast.makeText(MyApplication.getAppContext(), "START BUTTON PRESSED",

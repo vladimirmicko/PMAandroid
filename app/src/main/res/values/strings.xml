@@ -20,4 +20,6 @@
     <string name="test_good">GOOD</string>
     <string name="test_bad">BAD</string>
     <string name="test_description">Test description</string>
+    <string name="test_intro_text1">Get ready for testing!\nWhen you are ready, press the START button.</string>
+
 </resources>
