@@ -62,6 +62,7 @@ public class MyExpandableListAdapter extends BaseExpandableListAdapter {
         startButton.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
+				MyApplication.setSelectedTest(groupPosition);
                 Intent intent = new Intent(context, TestIntroActivity.class);
                 intent.putExtra("TEST_SELECTED", groupPosition);
                 context.startActivity(intent);

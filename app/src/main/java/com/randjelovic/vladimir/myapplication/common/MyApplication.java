@@ -5,6 +5,7 @@ import android.content.Context;
 
 import com.randjelovic.vladimir.myapplication.expandableadapter.Group;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import data.dao.SlideDao;
@@ -22,6 +23,9 @@ public class MyApplication extends Application {
     private static boolean authenticated;
     private static String basicAuth;
     private static List<Test> testList;
+    private static Integer selectedTest;
+    private static List<Integer> testScore;
+    private static List<Slide> slideList;
     private static TestDao testDao;
 
 
@@ -29,6 +33,7 @@ public class MyApplication extends Application {
         super.onCreate();
         MyApplication.appContext = getApplicationContext();
         authenticated=false;
+        testScore = new ArrayList();
     }
 
     public static List<Test> loadTestsFromDb(){
@@ -46,8 +51,13 @@ public class MyApplication extends Application {
         return MyApplication.basicAuth;
     }
     public static void setBasicAuth(String basicAuth) {MyApplication.basicAuth=basicAuth;}
-    public static List<Test> getTests() { return testList; }
-    public static void setTests(List<Test> tests) { MyApplication.testList = tests; }
+    public static List<Test> getTestList() { return testList; }
+    public static void setTestList(List<Test> testList) { MyApplication.testList = testList; }
+    public static List<Integer> getTestScore() { return testScore; }
+    public static void setTestScore(List<Integer> testScore) { MyApplication.testScore = testScore; }
+    public static Integer getSelectedTest() { return selectedTest; }
+    public static void setSelectedTest(Integer selectedTest) { MyApplication.selectedTest = selectedTest; }
+    public static List<Slide> getSlideList() { return MyApplication.getTestList().get(MyApplication.getSelectedTest()).getSlideList(); }
 }
 
 

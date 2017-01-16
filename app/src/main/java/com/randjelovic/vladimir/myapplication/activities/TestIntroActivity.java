@@ -27,6 +27,5 @@ public class TestIntroActivity extends AppCompatActivity {
                 TestIntroActivity.this.finish();
             }
         });
-
     }
 }

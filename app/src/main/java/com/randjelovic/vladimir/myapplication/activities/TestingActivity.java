@@ -42,7 +42,7 @@ public class TestingActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_testing);
         int testSelected = getIntent().getIntExtra("TEST_SELECTED", 1);
-        test = MyApplication.getTests().get(testSelected);
+        test = MyApplication.getTestList().get(testSelected);
         image = (ImageView) findViewById(R.id.testImage);
 
         buttonBad = (Button) findViewById(R.id.button_bad);
@@ -59,11 +59,14 @@ public class TestingActivity extends AppCompatActivity {
         buttonGood.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                MyApplication.getTestScore().add(1);
                 if(imageIndex < test.getSlideList().size()){
                     activateSlides();
                 }
                 else{
-
+                    Intent intent = new Intent(TestingActivity.this, ResultsAcitivity.class);
+                    TestingActivity.this.startActivity(intent);
+                    TestingActivity.this.finish();
                 }
             }
         });
@@ -71,11 +74,14 @@ public class TestingActivity extends AppCompatActivity {
         buttonBad.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                MyApplication.getTestScore().add(0);
                 if(imageIndex < test.getSlideList().size()){
                     activateSlides();
                 }
                 else{
-
+                    Intent intent = new Intent(TestingActivity.this, ResultsAcitivity.class);
+                    TestingActivity.this.startActivity(intent);
+                    TestingActivity.this.finish();
                 }
             }
         });
