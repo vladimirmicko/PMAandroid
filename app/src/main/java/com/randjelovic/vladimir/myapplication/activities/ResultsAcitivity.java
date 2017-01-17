@@ -55,7 +55,6 @@ public class ResultsAcitivity extends AppCompatActivity {
 
     public class SendResults extends AsyncTask<String, Integer, String> {
 
-
         private final String TAG = this.getClass().getName();
         private final String AUTHENTICATION_HEADER = "Authorization";
         private String results = "";

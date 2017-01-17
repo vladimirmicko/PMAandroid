@@ -23,6 +23,7 @@
     <string name="test_description">Test description</string>
     <string name="test_intro_text1">Get ready for testing!\nWhen you are ready, press the START button.</string>
     <string name="ok">OK</string>
-    <string name="results">Results:</string>
+    <string name="results">Last test results:</string>
+    <string name="statistics_title">Statistics</string>
 
 </resources>

@@ -3,6 +3,7 @@ package com.randjelovic.vladimir.myapplication.activities;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.BitmapFactory;
+import android.os.AsyncTask;
 import android.support.design.widget.TabLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -14,6 +15,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.os.Bundle;
+import android.util.Log;
 import android.util.SparseArray;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -31,11 +33,22 @@ import com.randjelovic.vladimir.myapplication.expandableadapter.Group;
 import com.randjelovic.vladimir.myapplication.expandableadapter.MyExpandableListAdapter;
 import com.randjelovic.vladimir.myapplication.R;
 
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
+import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
+import org.springframework.web.client.RestTemplate;
+
 import java.io.ByteArrayInputStream;
+import java.nio.channels.Selector;
+import java.util.Arrays;
 import java.util.List;
 
 import data.dao.SlideDao;
 import data.dao.TestDao;
+import data.dto.TestScore;
 import data.models.Test;
 
 public class SelectorActivity extends AppCompatActivity implements TaskListener {
@@ -44,6 +57,8 @@ public class SelectorActivity extends AppCompatActivity implements TaskListener 
     private static final String TAG = SelectorActivity.class.getName();
     private Intent starterIntent;
     private ViewPager mViewPager;
+    private static TextView testResults;
+    private static TextView statisticsData;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -100,7 +115,7 @@ public class SelectorActivity extends AppCompatActivity implements TaskListener 
     public static class PlaceholderFragment extends Fragment {
 
         private static final String ARG_SECTION_NUMBER = "section_number";
-        private TextView textViewResults;
+
 
         SparseArray<Group> groups = new SparseArray<Group>();
         ExpandableListView listView;
@@ -132,13 +147,13 @@ public class SelectorActivity extends AppCompatActivity implements TaskListener 
             }
             else if(getArguments().getInt(ARG_SECTION_NUMBER) == 2){
                 rootView = inflater.inflate(R.layout.fragment_results, container, false);
-                textViewResults = (TextView) rootView.findViewById(R.id.textViewResults);
-                textViewResults.setText(MyApplication.getLastResults());
+                testResults = (TextView) rootView.findViewById(R.id.testResults);
+                testResults.setText(MyApplication.getLastResults());
             }
             else if(getArguments().getInt(ARG_SECTION_NUMBER) == 3){
                 rootView = inflater.inflate(R.layout.fragment_statistics, container, false);
-                TextView textView = (TextView) rootView.findViewById(R.id.section_label);
-                textView.setText(getString(R.string.section_format, getArguments().getInt(ARG_SECTION_NUMBER)));
+                statisticsData = (TextView) rootView.findViewById(R.id.statistics_data);
+                statisticsData.setText("This is statistics");
             }
             return rootView;
         }
@@ -178,6 +193,8 @@ public class SelectorActivity extends AppCompatActivity implements TaskListener 
 
         @Override
         public Fragment getItem(int position) {
+            if (testResults != null){testResults.setText(MyApplication.getLastResults());}
+            if (statisticsData != null){statisticsData.setText("STATISTICS DATA");}
             return PlaceholderFragment.newInstance(position + 1);
         }
 
@@ -197,6 +214,47 @@ public class SelectorActivity extends AppCompatActivity implements TaskListener 
                     return "STATISTICS";
             }
             return null;
+        }
+    }
+
+    public class Statistics extends AsyncTask<String, Integer, String> {
+        private final String TAG = this.getClass().getName();
+        private final String AUTHENTICATION_HEADER = "Authorization";
+        private String results = "";
+
+        @Override
+        protected String doInBackground(String... strings) {
+            publishProgress(0);
+            HttpHeaders requestHeaders = new HttpHeaders();
+            requestHeaders.set(AUTHENTICATION_HEADER, MyApplication.getBasicAuth());
+            requestHeaders.setContentType(MediaType.APPLICATION_JSON);
+            HttpEntity requestEntity = new HttpEntity (requestHeaders);
+            RestTemplate restTemplate = new RestTemplate(true);
+            restTemplate.getMessageConverters().add(new MappingJackson2HttpMessageConverter());
+            ResponseEntity<String> responseEntity = null;
+
+            try {
+                responseEntity = restTemplate.exchange(MyApplication.getAppContext().getResources().getString(R.string.url_tests)+"/statistics", HttpMethod.GET, requestEntity, String.class);
+                results= responseEntity.getBody();
+            } catch (Exception e) {
+                Log.v(TAG, "Exception: " + e.getMessage());
+                throw e;
+            }
+            return results;
+        }
+
+        @Override
+        protected void onProgressUpdate(Integer... values) {
+            super.onProgressUpdate(values);
+            Log.d(TAG, "Progress: " + values[0]);
+        }
+
+        @Override
+        protected void onPostExecute(String results) {
+            super.onPostExecute(results);
+            Log.d(TAG, "POST - Result: " + results);
+//            textViewResults.setText(results);
+            MyApplication.setLastResults(results);
         }
     }
 }
