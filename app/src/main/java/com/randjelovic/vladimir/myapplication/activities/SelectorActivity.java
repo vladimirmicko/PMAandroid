@@ -26,6 +26,7 @@ import android.widget.TextView;
 
 import com.randjelovic.vladimir.myapplication.AsyncTasks.SynchDatabase;
 import com.randjelovic.vladimir.myapplication.AsyncTasks.TaskListener;
+import com.randjelovic.vladimir.myapplication.common.MyApplication;
 import com.randjelovic.vladimir.myapplication.expandableadapter.Group;
 import com.randjelovic.vladimir.myapplication.expandableadapter.MyExpandableListAdapter;
 import com.randjelovic.vladimir.myapplication.R;
@@ -99,6 +100,8 @@ public class SelectorActivity extends AppCompatActivity implements TaskListener 
     public static class PlaceholderFragment extends Fragment {
 
         private static final String ARG_SECTION_NUMBER = "section_number";
+        private TextView textViewResults;
+
         SparseArray<Group> groups = new SparseArray<Group>();
         ExpandableListView listView;
         MyExpandableListAdapter adapter;
@@ -129,8 +132,8 @@ public class SelectorActivity extends AppCompatActivity implements TaskListener 
             }
             else if(getArguments().getInt(ARG_SECTION_NUMBER) == 2){
                 rootView = inflater.inflate(R.layout.fragment_results, container, false);
-                TextView textView = (TextView) rootView.findViewById(R.id.section_label);
-                textView.setText(getString(R.string.section_format, getArguments().getInt(ARG_SECTION_NUMBER)));
+                textViewResults = (TextView) rootView.findViewById(R.id.textViewResults);
+                textViewResults.setText(MyApplication.getLastResults());
             }
             else if(getArguments().getInt(ARG_SECTION_NUMBER) == 3){
                 rootView = inflater.inflate(R.layout.fragment_statistics, container, false);

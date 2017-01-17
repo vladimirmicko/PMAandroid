@@ -97,6 +97,7 @@ public class ResultsAcitivity extends AppCompatActivity {
             super.onPostExecute(results);
             Log.d(TAG, "POST - Result: " + results);
             textViewResults.setText(results);
+            MyApplication.setLastResults(results);
         }
     }
 }

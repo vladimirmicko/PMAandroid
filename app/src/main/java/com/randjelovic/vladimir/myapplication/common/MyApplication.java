@@ -23,6 +23,7 @@ public class MyApplication extends Application {
     private static Integer selectedTestNo;
     private static List<Integer> testScore;
     private static TestDao testDao;
+    private static String lastResults;
 
 
     public void onCreate() {
@@ -55,6 +56,8 @@ public class MyApplication extends Application {
     public static void setSelectedTestNo(Integer selectedTestNo) { MyApplication.selectedTestNo = selectedTestNo; }
     public static List<Slide> getSlideList() { return MyApplication.getTestList().get(MyApplication.getSelectedTestNo()).getSlideList(); }
     public static Test getSelectedTest() { return MyApplication.getTestList().get(MyApplication.getSelectedTestNo()); }
+    public static String getLastResults() { return MyApplication.lastResults; }
+    public static void setLastResults(String lastResults) { MyApplication.lastResults = lastResults; }
 }
 
 
