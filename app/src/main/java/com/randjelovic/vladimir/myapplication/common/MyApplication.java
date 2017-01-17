@@ -3,12 +3,9 @@ package com.randjelovic.vladimir.myapplication.common;
 import android.app.Application;
 import android.content.Context;
 
-import com.randjelovic.vladimir.myapplication.expandableadapter.Group;
-
 import java.util.ArrayList;
 import java.util.List;
 
-import data.dao.SlideDao;
 import data.dao.TestDao;
 import data.models.Slide;
 import data.models.Test;
@@ -23,9 +20,8 @@ public class MyApplication extends Application {
     private static boolean authenticated;
     private static String basicAuth;
     private static List<Test> testList;
-    private static Integer selectedTest;
+    private static Integer selectedTestNo;
     private static List<Integer> testScore;
-    private static List<Slide> slideList;
     private static TestDao testDao;
 
 
@@ -55,9 +51,10 @@ public class MyApplication extends Application {
     public static void setTestList(List<Test> testList) { MyApplication.testList = testList; }
     public static List<Integer> getTestScore() { return testScore; }
     public static void setTestScore(List<Integer> testScore) { MyApplication.testScore = testScore; }
-    public static Integer getSelectedTest() { return selectedTest; }
-    public static void setSelectedTest(Integer selectedTest) { MyApplication.selectedTest = selectedTest; }
-    public static List<Slide> getSlideList() { return MyApplication.getTestList().get(MyApplication.getSelectedTest()).getSlideList(); }
+    public static Integer getSelectedTestNo() { return selectedTestNo; }
+    public static void setSelectedTestNo(Integer selectedTestNo) { MyApplication.selectedTestNo = selectedTestNo; }
+    public static List<Slide> getSlideList() { return MyApplication.getTestList().get(MyApplication.getSelectedTestNo()).getSlideList(); }
+    public static Test getSelectedTest() { return MyApplication.getTestList().get(MyApplication.getSelectedTestNo()); }
 }
 
 

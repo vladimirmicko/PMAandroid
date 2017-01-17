@@ -33,15 +33,19 @@ import data.dao.SlideDao;
 import data.dao.TestDao;
 import data.models.Slide;
 import data.models.Test;
+import data.models.TestScore;
 
 public class ResultsAcitivity extends AppCompatActivity {
+
+    private TextView textViewResults;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_results_acitivity);
 
-        TextView textViewResults = (TextView) findViewById(R.id.textViewResults);
+        textViewResults = (TextView) findViewById(R.id.textViewResults);
         StringBuilder results = new StringBuilder();
         Integer counter = 1;
         for (Slide slide : MyApplication.getSlideList()) {
@@ -84,9 +88,10 @@ public class ResultsAcitivity extends AppCompatActivity {
             requestHeaders.set(AUTHENTICATION_HEADER, MyApplication.getBasicAuth());
             requestHeaders.setContentType(MediaType.APPLICATION_JSON);
 
-            MultiValueMap<String, List<String>> body = new LinkedMultiValueMap<String, List<String>>();
-            body.add("resultList", Arrays.asList(strings));
-            HttpEntity<?> requestEntity = new HttpEntity<Object>(body, requestHeaders);
+            MultiValueMap<String, TestScore> body = new LinkedMultiValueMap<String, TestScore>();
+            body.add("testScore", new TestScore(Arrays.asList(strings)));
+            TestScore testScore = new TestScore(Arrays.asList(strings));
+            HttpEntity<TestScore> requestEntity = new HttpEntity<TestScore>(testScore, requestHeaders);
 
             RestTemplate restTemplate = new RestTemplate(true);
             restTemplate.getMessageConverters().add(new MappingJackson2HttpMessageConverter());
@@ -94,7 +99,7 @@ public class ResultsAcitivity extends AppCompatActivity {
 
 
             try {
-                responseEntity = restTemplate.exchange(MyApplication.getAppContext().getResources().getString(R.string.url_tests)+"/1/results", HttpMethod.POST, requestEntity, String.class);
+                responseEntity = restTemplate.exchange(MyApplication.getAppContext().getResources().getString(R.string.url_tests)+"/"+MyApplication.getSelectedTest().getId()+"/results", HttpMethod.POST, requestEntity, String.class);
                 results= responseEntity.getBody();
             } catch (Exception e) {
                 Log.v(TAG, "Exception: " + e.getMessage());
@@ -114,6 +119,7 @@ public class ResultsAcitivity extends AppCompatActivity {
         protected void onPostExecute(String results) {
             super.onPostExecute(results);
             Log.d(TAG, "POST - Result: " + results);
+            textViewResults.setText(results);
             Toast.makeText(MyApplication.getAppContext(), results, Toast.LENGTH_SHORT).show();
 
         }
