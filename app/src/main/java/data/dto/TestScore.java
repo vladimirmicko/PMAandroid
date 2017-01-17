@@ -1,4 +1,4 @@
-package data.models;
+package data.dto;
 
 import java.util.Date;
 import java.util.List;
