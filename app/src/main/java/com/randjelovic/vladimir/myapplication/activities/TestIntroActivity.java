@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.Button;
 
 import com.randjelovic.vladimir.myapplication.R;
+import com.randjelovic.vladimir.myapplication.common.MyApplication;
 
 public class TestIntroActivity extends AppCompatActivity {
 
@@ -21,6 +22,7 @@ public class TestIntroActivity extends AppCompatActivity {
         startButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                MyApplication.getTestScore().clear();
                 Intent intent = new Intent(TestIntroActivity.this, TestingActivity.class);
                 intent.putExtra("TEST_SELECTED", testSelected);
                 TestIntroActivity.this.startActivity(intent);

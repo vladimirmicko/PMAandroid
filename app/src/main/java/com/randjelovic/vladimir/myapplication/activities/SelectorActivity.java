@@ -158,6 +158,7 @@ public class SelectorActivity extends AppCompatActivity implements TaskListener 
         @Override
         public void onViewCreated(View view, Bundle savedInstanceState) {
             super.onViewCreated(view, savedInstanceState);
+            if (testResults != null){testResults.setText(MyApplication.getLastResults());}
         }
 
 
