@@ -85,7 +85,7 @@ public class TestDao {
 
     public List<Test> getAll() {
         List<Test> testList = new ArrayList<Test>();
-        String selectQuery = "SELECT  * FROM " + TABLE_TESTS;
+        String selectQuery = "SELECT * FROM " + TABLE_TESTS;
 
         Log.e(LOG, selectQuery);
 

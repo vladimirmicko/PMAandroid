@@ -42,13 +42,10 @@ import org.springframework.http.converter.json.MappingJackson2HttpMessageConvert
 import org.springframework.web.client.RestTemplate;
 
 import java.io.ByteArrayInputStream;
-import java.nio.channels.Selector;
-import java.util.Arrays;
 import java.util.List;
 
 import data.dao.SlideDao;
 import data.dao.TestDao;
-import data.dto.TestScore;
 import data.models.Test;
 
 public class SelectorActivity extends AppCompatActivity implements TaskListener {
