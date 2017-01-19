@@ -25,5 +25,6 @@
     <string name="ok">OK</string>
     <string name="results">Last test results:</string>
     <string name="statistics_title">Statistics</string>
+    <string name="copyright">Vladimir Randjelovic, 2017</string>
 
 </resources>

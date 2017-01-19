@@ -24,6 +24,7 @@ public class MyApplication extends Application {
     private static List<Integer> testScore;
     private static TestDao testDao;
     private static String lastResults;
+    private static String lastStatistics;
 
 
     public void onCreate() {
@@ -58,6 +59,8 @@ public class MyApplication extends Application {
     public static Test getSelectedTest() { return MyApplication.getTestList().get(MyApplication.getSelectedTestNo()); }
     public static String getLastResults() { return MyApplication.lastResults; }
     public static void setLastResults(String lastResults) { MyApplication.lastResults = lastResults; }
+    public static String getLastStatistics() { return MyApplication.lastStatistics; }
+    public static void setLastStatistics(String lastStatistics) { MyApplication.lastStatistics = lastStatistics; }
 }
 
 

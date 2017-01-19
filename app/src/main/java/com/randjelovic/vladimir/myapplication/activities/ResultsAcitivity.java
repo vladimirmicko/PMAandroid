@@ -43,6 +43,7 @@ public class ResultsAcitivity extends AppCompatActivity {
             stringResults.add(String.valueOf(myInt));
         }
         new SendResults().execute(stringResults.toArray(new String[0]));
+        new GetStatistics().execute(stringResults.toArray(new String[0]));
         Button buttonResults = (Button) findViewById(R.id.button_results);
         buttonResults.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -97,6 +98,53 @@ public class ResultsAcitivity extends AppCompatActivity {
             Log.d(TAG, "POST - Result: " + results);
             textViewResults.setText(results);
             MyApplication.setLastResults(results);
+        }
+    }
+
+
+    public class GetStatistics extends AsyncTask<String, Integer, String> {
+
+        private final String TAG = this.getClass().getName();
+        private final String AUTHENTICATION_HEADER = "Authorization";
+        private String results = "";
+
+        @Override
+        protected String doInBackground(String... strings) {
+            publishProgress(0);
+            String message = null;
+            HttpHeaders requestHeaders = new HttpHeaders();
+            requestHeaders.set(AUTHENTICATION_HEADER, MyApplication.getBasicAuth());
+            requestHeaders.setContentType(MediaType.APPLICATION_JSON);
+
+            TestScore testScore = new TestScore(Arrays.asList(strings));
+            HttpEntity<TestScore> requestEntity = new HttpEntity<TestScore>(testScore, requestHeaders);
+
+            RestTemplate restTemplate = new RestTemplate(true);
+            restTemplate.getMessageConverters().add(new MappingJackson2HttpMessageConverter());
+            ResponseEntity<String> responseEntity = null;
+
+
+            try {
+                responseEntity = restTemplate.exchange(MyApplication.getAppContext().getResources().getString(R.string.url_tests)+"/statistics/"+MyApplication.getSelectedTest().getId(), HttpMethod.POST, requestEntity, String.class);
+                results= responseEntity.getBody();
+            } catch (Exception e) {
+                Log.v(TAG, "Exception: " + e.getMessage());
+                throw e;
+            }
+            return results;
+        }
+
+        @Override
+        protected void onProgressUpdate(Integer... values) {
+            super.onProgressUpdate(values);
+            Log.d(TAG, "Progress: " + values[0]);
+        }
+
+        @Override
+        protected void onPostExecute(String results) {
+            super.onPostExecute(results);
+            Log.d(TAG, "POST - Statistics: " + results);
+            MyApplication.setLastStatistics(results);
         }
     }
 }
