@@ -76,6 +76,13 @@ public class SlideDao {
     }
 
 
+    public Long insert(Slide slide, SQLiteDatabase db) {
+        ContentValues values = mapper(slide);
+        Long slideId = db.insert(TABLE_SLIDES, null, values);
+        return slideId;
+    }
+
+
     public List<Slide> getAllSlidesByTest(Long id) {
         List<Slide> slideList = new ArrayList<Slide>();
         String selectQuery = "SELECT  * FROM " + TABLE_SLIDES + " WHERE " + KEY_TEST_ID + " = ?";

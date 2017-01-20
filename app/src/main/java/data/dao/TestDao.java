@@ -65,11 +65,33 @@ public class TestDao {
     }
 
     public Long insert(Test test) {
-        SQLiteDatabase db = dbHelper.getWritableDatabase();
         ContentValues values = mapper(test);
-        Long test_id = db.insert(TABLE_TESTS, null, values);
-        return test_id;
+        SQLiteDatabase db = dbHelper.getWritableDatabase();
+        db.beginTransaction();
+        Long testId = insert(test, db);
+        for(Slide slide : test.getSlideList()){
+            slide.setTestId(testId);
+            slide.setId(null);
+            slideDao.insert(slide, db);
+        }
+        db.setTransactionSuccessful();
+        db.endTransaction();
+        return testId;
     }
+
+    public Long insert(Test test, SQLiteDatabase db) {
+        ContentValues values = mapper(test);
+        Long testId = db.insert(TABLE_TESTS, null, values);
+        return testId;
+    }
+
+    public void insertAll(List<Test> testList){
+        for(Test test : testList){
+            test.setId(null);
+            insert(test);
+        }
+    }
+
 
     public Test getTestById(Long id) {
         SQLiteDatabase db = dbHelper.getReadableDatabase();

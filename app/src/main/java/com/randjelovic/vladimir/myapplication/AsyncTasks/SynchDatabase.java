@@ -62,18 +62,8 @@ public class SynchDatabase extends AsyncTask<String, Integer, List<Test>> {
         }
 
         TestDao testDao = new TestDao();
-        SlideDao slideDao = new SlideDao();
         testDao.getDbHelper().onUpgrade(testDao.getDb(), 1, 2);
-
-        for(Test test : testList){
-            test.setId(null);
-            Long testId = testDao.insert(test);
-            for(Slide slide : test.getSlideList()){
-                slide.setTestId(testId);
-                slide.setId(null);
-                slideDao.insert(slide);
-            }
-        }
+        testDao.insertAll(testList);
         return testList;
     }
 
