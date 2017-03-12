@@ -17,8 +17,24 @@ import com.randjelovic.vladimir.myapplication.AsyncTasks.TaskListener;
 import com.randjelovic.vladimir.myapplication.common.MyApplication;
 import com.randjelovic.vladimir.myapplication.R;
 
+import org.json.JSONObject;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
+import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
+import org.springframework.web.client.RestTemplate;
+
+import java.io.DataOutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.net.URLEncoder;
+import java.util.Arrays;
+
+import data.dto.TestScore;
+import data.dto.UserLogin;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -45,47 +61,68 @@ public class LoginActivity extends AppCompatActivity {
 
 
     public class LoginService extends AsyncTask<String, Integer, String> implements TaskListener {
-
-        private static final String TAG = "Login";
+        private final String TAG = this.getClass().getName();
+        private final String AUTHENTICATION_HEADER = "Authorization";
         private static final String AUTHENTICATION_TAG = "Basic ";
-        private static final String AUTHENTICATION_HEADER = "Authorization";
+        private String results = "";
         private Intent starterIntent = null;
 
         @Override
         protected String doInBackground(String... strings) {
             publishProgress(0);
-            String message = null;
-            HttpURLConnection urlConnection = null;
-            try {
-                URL url = new URL(MyApplication.getAppContext().getResources().getString(R.string.url_authenticate));
-                urlConnection = (HttpURLConnection) url.openConnection();
-                String userCredentials = strings[0]+":"+strings[1];
-                String basicAuth = AUTHENTICATION_TAG + new String(Base64.encode(userCredentials.getBytes(), Base64.NO_WRAP));
-                MyApplication.setBasicAuth(basicAuth);
-                urlConnection.setRequestProperty(AUTHENTICATION_HEADER, basicAuth);
-                urlConnection.setRequestMethod("GET");
 
-                publishProgress(1);
-                Integer responseCode = urlConnection.getResponseCode();
-                if (responseCode==200){
-                    message=(MyApplication.getAppContext().getResources().getString(R.string.login_successful));
+            HttpHeaders requestHeaders = new HttpHeaders();
+            String userCredentials = strings[0]+":"+strings[1];
+            String basicAuth = AUTHENTICATION_TAG + new String(Base64.encode(userCredentials.getBytes(), Base64.NO_WRAP));
+            MyApplication.setBasicAuth(basicAuth);
+            requestHeaders.set(AUTHENTICATION_HEADER, MyApplication.getBasicAuth());
+            requestHeaders.setContentType(MediaType.APPLICATION_JSON);
+
+            UserLogin userLogin = new UserLogin(strings[0], strings[1]);
+            HttpEntity<UserLogin> requestEntity = new HttpEntity<UserLogin>(userLogin, requestHeaders);
+            RestTemplate restTemplate = new RestTemplate(true);
+            restTemplate.getMessageConverters().add(new MappingJackson2HttpMessageConverter());
+            ResponseEntity<String> responseEntity = null;
+
+            try {
+                responseEntity = restTemplate.exchange(MyApplication.getAppContext().getResources().getString(R.string.url_authenticate), HttpMethod.POST, requestEntity, String.class);
+                results= responseEntity.getBody();
+                HttpStatus responseCode = responseEntity.getStatusCode();
+
+                if (responseCode.value()==200){
+                    results=(MyApplication.getAppContext().getResources().getString(R.string.login_successful));
                     MyApplication.setAuthenticated(true);
                 }
-                else if(responseCode==401){
-                    message=(MyApplication.getAppContext().getResources().getString(R.string.unauthorised));
+                else if(responseCode.value()==401){
+                    results=(MyApplication.getAppContext().getResources().getString(R.string.unauthorised));
                     MyApplication.setAuthenticated(false);
                 }
                 else{
-                    message=(MyApplication.getAppContext().getResources().getString(R.string.authentication_error));
+                    results=(MyApplication.getAppContext().getResources().getString(R.string.authentication_error));
                     MyApplication.setAuthenticated(false);
                 }
+
+
                 Log.d(TAG, "HTTP response:"+responseCode.toString());
                 publishProgress(2);
+
             } catch (Exception e) {
-                e.printStackTrace();
+                Log.v(TAG, "Exception: " + e.getMessage());
+
+                if (e.getMessage().contains("200")){
+                    results=(MyApplication.getAppContext().getResources().getString(R.string.login_successful));
+                    MyApplication.setAuthenticated(true);
+                }
+                else if(e.getMessage().contains("401")){
+                    results=(MyApplication.getAppContext().getResources().getString(R.string.unauthorised));
+                    MyApplication.setAuthenticated(false);
+                }
+                else{
+                    results=(MyApplication.getAppContext().getResources().getString(R.string.authentication_error));
+                    MyApplication.setAuthenticated(false);
+                }
             }
-            publishProgress(3);
-            return message;
+            return results;
         }
 
         @Override
