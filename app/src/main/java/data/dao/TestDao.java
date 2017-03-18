@@ -71,7 +71,7 @@ public class TestDao {
         Long testId = insert(test, db);
         for(Slide slide : test.getSlideList()){
             slide.setTestId(testId);
-            slide.setId(null);
+            //slide.setId(null);
             slideDao.insert(slide, db);
         }
         db.setTransactionSuccessful();
@@ -87,7 +87,7 @@ public class TestDao {
 
     public void insertAll(List<Test> testList){
         for(Test test : testList){
-            test.setId(null);
+//            test.setId(null);
             insert(test);
         }
     }
