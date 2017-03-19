@@ -2,6 +2,7 @@ package com.randjelovic.vladimir.myapplication.activities;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.support.design.widget.TabLayout;
@@ -174,7 +175,10 @@ public class SelectorActivity extends AppCompatActivity implements TaskListener 
             for (Test test : testList) {
                 Group group = new Group(test.getTestName());
                 group.children.add(test.getDescription());
-                group.image= BitmapFactory.decodeStream(new ByteArrayInputStream(test.getTestPromoImage()));
+                Bitmap image = BitmapFactory.decodeStream(new ByteArrayInputStream(test.getTestPromoImage()));
+
+                group.image=Bitmap.createScaledBitmap(image, 200, 200, true);
+
 //                List<Slide> slideList = slideDao.getAllSlidesByTest(j);
 //                for (Slide slide : slideList) {
 //                    group.children.add(slide.getSlideName());
