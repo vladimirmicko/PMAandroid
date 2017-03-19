@@ -132,13 +132,17 @@ public class TestingActivity extends AppCompatActivity {
 
 
     private void showPrimeImage() {
-        image.setImageBitmap(BitmapFactory.decodeStream(new ByteArrayInputStream(test.getSlideList().get(imageIndex).getPrimingImage())));
+        if(imageIndex < test.getSlideList().size()) {
+            image.setImageBitmap(BitmapFactory.decodeStream(new ByteArrayInputStream(test.getSlideList().get(imageIndex).getPrimingImage())));
+        }
     }
 
 
     private void showTestImage() {
-        image.setImageBitmap(BitmapFactory.decodeStream(new ByteArrayInputStream(test.getSlideList().get(imageIndex).getTestImage())));
-        imageIndex++;
+        if(imageIndex < test.getSlideList().size()) {
+            image.setImageBitmap(BitmapFactory.decodeStream(new ByteArrayInputStream(test.getSlideList().get(imageIndex).getTestImage())));
+        }
+            imageIndex++;
 //
 //        Animation fade1 = new AlphaAnimation(0.0f, 1.0f);
 //        fade1.setDuration(3000);
