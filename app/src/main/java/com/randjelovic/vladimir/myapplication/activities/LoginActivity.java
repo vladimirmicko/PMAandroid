@@ -65,6 +65,7 @@ public class LoginActivity extends AppCompatActivity {
         private final String AUTHENTICATION_HEADER = "Authorization";
         private static final String AUTHENTICATION_TAG = "Basic ";
         private String results = "";
+        private UserLogin userLogin = new UserLogin();
         private Intent starterIntent = null;
 
         @Override
@@ -72,26 +73,27 @@ public class LoginActivity extends AppCompatActivity {
             publishProgress(0);
 
             HttpHeaders requestHeaders = new HttpHeaders();
-            String userCredentials = strings[0]+":"+strings[1];
-            String basicAuth = AUTHENTICATION_TAG + new String(Base64.encode(userCredentials.getBytes(), Base64.NO_WRAP));
-            MyApplication.setBasicAuth(basicAuth);
-            requestHeaders.set(AUTHENTICATION_HEADER, MyApplication.getBasicAuth());
+//            String userCredentials = strings[0]+":"+strings[1];
+//            String basicAuth = AUTHENTICATION_TAG + new String(Base64.encode(userCredentials.getBytes(), Base64.NO_WRAP));
+//            MyApplication.setBasicAuth(basicAuth);
+//            requestHeaders.set(AUTHENTICATION_HEADER, MyApplication.getBasicAuth());
             requestHeaders.setContentType(MediaType.APPLICATION_JSON);
 
             UserLogin userLogin = new UserLogin(strings[0], strings[1]);
             HttpEntity<UserLogin> requestEntity = new HttpEntity<UserLogin>(userLogin, requestHeaders);
             RestTemplate restTemplate = new RestTemplate(true);
             restTemplate.getMessageConverters().add(new MappingJackson2HttpMessageConverter());
-            ResponseEntity<String> responseEntity = null;
+            ResponseEntity<UserLogin> responseEntity = null;
 
             try {
-                responseEntity = restTemplate.exchange(MyApplication.getAppContext().getResources().getString(R.string.url_authenticate), HttpMethod.POST, requestEntity, String.class);
-                results= responseEntity.getBody();
+                responseEntity = restTemplate.exchange(MyApplication.getAppContext().getResources().getString(R.string.url_authenticate), HttpMethod.POST, requestEntity, UserLogin.class);
+                userLogin= responseEntity.getBody();
                 HttpStatus responseCode = responseEntity.getStatusCode();
 
                 if (responseCode.value()==200){
-                    results=(MyApplication.getAppContext().getResources().getString(R.string.login_successful));
                     MyApplication.setAuthenticated(true);
+                    MyApplication.setToken(userLogin.getToken());
+                    results=(MyApplication.getAppContext().getResources().getString(R.string.login_successful));
                 }
                 else if(responseCode.value()==401){
                     results=(MyApplication.getAppContext().getResources().getString(R.string.unauthorised));
@@ -101,8 +103,6 @@ public class LoginActivity extends AppCompatActivity {
                     results=(MyApplication.getAppContext().getResources().getString(R.string.authentication_error));
                     MyApplication.setAuthenticated(false);
                 }
-
-
                 Log.d(TAG, "HTTP response:"+responseCode.toString());
                 publishProgress(2);
 

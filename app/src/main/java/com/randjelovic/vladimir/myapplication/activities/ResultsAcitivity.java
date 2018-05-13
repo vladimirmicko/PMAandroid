@@ -24,6 +24,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import data.dto.StimulusResult;
 import data.models.Slide;
 import data.dto.TestScore;
 
@@ -37,13 +38,13 @@ public class ResultsAcitivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_results_acitivity);
         textViewResults = (TextView) findViewById(R.id.textViewResults);
-        List<Integer> integerResults = MyApplication.getTestScore();
-        List<String> stringResults = new ArrayList<String>(integerResults.size());
-        for (Integer myInt : integerResults) {
-            stringResults.add(String.valueOf(myInt));
-        }
-        new SendResults().execute(stringResults.toArray(new String[0]));
-        new GetStatistics().execute(stringResults.toArray(new String[0]));
+        TestScore testScore = MyApplication.getTestScore();
+//        List<String> stringResults = new ArrayList<String>(stimulusResults.size());
+//        for (StimulusResult stimulusResult : stimulusResults) {
+//            stringResults.add(String.valueOf(stimulusResult.getAnswer()));
+//        }
+//        new SendResults().execute(stringResults.toArray(new String[0]));
+//        new GetStatistics().execute(stringResults.toArray(new String[0]));
         Button buttonResults = (Button) findViewById(R.id.button_results);
         buttonResults.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -57,7 +58,7 @@ public class ResultsAcitivity extends AppCompatActivity {
     public class SendResults extends AsyncTask<String, Integer, String> {
 
         private final String TAG = this.getClass().getName();
-        private final String AUTHENTICATION_HEADER = "Authorization";
+        private final String COOKIE_HEADER = "Cookie";
         private String results = "";
 
         @Override
@@ -65,10 +66,10 @@ public class ResultsAcitivity extends AppCompatActivity {
             publishProgress(0);
             String message = null;
             HttpHeaders requestHeaders = new HttpHeaders();
-            requestHeaders.set(AUTHENTICATION_HEADER, MyApplication.getBasicAuth());
+            requestHeaders.set(COOKIE_HEADER, "JSESSIONID = "+MyApplication.getToken());
             requestHeaders.setContentType(MediaType.APPLICATION_JSON);
 
-            TestScore testScore = new TestScore(Arrays.asList(strings));
+            TestScore testScore = MyApplication.getTestScore();
             HttpEntity<TestScore> requestEntity = new HttpEntity<TestScore>(testScore, requestHeaders);
 
             RestTemplate restTemplate = new RestTemplate(true);
@@ -105,18 +106,17 @@ public class ResultsAcitivity extends AppCompatActivity {
     public class GetStatistics extends AsyncTask<String, Integer, String> {
 
         private final String TAG = this.getClass().getName();
-        private final String AUTHENTICATION_HEADER = "Authorization";
+        private final String COOKIE_HEADER = "Cookie";
         private String results = "";
 
         @Override
         protected String doInBackground(String... strings) {
             publishProgress(0);
-            String message = null;
             HttpHeaders requestHeaders = new HttpHeaders();
-            requestHeaders.set(AUTHENTICATION_HEADER, MyApplication.getBasicAuth());
+            requestHeaders.set(COOKIE_HEADER, "JSESSIONID = "+MyApplication.getToken());
             requestHeaders.setContentType(MediaType.APPLICATION_JSON);
 
-            TestScore testScore = new TestScore(Arrays.asList(strings));
+            TestScore testScore = new TestScore();
             HttpEntity<TestScore> requestEntity = new HttpEntity<TestScore>(testScore, requestHeaders);
 
             RestTemplate restTemplate = new RestTemplate(true);

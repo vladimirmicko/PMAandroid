@@ -18,6 +18,7 @@ import java.io.ByteArrayInputStream;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import data.dto.StimulusResult;
 import data.models.Test;
 
 public class TestingActivity extends AppCompatActivity {
@@ -59,7 +60,9 @@ public class TestingActivity extends AppCompatActivity {
         buttonGood.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                MyApplication.getTestScore().add(1);
+                StimulusResult stimulusResult = new StimulusResult();
+                stimulusResult.setAnswer(1);
+                MyApplication.getTestScore().addStimulusResult(stimulusResult);
                 if(imageIndex < test.getSlideList().size()){
                     activateSlides();
                 }
@@ -74,7 +77,9 @@ public class TestingActivity extends AppCompatActivity {
         buttonBad.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                MyApplication.getTestScore().add(0);
+                StimulusResult stimulusResult = new StimulusResult();
+                stimulusResult.setAnswer(0);
+                MyApplication.getTestScore().addStimulusResult(stimulusResult);
                 if(imageIndex < test.getSlideList().size()){
                     activateSlides();
                 }

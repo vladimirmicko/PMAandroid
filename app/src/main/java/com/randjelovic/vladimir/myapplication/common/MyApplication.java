@@ -7,6 +7,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import data.dao.TestDao;
+import data.dto.StimulusResult;
+import data.dto.TestScore;
 import data.models.Slide;
 import data.models.Test;
 
@@ -19,19 +21,23 @@ public class MyApplication extends Application {
     private static Context appContext;
     private static boolean authenticated;
     private static String basicAuth;
+    private static String token;
     private static List<Test> testList;
     private static Integer selectedTestNo;
-    private static List<Integer> testScore;
+    private static TestScore testScore;
     private static TestDao testDao;
     private static String lastResults;
     private static String lastStatistics;
+    private static Integer testBeginTime;
+    private static Integer primeShowTime;
+    private static Integer testShowTime;
 
 
     public void onCreate() {
         super.onCreate();
         MyApplication.appContext = getApplicationContext();
         authenticated=false;
-        testScore = new ArrayList();
+        testScore = new TestScore();
     }
 
     public static List<Test> loadTestsFromDb(){
@@ -43,24 +49,102 @@ public class MyApplication extends Application {
     public static Context getAppContext() {
         return MyApplication.appContext;
     }
-    public static boolean isAuthenticated() { return MyApplication.authenticated; }
-    public static void setAuthenticated(boolean value) {MyApplication.authenticated=value;}
+
+    public static boolean isAuthenticated() {
+        return MyApplication.authenticated;
+    }
+
+    public static void setAuthenticated(boolean value) {
+        MyApplication.authenticated = value;
+    }
+
     public static String getBasicAuth() {
         return MyApplication.basicAuth;
     }
-    public static void setBasicAuth(String basicAuth) {MyApplication.basicAuth=basicAuth;}
-    public static List<Test> getTestList() { return testList; }
-    public static void setTestList(List<Test> testList) { MyApplication.testList = testList; }
-    public static List<Integer> getTestScore() { return testScore; }
-    public static void setTestScore(List<Integer> testScore) { MyApplication.testScore = testScore; }
-    public static Integer getSelectedTestNo() { return selectedTestNo; }
-    public static void setSelectedTestNo(Integer selectedTestNo) { MyApplication.selectedTestNo = selectedTestNo; }
-    public static List<Slide> getSlideList() { return MyApplication.getTestList().get(MyApplication.getSelectedTestNo()).getSlideList(); }
-    public static Test getSelectedTest() { return MyApplication.getTestList().get(MyApplication.getSelectedTestNo()); }
-    public static String getLastResults() { return MyApplication.lastResults; }
-    public static void setLastResults(String lastResults) { MyApplication.lastResults = lastResults; }
-    public static String getLastStatistics() { return MyApplication.lastStatistics; }
-    public static void setLastStatistics(String lastStatistics) { MyApplication.lastStatistics = lastStatistics; }
+
+    public static void setBasicAuth(String basicAuth) {
+        MyApplication.basicAuth = basicAuth;
+    }
+
+    public static List<Test> getTestList() {
+        return testList;
+    }
+
+    public static void setTestList(List<Test> testList) {
+        MyApplication.testList = testList;
+    }
+
+    public static TestScore getTestScore() {
+        return testScore;
+    }
+
+    public static void setTestScore(TestScore testScore) {
+        MyApplication.testScore = testScore;
+    }
+
+    public static Integer getSelectedTestNo() {
+        return selectedTestNo;
+    }
+
+    public static void setSelectedTestNo(Integer selectedTestNo) {
+        MyApplication.selectedTestNo = selectedTestNo;
+    }
+
+    public static List<Slide> getSlideList() {
+        return MyApplication.getTestList().get(MyApplication.getSelectedTestNo()).getSlideList();
+    }
+
+    public static Test getSelectedTest() {
+        return MyApplication.getTestList().get(MyApplication.getSelectedTestNo());
+    }
+
+    public static String getLastResults() {
+        return MyApplication.lastResults;
+    }
+
+    public static void setLastResults(String lastResults) {
+        MyApplication.lastResults = lastResults;
+    }
+
+    public static String getLastStatistics() {
+        return MyApplication.lastStatistics;
+    }
+
+    public static void setLastStatistics(String lastStatistics) {
+        MyApplication.lastStatistics = lastStatistics;
+    }
+
+    public static Integer getTestBeginTime() {
+        return testBeginTime;
+    }
+
+    public static void setTestBeginTime(Integer testBeginTime) {
+        MyApplication.testBeginTime = testBeginTime;
+    }
+
+    public static Integer getPrimeShowTime() {
+        return primeShowTime;
+    }
+
+    public static void setPrimeShowTime(Integer primeShowTime) {
+        MyApplication.primeShowTime = primeShowTime;
+    }
+
+    public static Integer getTestShowTime() {
+        return testShowTime;
+    }
+
+    public static void setTestShowTime(Integer testShowTime) {
+        MyApplication.testShowTime = testShowTime;
+    }
+
+    public static String getToken() {
+        return token;
+    }
+
+    public static void setToken(String token) {
+        MyApplication.token = token;
+    }
 }
 
 

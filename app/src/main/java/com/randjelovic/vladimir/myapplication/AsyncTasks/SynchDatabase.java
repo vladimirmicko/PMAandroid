@@ -33,7 +33,7 @@ public class SynchDatabase extends AsyncTask<String, Integer, List<Test>> {
 
 
     private final String TAG = this.getClass().getName();
-    private final String AUTHENTICATION_HEADER = "Authorization";
+    private final String COOKIE_HEADER = "Cookie";
     private TaskListener taskListener;
     private List<Test> testList = null;
 
@@ -46,7 +46,7 @@ public class SynchDatabase extends AsyncTask<String, Integer, List<Test>> {
         publishProgress(0);
         String message = null;
         HttpHeaders requestHeaders = new HttpHeaders();
-        requestHeaders.set(AUTHENTICATION_HEADER, MyApplication.getBasicAuth());
+        requestHeaders.set(COOKIE_HEADER, "JSESSIONID = "+MyApplication.getToken());
         requestHeaders.setContentType(MediaType.APPLICATION_JSON);
         HttpEntity<?> requestEntity = new HttpEntity<Object>(requestHeaders);
         RestTemplate restTemplate = new RestTemplate(true);

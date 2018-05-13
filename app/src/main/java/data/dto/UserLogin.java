@@ -10,6 +10,7 @@ public class UserLogin {
 
     private String username;
     private String password;
+    private String token;
 
     public UserLogin() {
 
@@ -18,6 +19,7 @@ public class UserLogin {
     public UserLogin(String password, String username) {
         this.password = password;
         this.username = username;
+        this.token = token;
     }
 
     public String getPassword() {
@@ -34,5 +36,13 @@ public class UserLogin {
 
     public void setUsername(String username) {
         this.username = username;
+    }
+
+    public String getToken() {
+        return token;
+    }
+
+    public void setToken(String token) {
+        this.token = token;
     }
 }
