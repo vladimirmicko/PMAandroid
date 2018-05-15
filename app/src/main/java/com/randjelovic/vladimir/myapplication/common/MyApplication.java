@@ -28,9 +28,6 @@ public class MyApplication extends Application {
     private static TestDao testDao;
     private static String lastResults;
     private static String lastStatistics;
-    private static Integer testBeginTime;
-    private static Integer primeShowTime;
-    private static Integer testShowTime;
 
 
     public void onCreate() {
@@ -112,30 +109,6 @@ public class MyApplication extends Application {
 
     public static void setLastStatistics(String lastStatistics) {
         MyApplication.lastStatistics = lastStatistics;
-    }
-
-    public static Integer getTestBeginTime() {
-        return testBeginTime;
-    }
-
-    public static void setTestBeginTime(Integer testBeginTime) {
-        MyApplication.testBeginTime = testBeginTime;
-    }
-
-    public static Integer getPrimeShowTime() {
-        return primeShowTime;
-    }
-
-    public static void setPrimeShowTime(Integer primeShowTime) {
-        MyApplication.primeShowTime = primeShowTime;
-    }
-
-    public static Integer getTestShowTime() {
-        return testShowTime;
-    }
-
-    public static void setTestShowTime(Integer testShowTime) {
-        MyApplication.testShowTime = testShowTime;
     }
 
     public static String getToken() {

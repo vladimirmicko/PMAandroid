@@ -19,6 +19,7 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 import data.dto.StimulusResult;
+import data.dto.TestScore;
 import data.models.Test;
 
 public class TestingActivity extends AppCompatActivity {
@@ -37,6 +38,10 @@ public class TestingActivity extends AppCompatActivity {
     private Runnable primeImageUpdateResults;
     private Runnable testImageUpdateResults;
 
+    private TestScore testScore;
+    private long primeShowTime;
+    private long testShowTime;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,6 +55,10 @@ public class TestingActivity extends AppCompatActivity {
         buttonGood = (Button) findViewById(R.id.button_good);
         buttonStop = (Button) findViewById(R.id.button_stop_test);
 
+        testScore = new TestScore();
+        testScore.setTestStartTime(System.currentTimeMillis());
+
+
         buttonStop.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -62,11 +71,15 @@ public class TestingActivity extends AppCompatActivity {
             public void onClick(View view) {
                 StimulusResult stimulusResult = new StimulusResult();
                 stimulusResult.setAnswer(1);
-                MyApplication.getTestScore().addStimulusResult(stimulusResult);
-                if(imageIndex < test.getSlideList().size()){
+                stimulusResult.setAnswerTime(System.currentTimeMillis());
+                stimulusResult.setPrimeStimShowTime(primeShowTime);
+                stimulusResult.setTestStimShowTime(testShowTime);
+                stimulusResult.setStimulusNo(imageIndex);
+                testScore.addStimulusResult(stimulusResult);
+                MyApplication.setTestScore(testScore);
+                if (imageIndex < test.getSlideList().size()) {
                     activateSlides();
-                }
-                else{
+                } else {
                     Intent intent = new Intent(TestingActivity.this, ResultsAcitivity.class);
                     TestingActivity.this.startActivity(intent);
                     TestingActivity.this.finish();
@@ -79,11 +92,15 @@ public class TestingActivity extends AppCompatActivity {
             public void onClick(View view) {
                 StimulusResult stimulusResult = new StimulusResult();
                 stimulusResult.setAnswer(0);
-                MyApplication.getTestScore().addStimulusResult(stimulusResult);
-                if(imageIndex < test.getSlideList().size()){
+                stimulusResult.setAnswerTime(System.currentTimeMillis());
+                stimulusResult.setPrimeStimShowTime(primeShowTime);
+                stimulusResult.setTestStimShowTime(testShowTime);
+                stimulusResult.setStimulusNo(imageIndex);
+                testScore.addStimulusResult(stimulusResult);
+                MyApplication.setTestScore(testScore);
+                if (imageIndex < test.getSlideList().size()) {
                     activateSlides();
-                }
-                else{
+                } else {
                     Intent intent = new Intent(TestingActivity.this, ResultsAcitivity.class);
                     TestingActivity.this.startActivity(intent);
                     TestingActivity.this.finish();
@@ -109,7 +126,7 @@ public class TestingActivity extends AppCompatActivity {
             }
         };
 
-        new Handler().postDelayed(new Runnable(){
+        new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
                 activateSlides();
@@ -117,14 +134,14 @@ public class TestingActivity extends AppCompatActivity {
         }, 1);
     }
 
-    private void activateSlides(){
+    private void activateSlides() {
 
         primeTimer.schedule(new TimerTask() {
             @Override
             public void run() {
                 TestingActivity.this.primeImageHandler.post(TestingActivity.this.primeImageUpdateResults);
             }
-        },  getResources().getInteger(R.integer.initial_delay));
+        }, getResources().getInteger(R.integer.initial_delay));
 
 
         testTimer.schedule(new TimerTask() {
@@ -132,22 +149,24 @@ public class TestingActivity extends AppCompatActivity {
             public void run() {
                 TestingActivity.this.testImageHandler.post(TestingActivity.this.testImageUpdateResults);
             }
-        },  getResources().getInteger(R.integer.initial_delay)+test.getSlideList().get(imageIndex).getDelay());
+        }, getResources().getInteger(R.integer.initial_delay) + test.getSlideList().get(imageIndex).getDelay());
     }
 
 
     private void showPrimeImage() {
-        if(imageIndex < test.getSlideList().size()) {
+        if (imageIndex < test.getSlideList().size()) {
             image.setImageBitmap(BitmapFactory.decodeStream(new ByteArrayInputStream(test.getSlideList().get(imageIndex).getPrimingImage())));
+            primeShowTime=System.currentTimeMillis();
         }
     }
 
 
     private void showTestImage() {
-        if(imageIndex < test.getSlideList().size()) {
+        if (imageIndex < test.getSlideList().size()) {
             image.setImageBitmap(BitmapFactory.decodeStream(new ByteArrayInputStream(test.getSlideList().get(imageIndex).getTestImage())));
+            testShowTime=System.currentTimeMillis();
         }
-            imageIndex++;
+        imageIndex++;
 //
 //        Animation fade1 = new AlphaAnimation(0.0f, 1.0f);
 //        fade1.setDuration(3000);

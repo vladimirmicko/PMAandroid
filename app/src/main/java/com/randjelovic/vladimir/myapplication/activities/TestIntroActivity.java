@@ -22,7 +22,7 @@ public class TestIntroActivity extends AppCompatActivity {
         startButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                MyApplication.getTestScore().getScoreList().clear();
+                MyApplication.getTestScore().getStimulusResultList().clear();
                 Intent intent = new Intent(TestIntroActivity.this, TestingActivity.class);
                 intent.putExtra("TEST_SELECTED", testSelected);
                 TestIntroActivity.this.startActivity(intent);

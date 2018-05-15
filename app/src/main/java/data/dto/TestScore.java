@@ -9,39 +9,39 @@ package data.dto;
 
 public class TestScore {
 
-    private List<StimulusResult> scoreList;
-    private int testStartTime;
+    private List<StimulusResult> stimulusResultList;
+    private long testStartTime;
 
 
     public TestScore() {
-        this.scoreList = new ArrayList();
+        this.stimulusResultList = new ArrayList();
     }
 
-    public TestScore(List<StimulusResult> scoreList) {
-        this.scoreList = scoreList;
+    public TestScore(List<StimulusResult> stimulusResultList) {
+        this.stimulusResultList = stimulusResultList;
     }
 
     public void addStimulusResult(StimulusResult stimulusResult){
-        this.scoreList.add(stimulusResult);
+        this.stimulusResultList.add(stimulusResult);
     }
 
     public void removeStimulusResult(StimulusResult stimulusResult){
-        this.scoreList.remove(stimulusResult);
+        this.stimulusResultList.remove(stimulusResult);
     }
 
-    public List<StimulusResult> getScoreList() {
-        return scoreList;
+    public List<StimulusResult> getStimulusResultList() {
+        return stimulusResultList;
     }
 
-    public void setScoreList(List<StimulusResult> scoreList) {
-        this.scoreList = scoreList;
+    public void setStimulusResultList(List<StimulusResult> stimulusResultList) {
+        this.stimulusResultList = stimulusResultList;
     }
 
-    public int getTestStartTime() {
+    public long getTestStartTime() {
         return testStartTime;
     }
 
-    public void setTestStartTime(int testStartTime) {
+    public void setTestStartTime(long testStartTime) {
         this.testStartTime = testStartTime;
     }
 

@@ -73,10 +73,6 @@ public class LoginActivity extends AppCompatActivity {
             publishProgress(0);
 
             HttpHeaders requestHeaders = new HttpHeaders();
-//            String userCredentials = strings[0]+":"+strings[1];
-//            String basicAuth = AUTHENTICATION_TAG + new String(Base64.encode(userCredentials.getBytes(), Base64.NO_WRAP));
-//            MyApplication.setBasicAuth(basicAuth);
-//            requestHeaders.set(AUTHENTICATION_HEADER, MyApplication.getBasicAuth());
             requestHeaders.setContentType(MediaType.APPLICATION_JSON);
 
             UserLogin userLogin = new UserLogin(strings[0], strings[1]);
