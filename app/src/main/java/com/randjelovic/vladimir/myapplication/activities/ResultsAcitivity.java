@@ -19,13 +19,12 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.web.client.RestTemplate;
 
-import data.dto.StimulusResult;
-import data.dto.TestScore;
+import data.dto.Result;
 
 public class ResultsAcitivity extends AppCompatActivity {
 
     private TextView textViewResults;
-    private TestScore testScore;
+    private Result result;
 
 
     @Override
@@ -33,9 +32,9 @@ public class ResultsAcitivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_results_acitivity);
         textViewResults = (TextView) findViewById(R.id.textViewResults);
-        testScore = MyApplication.getTestScore();
+        result = MyApplication.getResult();
 //        List<String> stringResults = new ArrayList<String>(stimulusResults.size());
-//        for (StimulusResult stimulusResult : stimulusResults) {
+//        for (Answer stimulusResult : stimulusResults) {
 //            stringResults.add(String.valueOf(stimulusResult.getAnswer()));
 //        }
         new SendResults().execute();
@@ -64,11 +63,11 @@ public class ResultsAcitivity extends AppCompatActivity {
             requestHeaders.set(COOKIE_HEADER, "JSESSIONID = "+MyApplication.getToken());
             requestHeaders.setContentType(MediaType.APPLICATION_JSON);
 
-            TestScore testScore = MyApplication.getTestScore();
-            HttpEntity<TestScore> requestEntity = new HttpEntity<TestScore>(testScore, requestHeaders);
-//            StimulusResult stimulusResult = new StimulusResult();
+            Result result = MyApplication.getResult();
+            HttpEntity<Result> requestEntity = new HttpEntity<Result>(result, requestHeaders);
+//            Answer stimulusResult = new Answer();
 //            stimulusResult.setStimulusNo(12);
-//            HttpEntity<StimulusResult> requestEntity = new HttpEntity<StimulusResult>(stimulusResult, requestHeaders);
+//            HttpEntity<Answer> requestEntity = new HttpEntity<Answer>(stimulusResult, requestHeaders);
 
             RestTemplate restTemplate = new RestTemplate(true);
             restTemplate.getMessageConverters().add(new MappingJackson2HttpMessageConverter());
@@ -114,8 +113,8 @@ public class ResultsAcitivity extends AppCompatActivity {
             requestHeaders.set(COOKIE_HEADER, "JSESSIONID = "+MyApplication.getToken());
             requestHeaders.setContentType(MediaType.APPLICATION_JSON);
 
-            TestScore testScore = new TestScore();
-            HttpEntity<TestScore> requestEntity = new HttpEntity<TestScore>(testScore, requestHeaders);
+            Result result = new Result();
+            HttpEntity<Result> requestEntity = new HttpEntity<Result>(result, requestHeaders);
 
             RestTemplate restTemplate = new RestTemplate(true);
             restTemplate.getMessageConverters().add(new MappingJackson2HttpMessageConverter());

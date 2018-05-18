@@ -6,8 +6,6 @@ import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
-import android.view.animation.AlphaAnimation;
-import android.view.animation.Animation;
 import android.widget.Button;
 import android.widget.ImageView;
 
@@ -18,8 +16,8 @@ import java.io.ByteArrayInputStream;
 import java.util.Timer;
 import java.util.TimerTask;
 
-import data.dto.StimulusResult;
-import data.dto.TestScore;
+import data.dto.Answer;
+import data.dto.Result;
 import data.models.Test;
 
 public class TestingActivity extends AppCompatActivity {
@@ -38,7 +36,7 @@ public class TestingActivity extends AppCompatActivity {
     private Runnable primeImageUpdateResults;
     private Runnable testImageUpdateResults;
 
-    private TestScore testScore;
+    private Result result;
     private long primeShowTime;
     private long testShowTime;
 
@@ -55,8 +53,9 @@ public class TestingActivity extends AppCompatActivity {
         buttonGood = (Button) findViewById(R.id.button_good);
         buttonStop = (Button) findViewById(R.id.button_stop_test);
 
-        testScore = new TestScore();
-        testScore.setTestStartTime(System.currentTimeMillis());
+        result = new Result();
+        result.setTestStartTime(System.currentTimeMillis());
+        result.setTestId((test.getId().intValue()));
 
 
         buttonStop.setOnClickListener(new View.OnClickListener() {
@@ -69,14 +68,14 @@ public class TestingActivity extends AppCompatActivity {
         buttonGood.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                StimulusResult stimulusResult = new StimulusResult();
-                stimulusResult.setAnswer(1);
-                stimulusResult.setAnswerTime(System.currentTimeMillis());
-                stimulusResult.setPrimeStimShowTime(primeShowTime);
-                stimulusResult.setTestStimShowTime(testShowTime);
-                stimulusResult.setStimulusNo(imageIndex);
-                testScore.addStimulusResult(stimulusResult);
-                MyApplication.setTestScore(testScore);
+                Answer answer = new Answer();
+                answer.setAnswerValue(1);
+                answer.setAnswerTime(System.currentTimeMillis());
+                answer.setPrimeStimShowTime(primeShowTime);
+                answer.setTestStimShowTime(testShowTime);
+                answer.setAnswerNumber(imageIndex);
+                result.addStimulusResult(answer);
+                MyApplication.setResult(result);
                 if (imageIndex < test.getSlideList().size()) {
                     activateSlides();
                 } else {
@@ -90,14 +89,14 @@ public class TestingActivity extends AppCompatActivity {
         buttonBad.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                StimulusResult stimulusResult = new StimulusResult();
-                stimulusResult.setAnswer(0);
-                stimulusResult.setAnswerTime(System.currentTimeMillis());
-                stimulusResult.setPrimeStimShowTime(primeShowTime);
-                stimulusResult.setTestStimShowTime(testShowTime);
-                stimulusResult.setStimulusNo(imageIndex);
-                testScore.addStimulusResult(stimulusResult);
-                MyApplication.setTestScore(testScore);
+                Answer answer = new Answer();
+                answer.setAnswerValue(0);
+                answer.setAnswerTime(System.currentTimeMillis());
+                answer.setPrimeStimShowTime(primeShowTime);
+                answer.setTestStimShowTime(testShowTime);
+                answer.setAnswerNumber(imageIndex);
+                result.addStimulusResult(answer);
+                MyApplication.setResult(result);
                 if (imageIndex < test.getSlideList().size()) {
                     activateSlides();
                 } else {

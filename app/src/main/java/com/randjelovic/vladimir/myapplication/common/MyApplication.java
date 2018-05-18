@@ -3,12 +3,10 @@ package com.randjelovic.vladimir.myapplication.common;
 import android.app.Application;
 import android.content.Context;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import data.dao.TestDao;
-import data.dto.StimulusResult;
-import data.dto.TestScore;
+import data.dto.Result;
 import data.models.Slide;
 import data.models.Test;
 
@@ -24,7 +22,7 @@ public class MyApplication extends Application {
     private static String token;
     private static List<Test> testList;
     private static Integer selectedTestNo;
-    private static TestScore testScore;
+    private static Result result;
     private static TestDao testDao;
     private static String lastResults;
     private static String lastStatistics;
@@ -34,7 +32,7 @@ public class MyApplication extends Application {
         super.onCreate();
         MyApplication.appContext = getApplicationContext();
         authenticated=false;
-        testScore = new TestScore();
+        result = new Result();
     }
 
     public static List<Test> loadTestsFromDb(){
@@ -71,12 +69,12 @@ public class MyApplication extends Application {
         MyApplication.testList = testList;
     }
 
-    public static TestScore getTestScore() {
-        return testScore;
+    public static Result getResult() {
+        return result;
     }
 
-    public static void setTestScore(TestScore testScore) {
-        MyApplication.testScore = testScore;
+    public static void setResult(Result result) {
+        MyApplication.result = result;
     }
 
     public static Integer getSelectedTestNo() {

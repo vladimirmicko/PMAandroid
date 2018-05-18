@@ -1,7 +1,6 @@
 package com.randjelovic.vladimir.myapplication.activities;
 
 import android.content.Intent;
-import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -22,7 +21,7 @@ public class TestIntroActivity extends AppCompatActivity {
         startButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                MyApplication.getTestScore().getStimulusResultList().clear();
+                MyApplication.getResult().getAnswerList().clear();
                 Intent intent = new Intent(TestIntroActivity.this, TestingActivity.class);
                 intent.putExtra("TEST_SELECTED", testSelected);
                 TestIntroActivity.this.startActivity(intent);

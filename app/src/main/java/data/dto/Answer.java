@@ -8,42 +8,33 @@ import java.util.List;
  * Created by Vladimir on 1/6/2017.
  */
 
-public class StimulusResult {
+public class Answer {
 
-    private int testId;
-    private int stimulusNo;
+    private int answerNumber;
     private long primeStimShowTime;
     private long testStimShowTime;
-    private int answer;
     private long answerTime;
+    private int answerValue;
 
 
-    public StimulusResult() {
+    public Answer() {
     }
 
 
-    public int getTestId() {
-        return testId;
+    public int getAnswerNumber() {
+        return answerNumber;
     }
 
-    public void setTestId(int testId) {
-        this.testId = testId;
+    public void setAnswerNumber(int answerNumber) {
+        this.answerNumber = answerNumber;
     }
 
-    public int getStimulusNo() {
-        return stimulusNo;
+    public int getAnswerValue() {
+        return answerValue;
     }
 
-    public void setStimulusNo(int stimulusNo) {
-        this.stimulusNo = stimulusNo;
-    }
-
-    public int getAnswer() {
-        return answer;
-    }
-
-    public void setAnswer(int answer) {
-        this.answer = answer;
+    public void setAnswerValue(int answerValue) {
+        this.answerValue = answerValue;
     }
 
     public long getAnswerTime() {
