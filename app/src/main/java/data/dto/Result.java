@@ -11,7 +11,6 @@ public class Result {
 
     private List<Answer> answerList;
     private long testStartTime;
-    private int testId;
 
 
     public Result() {
@@ -44,13 +43,5 @@ public class Result {
 
     public void setTestStartTime(long testStartTime) {
         this.testStartTime = testStartTime;
-    }
-
-    public int getTestId() {
-        return testId;
-    }
-
-    public void setTestId(int testId) {
-        this.testId = testId;
     }
 }

@@ -55,8 +55,6 @@ public class TestingActivity extends AppCompatActivity {
 
         result = new Result();
         result.setTestStartTime(System.currentTimeMillis());
-        result.setTestId((test.getId().intValue()));
-
 
         buttonStop.setOnClickListener(new View.OnClickListener() {
             @Override

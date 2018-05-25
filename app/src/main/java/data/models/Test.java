@@ -19,7 +19,6 @@ public class Test {
     private byte[] testPromoImage;
     private List<Slide> slideList;
 
-    // constructors
     public Test() {
     }
 
@@ -36,7 +35,9 @@ public class Test {
         this.creationDate = creationDate;
     }
 
-    public Long getId() { return id; }
+    public Long getId() {
+        return id;
+    }
 
     public void setId(Long id) {
         this.id = id;
@@ -66,9 +67,13 @@ public class Test {
         this.testPromoImage = testPromoImage;
     }
 
-    public List<Slide> getSlideList() { return slideList; }
+    public List<Slide> getSlideList() {
+        return slideList;
+    }
 
-    public void setSlideList(List<Slide> slideList) { this.slideList = slideList; }
+    public void setSlideList(List<Slide> slideList) {
+        this.slideList = slideList;
+    }
 
     public String getResultYesDescription() {
         return resultYesDescription;

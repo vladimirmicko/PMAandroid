@@ -33,10 +33,6 @@ public class ResultsAcitivity extends AppCompatActivity {
         setContentView(R.layout.activity_results_acitivity);
         textViewResults = (TextView) findViewById(R.id.textViewResults);
         result = MyApplication.getResult();
-//        List<String> stringResults = new ArrayList<String>(stimulusResults.size());
-//        for (Answer stimulusResult : stimulusResults) {
-//            stringResults.add(String.valueOf(stimulusResult.getAnswer()));
-//        }
         new SendResults().execute();
         new GetStatistics().execute();
         Button buttonResults = (Button) findViewById(R.id.button_results);
@@ -65,9 +61,6 @@ public class ResultsAcitivity extends AppCompatActivity {
 
             Result result = MyApplication.getResult();
             HttpEntity<Result> requestEntity = new HttpEntity<Result>(result, requestHeaders);
-//            Answer stimulusResult = new Answer();
-//            stimulusResult.setStimulusNo(12);
-//            HttpEntity<Answer> requestEntity = new HttpEntity<Answer>(stimulusResult, requestHeaders);
 
             RestTemplate restTemplate = new RestTemplate(true);
             restTemplate.getMessageConverters().add(new MappingJackson2HttpMessageConverter());
