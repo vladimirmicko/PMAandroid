@@ -13,6 +13,9 @@ public class Test {
     private String testName;
     private String description;
     private String creationDate;
+    private String resultYesDescription;
+    private String resultNoDescription;
+
     private byte[] testPromoImage;
     private List<Slide> slideList;
 
@@ -66,4 +69,20 @@ public class Test {
     public List<Slide> getSlideList() { return slideList; }
 
     public void setSlideList(List<Slide> slideList) { this.slideList = slideList; }
+
+    public String getResultYesDescription() {
+        return resultYesDescription;
+    }
+
+    public void setResultYesDescription(String resultYesDescription) {
+        this.resultYesDescription = resultYesDescription;
+    }
+
+    public String getResultNoDescription() {
+        return resultNoDescription;
+    }
+
+    public void setResultNoDescription(String resultNoDescription) {
+        this.resultNoDescription = resultNoDescription;
+    }
 }
