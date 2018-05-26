@@ -47,6 +47,7 @@ public class SelectorActivity extends AppCompatActivity implements TaskListener 
     private ViewPager mViewPager;
     private static TextView testResults;
     private static TextView statisticsData;
+    private Intent myProfileIntent;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -85,6 +86,10 @@ public class SelectorActivity extends AppCompatActivity implements TaskListener 
         int id = item.getItemId();
         if (id == R.id.syncDb) {
             new SynchDatabase(this).execute("");
+        }
+        if (id == R.id.myProfile) {
+            myProfileIntent = new Intent(this, MyProfileActivity.class);
+            this.startActivity(myProfileIntent);
         }
         return super.onOptionsItemSelected(item);
     }

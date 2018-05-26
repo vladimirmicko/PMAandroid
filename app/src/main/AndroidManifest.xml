@@ -25,7 +25,8 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".activities.TestingActivity" />
         <activity android:name=".activities.TestIntroActivity" />
-        <activity android:name=".activities.ResultsAcitivity"></activity>
+        <activity android:name=".activities.ResultsAcitivity" />
+        <activity android:name=".activities.MyProfileActivity"></activity>
     </application>
 
 </manifest>

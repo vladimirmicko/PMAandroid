@@ -11,7 +11,7 @@
     <string name="hello_world">Hallo Buddy</string>
     <string name="show_picture">Show picture</string>
     <string name="RestMapping">RestMapping</string>
-    <string name="syncDb">SyncDb</string>
+    <string name="syncDb">Sync DB</string>
     <string name="startTest">Start test</string>
     <string name="start_test">Start test</string>
     <string name="stop_test">Stop test</string>
@@ -26,5 +26,6 @@
     <string name="results">Last test results:</string>
     <string name="statistics_title">Statistics</string>
     <string name="copyright">Vladimir Randjelovic, 2017</string>
+    <string name="myProfile">My profile</string>
 
 </resources>
