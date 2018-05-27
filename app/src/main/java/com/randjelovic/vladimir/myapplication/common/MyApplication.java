@@ -7,6 +7,7 @@ import java.util.List;
 
 import data.dao.TestDao;
 import data.dto.Result;
+import data.dto.UserAccount;
 import data.models.Slide;
 import data.models.Test;
 
@@ -18,8 +19,7 @@ public class MyApplication extends Application {
 
     private static Context appContext;
     private static boolean authenticated;
-    private static String basicAuth;
-    private static String token;
+    private static UserAccount userAccount;
     private static List<Test> testList;
     private static Integer selectedTestNo;
     private static Result result;
@@ -51,14 +51,6 @@ public class MyApplication extends Application {
 
     public static void setAuthenticated(boolean value) {
         MyApplication.authenticated = value;
-    }
-
-    public static String getBasicAuth() {
-        return MyApplication.basicAuth;
-    }
-
-    public static void setBasicAuth(String basicAuth) {
-        MyApplication.basicAuth = basicAuth;
     }
 
     public static List<Test> getTestList() {
@@ -109,13 +101,15 @@ public class MyApplication extends Application {
         MyApplication.lastStatistics = lastStatistics;
     }
 
-    public static String getToken() {
-        return token;
+    public static UserAccount getUserAccount() {
+        return userAccount;
     }
 
-    public static void setToken(String token) {
-        MyApplication.token = token;
+    public static void setUserAccount(UserAccount userAccount) {
+        MyApplication.userAccount = userAccount;
     }
+
+
 }
 
 

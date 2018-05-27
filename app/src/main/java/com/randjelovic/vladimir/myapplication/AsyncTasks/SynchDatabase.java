@@ -46,7 +46,7 @@ public class SynchDatabase extends AsyncTask<String, Integer, List<Test>> {
         publishProgress(0);
         String message = null;
         HttpHeaders requestHeaders = new HttpHeaders();
-        requestHeaders.set(COOKIE_HEADER, "JSESSIONID = "+MyApplication.getToken());
+        requestHeaders.set(COOKIE_HEADER, "JSESSIONID = "+MyApplication.getUserAccount().getSessionId());
         requestHeaders.setContentType(MediaType.APPLICATION_JSON);
         HttpEntity<?> requestEntity = new HttpEntity<Object>(requestHeaders);
         RestTemplate restTemplate = new RestTemplate(true);

@@ -56,7 +56,7 @@ public class ResultsAcitivity extends AppCompatActivity {
             publishProgress(0);
             String message = null;
             HttpHeaders requestHeaders = new HttpHeaders();
-            requestHeaders.set(COOKIE_HEADER, "JSESSIONID = "+MyApplication.getToken());
+            requestHeaders.set(COOKIE_HEADER, "JSESSIONID = "+MyApplication.getUserAccount().getSessionId());
             requestHeaders.setContentType(MediaType.APPLICATION_JSON);
 
             Result result = MyApplication.getResult();
@@ -103,7 +103,7 @@ public class ResultsAcitivity extends AppCompatActivity {
         protected String doInBackground(String... strings) {
             publishProgress(0);
             HttpHeaders requestHeaders = new HttpHeaders();
-            requestHeaders.set(COOKIE_HEADER, "JSESSIONID = "+MyApplication.getToken());
+            requestHeaders.set(COOKIE_HEADER, "JSESSIONID = "+MyApplication.getUserAccount().getSessionId());
             requestHeaders.setContentType(MediaType.APPLICATION_JSON);
 
             Result result = new Result();

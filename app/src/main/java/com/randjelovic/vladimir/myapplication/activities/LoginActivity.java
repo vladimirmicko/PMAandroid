@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.UserManager;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
@@ -25,7 +26,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.web.client.RestTemplate;
 
-import data.dto.UserLogin;
+import data.dto.UserAccount;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -53,10 +54,8 @@ public class LoginActivity extends AppCompatActivity {
 
     public class LoginService extends AsyncTask<String, Integer, String> implements TaskListener {
         private final String TAG = this.getClass().getName();
-        private final String AUTHENTICATION_HEADER = "Authorization";
-        private static final String AUTHENTICATION_TAG = "Basic ";
         private String results = "";
-        private UserLogin userLogin = new UserLogin();
+        private UserAccount userAccount = new UserAccount();
         private Intent starterIntent = null;
 
         @Override
@@ -66,20 +65,20 @@ public class LoginActivity extends AppCompatActivity {
             HttpHeaders requestHeaders = new HttpHeaders();
             requestHeaders.setContentType(MediaType.APPLICATION_JSON);
 
-            UserLogin userLogin = new UserLogin(strings[0], strings[1]);
-            HttpEntity<UserLogin> requestEntity = new HttpEntity<UserLogin>(userLogin, requestHeaders);
+            userAccount = new UserAccount(strings[0], strings[1]);
+            HttpEntity<UserAccount> requestEntity = new HttpEntity<UserAccount>(userAccount, requestHeaders);
             RestTemplate restTemplate = new RestTemplate(true);
             restTemplate.getMessageConverters().add(new MappingJackson2HttpMessageConverter());
-            ResponseEntity<UserLogin> responseEntity = null;
+            ResponseEntity<UserAccount> responseEntity = null;
 
             try {
-                responseEntity = restTemplate.exchange(MyApplication.getAppContext().getResources().getString(R.string.url_authenticate), HttpMethod.POST, requestEntity, UserLogin.class);
-                userLogin= responseEntity.getBody();
+                responseEntity = restTemplate.exchange(MyApplication.getAppContext().getResources().getString(R.string.url_authenticate), HttpMethod.POST, requestEntity, UserAccount.class);
+                userAccount= responseEntity.getBody();
                 HttpStatus responseCode = responseEntity.getStatusCode();
 
                 if (responseCode.value()==200){
                     MyApplication.setAuthenticated(true);
-                    MyApplication.setToken(userLogin.getToken());
+                    MyApplication.setUserAccount(userAccount);
                     results=(MyApplication.getAppContext().getResources().getString(R.string.login_successful));
                 }
                 else if(responseCode.value()==401){
