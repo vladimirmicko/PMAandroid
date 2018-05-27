@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.Toast;
@@ -26,6 +27,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.web.client.RestTemplate;
 
+import java.util.Calendar;
+
 import data.dto.UserAccount;
 
 public class MyProfileActivity extends AppCompatActivity {
@@ -33,6 +36,9 @@ public class MyProfileActivity extends AppCompatActivity {
     private EditText etUsername;
     private RadioButton rbMale;
     private RadioButton rbFemale;
+    private DatePicker dpBirthdate;
+    private String sex;
+    private UserAccount userAccount;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,10 +49,29 @@ public class MyProfileActivity extends AppCompatActivity {
         etUsername = (EditText) findViewById(R.id.etUsername);
         rbMale = (RadioButton) findViewById(R.id.rbMale);
         rbFemale = (RadioButton) findViewById(R.id.rbFemale);
+        dpBirthdate = (DatePicker) findViewById(R.id.dpBirthdate);
+
+        userAccount=MyApplication.getUserAccount();
+        etUsername.setText(userAccount.getUsername());
+        rbFemale.setSelected("F".equals(userAccount.getSex()));
+        if(userAccount.getBirthdate()!=null){
+            dpBirthdate.updateDate(userAccount.getBirthdate().getYear(), userAccount.getBirthdate().getMonth(), userAccount.getBirthdate().getDay());
+        }
+
+
 
         btSubmit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                userAccount=MyApplication.getUserAccount();
+                sex = rbMale.isSelected() ? "M" : "F";
+                userAccount.setSex(sex);
+
+                Calendar calendar = Calendar.getInstance();
+                calendar.set(dpBirthdate.getYear(), dpBirthdate.getMonth(), dpBirthdate.getDayOfMonth());
+                userAccount.setBirthdate(calendar.getTime());
+                MyApplication.setUserAccount(userAccount);
+
                 new MyProfileActivity.MyProfileService().execute(etUsername.getText().toString());
             }
         });
@@ -54,6 +79,7 @@ public class MyProfileActivity extends AppCompatActivity {
 
     public class MyProfileService extends AsyncTask<String, Integer, String> implements TaskListener {
         private final String TAG = this.getClass().getName();
+        private final String COOKIE_HEADER = "Cookie";
         private String results = "";
         private UserAccount userAccount = null;
         private Intent starterIntent = null;
@@ -63,6 +89,7 @@ public class MyProfileActivity extends AppCompatActivity {
             publishProgress(0);
 
             HttpHeaders requestHeaders = new HttpHeaders();
+            requestHeaders.set(COOKIE_HEADER, "JSESSIONID = "+MyApplication.getUserAccount().getSessionId());
             requestHeaders.setContentType(MediaType.APPLICATION_JSON);
 
             userAccount = MyApplication.getUserAccount();
@@ -72,21 +99,20 @@ public class MyProfileActivity extends AppCompatActivity {
             ResponseEntity<UserAccount> responseEntity = null;
 
             try {
-                responseEntity = restTemplate.exchange(MyApplication.getAppContext().getResources().getString(R.string.url_authenticate), HttpMethod.POST, requestEntity, UserAccount.class);
+                responseEntity = restTemplate.exchange(MyApplication.getAppContext().getResources().getString(R.string.url_my_profile), HttpMethod.POST, requestEntity, UserAccount.class);
                 userAccount= responseEntity.getBody();
                 HttpStatus responseCode = responseEntity.getStatusCode();
 
                 if (responseCode.value()==200){
-                    MyApplication.setAuthenticated(true);
                     MyApplication.setUserAccount(userAccount);
-                    results=(MyApplication.getAppContext().getResources().getString(R.string.login_successful));
+                    results=(MyApplication.getAppContext().getResources().getString(R.string.my_profile_changed));
                 }
                 else if(responseCode.value()==401){
                     results=(MyApplication.getAppContext().getResources().getString(R.string.unauthorised));
                     MyApplication.setAuthenticated(false);
                 }
                 else{
-                    results=(MyApplication.getAppContext().getResources().getString(R.string.authentication_error));
+                    results=(MyApplication.getAppContext().getResources().getString(R.string.my_profile_change_error));
                     MyApplication.setAuthenticated(false);
                 }
                 Log.d(TAG, "HTTP response:"+responseCode.toString());
@@ -96,7 +122,7 @@ public class MyProfileActivity extends AppCompatActivity {
                 Log.v(TAG, "Exception: " + e.getMessage());
 
                 if (e.getMessage().contains("200")){
-                    results=(MyApplication.getAppContext().getResources().getString(R.string.login_successful));
+                    results=(MyApplication.getAppContext().getResources().getString(R.string.my_profile_changed));
                     MyApplication.setAuthenticated(true);
                 }
                 else if(e.getMessage().contains("401")){
@@ -104,7 +130,7 @@ public class MyProfileActivity extends AppCompatActivity {
                     MyApplication.setAuthenticated(false);
                 }
                 else{
-                    results=(MyApplication.getAppContext().getResources().getString(R.string.authentication_error));
+                    results=(MyApplication.getAppContext().getResources().getString(R.string.my_profile_change_error));
                     MyApplication.setAuthenticated(false);
                 }
             }
@@ -122,11 +148,6 @@ public class MyProfileActivity extends AppCompatActivity {
             super.onPostExecute(result);
             Log.d(TAG, "GET - Result: " + result);
             Toast.makeText(MyApplication.getAppContext(), result, Toast.LENGTH_SHORT).show();
-
-            if(MyApplication.isAuthenticated()){
-                starterIntent = new Intent(MyProfileActivity.this, SelectorActivity.class);
-                new SynchDatabase(this).execute("");
-            }
         }
 
         @Override

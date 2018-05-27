@@ -27,5 +27,7 @@
     <string name="statistics_title">Statistics</string>
     <string name="copyright">Vladimir Randjelovic, 2017</string>
     <string name="myProfile">My profile</string>
+    <string name="my_profile_changed">My profile successfully changed!</string>
+    <string name="my_profile_change_error">Changing profile failed!</string>
 
 </resources>

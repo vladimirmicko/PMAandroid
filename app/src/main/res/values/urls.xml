@@ -2,4 +2,5 @@
 <resources>
     <string name="url_authenticate">http://10.0.2.2:8080/PMAspring/rest/security/authenticate</string>
     <string name="url_tests">http://10.0.2.2:8080/PMAspring/rest/tests</string>
+    <string name="url_my_profile">http://10.0.2.2:8080/PMAspring/rest/security/myProfile</string>
 </resources>
