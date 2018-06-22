@@ -107,7 +107,7 @@ public class ResultsAcitivity extends AppCompatActivity {
             requestHeaders.setContentType(MediaType.APPLICATION_JSON);
 
             Result result = new Result();
-            HttpEntity<Result> requestEntity = new HttpEntity<Result>(result, requestHeaders);
+            HttpEntity<?> requestEntity = new HttpEntity<Object>(requestHeaders);
 
             RestTemplate restTemplate = new RestTemplate(true);
             restTemplate.getMessageConverters().add(new MappingJackson2HttpMessageConverter());

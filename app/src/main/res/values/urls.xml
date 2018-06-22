@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="url_authenticate">http://10.0.2.2:8080/PMAspring/rest/security/authenticate</string>
-    <string name="url_tests">http://10.0.2.2:8080/PMAspring/rest/tests</string>
-    <string name="url_results">http://10.0.2.2:8080/PMAspring/rest/results</string>
-    <string name="url_my_profile">http://10.0.2.2:8080/PMAspring/rest/security/myProfile</string>
+    <string name="url_base">http://192.168.42.164:8080/</string>
+    <string name="url_authenticate">http://192.168.42.164:8080/PMAspring/rest/security/authenticate</string>
+    <string name="url_tests">http://192.168.42.164:8080/PMAspring/rest/tests</string>
+    <string name="url_results">http://192.168.42.164:8080/PMAspring/rest/results</string>
+    <string name="url_my_profile">http://192.168.42.164:8080/PMAspring/rest/security/myProfile</string>
 </resources>
