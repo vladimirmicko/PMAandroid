@@ -204,33 +204,50 @@ public class SelectorActivity extends AppCompatActivity implements TaskListener 
                 List<Field> allFields = listAllFields(statistics);
 
                 for(Field field : allFields){
-                    TableRow tableRow = new TableRow(rootView.getContext());
-                    TextView tvLabel = new TextView(rootView.getContext());
-                    TextView tvResult = new TextView(rootView.getContext());
+                    if(!field.getName().equals("testId") && !field.getName().equals("$change")) {
+                        TableRow tableRow = new TableRow(rootView.getContext());
+                        TextView tvLabel = new TextView(rootView.getContext());
+                        TextView tvResult = new TextView(rootView.getContext());
 
-                    field.setAccessible(true);
-                    try {
-                        Object value = field.get(statistics);
-                        if(value != null){
-                            stringValue = value.toString();
+                        field.setAccessible(true);
+                        try {
+                            Object value = field.get(statistics);
+                            if (value != null) {
+                                stringValue = value.toString();
+                            } else {
+                                stringValue = "---";
+                            }
+                        } catch (IllegalAccessException e) {
+                            e.printStackTrace();
                         }
-                        else{
-                            stringValue="---";
-                        }
-                    } catch (IllegalAccessException e) {
-                        e.printStackTrace();
+
+                        tvLabel.setText(field.getName());
+                        tvResult.setText(stringValue);
+
+                        tableRow.addView(tvLabel);
+                        tableRow.addView(tvResult);
+                        tableLayout.addView(tableRow);
+
+                        TableRow.LayoutParams resultLayoutParams = (TableRow.LayoutParams) tvResult.getLayoutParams();
+                        resultLayoutParams.setMargins(50, 0, 0, 0);
+                        tvResult.setLayoutParams(resultLayoutParams);
                     }
+                    if(field.getName().startsWith("_brake")){
+                        TableRow tableRow = new TableRow(rootView.getContext());
+                        TextView tvLabel = new TextView(rootView.getContext());
+                        TextView tvResult = new TextView(rootView.getContext());
 
-                    tvLabel.setText(field.getName());
-                    tvResult.setText(stringValue);
+                        tvLabel.setText(" ");
+                        tvResult.setText(" ");
 
-                    tableRow.addView(tvLabel);
-                    tableRow.addView(tvResult);
-                    tableLayout.addView(tableRow);
+                        tableRow.addView(tvLabel);
+                        tableRow.addView(tvResult);
+                        tableLayout.addView(tableRow);
 
-                    TableRow.LayoutParams resultLayoutParams = (TableRow.LayoutParams) tvResult.getLayoutParams();
-                    resultLayoutParams.setMargins(50,0,0,0);
-                    tvResult.setLayoutParams(resultLayoutParams);
+                        TableRow.LayoutParams resultLayoutParams = (TableRow.LayoutParams) tvResult.getLayoutParams();
+                        resultLayoutParams.setMargins(50, 0, 0, 0);
+                        tvResult.setLayoutParams(resultLayoutParams);
+                    }
                 }
             }
 
