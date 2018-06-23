@@ -23,6 +23,8 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import android.widget.ExpandableListView;
+import android.widget.TableLayout;
+import android.widget.TableRow;
 import android.widget.TextView;
 
 import com.randjelovic.vladimir.myapplication.AsyncTasks.SynchDatabase;
@@ -105,6 +107,7 @@ public class SelectorActivity extends AppCompatActivity implements TaskListener 
         return starterIntent;
     }
 
+
     public static class PlaceholderFragment extends Fragment {
 
         private static final String ARG_SECTION_NUMBER = "section_number";
@@ -147,6 +150,7 @@ public class SelectorActivity extends AppCompatActivity implements TaskListener 
                 rootView = inflater.inflate(R.layout.fragment_statistics, container, false);
                 statisticsData = (TextView) rootView.findViewById(R.id.statistics_data);
                 statisticsData.setText(MyApplication.getLastStatistics());
+                populateTable(rootView);
             }
             return rootView;
         }
@@ -180,6 +184,25 @@ public class SelectorActivity extends AppCompatActivity implements TaskListener 
                 j++;
             }
         }
+
+        private void populateTable(View rootView){
+            TableLayout tableLayout = (TableLayout) rootView.findViewById(R.id.table);
+
+            TableRow tableRow = new TableRow(rootView.getContext());
+            TextView tvLabel = new TextView(rootView.getContext());
+            TextView tvResult = new TextView(rootView.getContext());
+
+            tvLabel.setText("Number of results for test:");
+            tvResult.setText("44");
+
+            tableRow.addView(tvLabel);
+            tableRow.addView(tvResult);
+            tableLayout.addView(tableRow);
+
+            TableRow.LayoutParams resultLayoutParams = (TableRow.LayoutParams) tvResult.getLayoutParams();
+            resultLayoutParams.setMargins(50,0,0,0);
+            tvResult.setLayoutParams(resultLayoutParams);
+        }
     }
 
 
@@ -191,8 +214,12 @@ public class SelectorActivity extends AppCompatActivity implements TaskListener 
 
         @Override
         public Fragment getItem(int position) {
-            if (testResults != null){testResults.setText(MyApplication.getLastResults());}
-            if (statisticsData != null){statisticsData.setText(MyApplication.getLastStatistics());}
+            if (testResults != null){
+                testResults.setText(MyApplication.getLastResults());
+            }
+            if (statisticsData != null){
+                statisticsData.setText(MyApplication.getLastStatistics());
+            }
             return PlaceholderFragment.newInstance(position + 1);
         }
 

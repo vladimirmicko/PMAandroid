@@ -32,20 +32,57 @@
                 app:srcCompat="@drawable/statistics" />
 
             <TextView
-                android:id="@+id/textView6"
+                android:id="@+id/textView1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/activity_vertical_margin"
                 android:layout_weight="2"
                 android:text="@string/statistics_title"
-                android:textSize="18sp"
+                android:textSize="24sp"
                 android:textStyle="normal|bold" />
 
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
+                android:layout_marginBottom="1pt"
                 android:background="@android:color/black" />
 
+            <TableLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_gravity="center"
+                android:id="@+id/table"
+                android:gravity="center_vertical">
+
+                <TextView
+                    android:text="Test name: "
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/testName"
+                    android:layout_gravity="center"
+                    android:layout_marginBottom="10pt"
+                    android:textSize="18sp" />
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/tableRow">
+                    <TextView
+                        android:text=""
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/label"
+                        android:textSize="18sp" />
+                    <TextView
+                        android:text=""
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/result"
+                        android:layout_marginLeft="10pt"
+                        android:textSize="18sp" />
+                </TableRow>
+            </TableLayout>
             <TextView
                 android:id="@+id/statistics_data"
                 android:layout_width="match_parent"

@@ -6,6 +6,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.LinearLayout;
+import android.widget.TableLayout;
+import android.widget.TableRow;
 import android.widget.TextView;
 
 import com.randjelovic.vladimir.myapplication.R;
@@ -56,7 +59,7 @@ public class ResultsAcitivity extends AppCompatActivity {
             publishProgress(0);
             String message = null;
             HttpHeaders requestHeaders = new HttpHeaders();
-            requestHeaders.set(COOKIE_HEADER, "JSESSIONID = "+MyApplication.getUserAccount().getSessionId());
+            requestHeaders.set(COOKIE_HEADER, "JSESSIONID = " + MyApplication.getUserAccount().getSessionId());
             requestHeaders.setContentType(MediaType.APPLICATION_JSON);
 
             Result result = MyApplication.getResult();
@@ -68,8 +71,8 @@ public class ResultsAcitivity extends AppCompatActivity {
 
 
             try {
-                responseEntity = restTemplate.exchange(MyApplication.getAppContext().getResources().getString(R.string.url_results)+"/"+MyApplication.getSelectedTest().getId(), HttpMethod.POST, requestEntity, String.class);
-                results= responseEntity.getBody();
+                responseEntity = restTemplate.exchange(MyApplication.getAppContext().getResources().getString(R.string.url_results) + "/" + MyApplication.getSelectedTest().getId(), HttpMethod.POST, requestEntity, String.class);
+                results = responseEntity.getBody();
             } catch (Exception e) {
                 Log.v(TAG, "Exception: " + e.getMessage());
                 throw e;
@@ -103,7 +106,7 @@ public class ResultsAcitivity extends AppCompatActivity {
         protected String doInBackground(String... strings) {
             publishProgress(0);
             HttpHeaders requestHeaders = new HttpHeaders();
-            requestHeaders.set(COOKIE_HEADER, "JSESSIONID = "+MyApplication.getUserAccount().getSessionId());
+            requestHeaders.set(COOKIE_HEADER, "JSESSIONID = " + MyApplication.getUserAccount().getSessionId());
             requestHeaders.setContentType(MediaType.APPLICATION_JSON);
 
             Result result = new Result();
@@ -115,8 +118,8 @@ public class ResultsAcitivity extends AppCompatActivity {
 
 
             try {
-                responseEntity = restTemplate.exchange(MyApplication.getAppContext().getResources().getString(R.string.url_results)+"/statisticsForTest/"+MyApplication.getSelectedTest().getId(), HttpMethod.GET, requestEntity, String.class);
-                results= responseEntity.getBody();
+                responseEntity = restTemplate.exchange(MyApplication.getAppContext().getResources().getString(R.string.url_results) + "/statisticsForTest/" + MyApplication.getSelectedTest().getId(), HttpMethod.GET, requestEntity, String.class);
+                results = responseEntity.getBody();
             } catch (Exception e) {
                 Log.v(TAG, "Exception: " + e.getMessage());
                 throw e;
