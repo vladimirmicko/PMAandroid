@@ -23,6 +23,7 @@ import org.springframework.http.converter.json.MappingJackson2HttpMessageConvert
 import org.springframework.web.client.RestTemplate;
 
 import data.dto.Result;
+import data.dto.Statistics;
 
 public class ResultsAcitivity extends AppCompatActivity {
 
@@ -96,14 +97,14 @@ public class ResultsAcitivity extends AppCompatActivity {
     }
 
 
-    public class GetStatistics extends AsyncTask<String, Integer, String> {
+    public class GetStatistics extends AsyncTask<String, Integer, Statistics> {
 
         private final String TAG = this.getClass().getName();
         private final String COOKIE_HEADER = "Cookie";
-        private String results = "";
+        private Statistics results = null;
 
         @Override
-        protected String doInBackground(String... strings) {
+        protected Statistics doInBackground(String... strings) {
             publishProgress(0);
             HttpHeaders requestHeaders = new HttpHeaders();
             requestHeaders.set(COOKIE_HEADER, "JSESSIONID = " + MyApplication.getUserAccount().getSessionId());
@@ -114,11 +115,11 @@ public class ResultsAcitivity extends AppCompatActivity {
 
             RestTemplate restTemplate = new RestTemplate(true);
             restTemplate.getMessageConverters().add(new MappingJackson2HttpMessageConverter());
-            ResponseEntity<String> responseEntity = null;
+            ResponseEntity<Statistics> responseEntity = null;
 
 
             try {
-                responseEntity = restTemplate.exchange(MyApplication.getAppContext().getResources().getString(R.string.url_results) + "/statisticsForTest/" + MyApplication.getSelectedTest().getId(), HttpMethod.GET, requestEntity, String.class);
+                responseEntity = restTemplate.exchange(MyApplication.getAppContext().getResources().getString(R.string.url_results) + "/statisticsForTest/" + MyApplication.getSelectedTest().getId(), HttpMethod.GET, requestEntity, Statistics.class);
                 results = responseEntity.getBody();
             } catch (Exception e) {
                 Log.v(TAG, "Exception: " + e.getMessage());
@@ -134,10 +135,10 @@ public class ResultsAcitivity extends AppCompatActivity {
         }
 
         @Override
-        protected void onPostExecute(String results) {
+        protected void onPostExecute(Statistics results) {
             super.onPostExecute(results);
             Log.d(TAG, "POST - Statistics: " + results);
-            MyApplication.setLastStatistics(results);
+            MyApplication.setStatistics(results);
         }
     }
 }

@@ -34,11 +34,17 @@ import com.randjelovic.vladimir.myapplication.expandableadapter.Group;
 import com.randjelovic.vladimir.myapplication.expandableadapter.MyExpandableListAdapter;
 import com.randjelovic.vladimir.myapplication.R;
 
+import org.w3c.dom.Text;
+
 import java.io.ByteArrayInputStream;
+import java.lang.reflect.Field;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import data.dao.SlideDao;
 import data.dao.TestDao;
+import data.dto.Statistics;
 import data.models.Test;
 
 public class SelectorActivity extends AppCompatActivity implements TaskListener {
@@ -148,8 +154,8 @@ public class SelectorActivity extends AppCompatActivity implements TaskListener 
             }
             else if(getArguments().getInt(ARG_SECTION_NUMBER) == 3){
                 rootView = inflater.inflate(R.layout.fragment_statistics, container, false);
-                statisticsData = (TextView) rootView.findViewById(R.id.statistics_data);
-                statisticsData.setText(MyApplication.getLastStatistics());
+//                statisticsData = (TextView) rootView.findViewById(R.id.statistics_data);
+//                statisticsData.setText(MyApplication.getLastStatistics());
                 populateTable(rootView);
             }
             return rootView;
@@ -158,8 +164,9 @@ public class SelectorActivity extends AppCompatActivity implements TaskListener 
         @Override
         public void onViewCreated(View view, Bundle savedInstanceState) {
             super.onViewCreated(view, savedInstanceState);
+//            populateTable(view);
             if (testResults != null){testResults.setText(MyApplication.getLastResults());}
-            if (statisticsData != null){statisticsData.setText(MyApplication.getLastStatistics());}
+//            if (statisticsData != null){statisticsData.setText(MyApplication.getLastStatistics());}
         }
 
 
@@ -186,7 +193,47 @@ public class SelectorActivity extends AppCompatActivity implements TaskListener 
         }
 
         private void populateTable(View rootView){
+            String stringValue=null;
             TableLayout tableLayout = (TableLayout) rootView.findViewById(R.id.table);
+            TextView testName = (TextView) rootView.findViewById(R.id.testName);
+            Statistics statistics = MyApplication.getStatistics();
+
+            testName.setText("Test name: "+MyApplication.getSelectedTest().getTestName());
+
+            if (statistics != null){
+                List<Field> allFields = listAllFields(statistics);
+
+                for(Field field : allFields){
+                    TableRow tableRow = new TableRow(rootView.getContext());
+                    TextView tvLabel = new TextView(rootView.getContext());
+                    TextView tvResult = new TextView(rootView.getContext());
+
+                    field.setAccessible(true);
+                    try {
+                        Object value = field.get(statistics);
+                        if(value != null){
+                            stringValue = value.toString();
+                        }
+                        else{
+                            stringValue="---";
+                        }
+                    } catch (IllegalAccessException e) {
+                        e.printStackTrace();
+                    }
+
+                    tvLabel.setText(field.getName());
+                    tvResult.setText(stringValue);
+
+                    tableRow.addView(tvLabel);
+                    tableRow.addView(tvResult);
+                    tableLayout.addView(tableRow);
+
+                    TableRow.LayoutParams resultLayoutParams = (TableRow.LayoutParams) tvResult.getLayoutParams();
+                    resultLayoutParams.setMargins(50,0,0,0);
+                    tvResult.setLayoutParams(resultLayoutParams);
+                }
+            }
+
 
             TableRow tableRow = new TableRow(rootView.getContext());
             TextView tvLabel = new TextView(rootView.getContext());
@@ -203,6 +250,12 @@ public class SelectorActivity extends AppCompatActivity implements TaskListener 
             resultLayoutParams.setMargins(50,0,0,0);
             tvResult.setLayoutParams(resultLayoutParams);
         }
+
+        private List<Field> listAllFields(Object obj) {
+            List<Field> fieldList = new ArrayList<Field>();
+            fieldList.addAll(Arrays.asList(obj.getClass().getDeclaredFields()));
+            return  fieldList;
+        }
     }
 
 
@@ -215,10 +268,10 @@ public class SelectorActivity extends AppCompatActivity implements TaskListener 
         @Override
         public Fragment getItem(int position) {
             if (testResults != null){
-                testResults.setText(MyApplication.getLastResults());
+//                testResults.setText(MyApplication.getLastResults());
             }
             if (statisticsData != null){
-                statisticsData.setText(MyApplication.getLastStatistics());
+//                statisticsData.setText(MyApplication.getLastStatistics());
             }
             return PlaceholderFragment.newInstance(position + 1);
         }

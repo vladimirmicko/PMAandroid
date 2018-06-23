@@ -7,6 +7,7 @@ import java.util.List;
 
 import data.dao.TestDao;
 import data.dto.Result;
+import data.dto.Statistics;
 import data.dto.UserAccount;
 import data.models.Slide;
 import data.models.Test;
@@ -25,8 +26,7 @@ public class MyApplication extends Application {
     private static Result result;
     private static TestDao testDao;
     private static String lastResults;
-    private static String lastStatistics;
-
+    private static Statistics statistics;
 
     public void onCreate() {
         super.onCreate();
@@ -93,14 +93,6 @@ public class MyApplication extends Application {
         MyApplication.lastResults = lastResults;
     }
 
-    public static String getLastStatistics() {
-        return MyApplication.lastStatistics;
-    }
-
-    public static void setLastStatistics(String lastStatistics) {
-        MyApplication.lastStatistics = lastStatistics;
-    }
-
     public static UserAccount getUserAccount() {
         return userAccount;
     }
@@ -109,7 +101,21 @@ public class MyApplication extends Application {
         MyApplication.userAccount = userAccount;
     }
 
+    public static TestDao getTestDao() {
+        return testDao;
+    }
 
+    public static void setTestDao(TestDao testDao) {
+        MyApplication.testDao = testDao;
+    }
+
+    public static Statistics getStatistics() {
+        return statistics;
+    }
+
+    public static void setStatistics(Statistics statistics) {
+        MyApplication.statistics = statistics;
+    }
 }
 
 

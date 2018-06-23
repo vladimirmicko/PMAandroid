@@ -1,5 +1,7 @@
 package data.dto;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import java.io.Serializable;
 
 
@@ -404,7 +406,7 @@ public class Statistics implements Serializable {
 		this.totalNumberOfResultsForTest = totalNumberOfResultsForTest;
 	}
 
-
+	@JsonIgnore
 	public double getPercentMenPositive(){
 		double percentMenPositive=0;
 		if (numberOfMenPositive+numberOfMenNegative>0){
@@ -417,7 +419,7 @@ public class Statistics implements Serializable {
 	}
 
 
-
+	@JsonIgnore
 	public double getPercentMenNegative(){
 		double percentMenNegative=0;
 		if (numberOfMenPositive+numberOfMenNegative>0){
@@ -428,7 +430,8 @@ public class Statistics implements Serializable {
 		}
 		return percentMenNegative;
 	}
-	
+
+	@JsonIgnore
 	public double getPercentWomenPositive(){
 		double percentWomenPositive=0;
 		if (numberOfWomenPositive+numberOfWomenNegative>0){
@@ -439,8 +442,8 @@ public class Statistics implements Serializable {
 		}
 		return percentWomenPositive;
 	}
-    
-	
+
+	@JsonIgnore
 	public double getPercentWomenNegative(){
 		double percentWomenNegative=0;
 		if (numberOfWomenPositive+numberOfWomenNegative>0){
