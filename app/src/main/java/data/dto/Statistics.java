@@ -30,6 +30,8 @@ public class Statistics implements Serializable {
 	private int numberOfMenNegative31_50=0;
 	private int numberOfMenPositive51_=0;
 	private int numberOfMenNegative51_=0;
+	private double percentMenPositive=0;
+	private double percentMenNegative=0;
 
 	private int numberOfWomenPositive_30=0;
 	private int numberOfWomenNegative_30=0;
@@ -37,6 +39,8 @@ public class Statistics implements Serializable {
 	private int numberOfWomenNegative31_50=0;
 	private int numberOfWomenPositive51_=0;
 	private int numberOfWomenNegative51_=0;
+	private double percentWomenPositive=0;
+	private double percentWomenNegative=0;
 
 	private double averageResponseTime=0;
 	private double averageResponseTimeMen=0;
@@ -406,9 +410,27 @@ public class Statistics implements Serializable {
 		this.totalNumberOfResultsForTest = totalNumberOfResultsForTest;
 	}
 
-	@JsonIgnore
+	public void setPercentMenPositive(double percentMenPositive) {
+		this.percentMenPositive = percentMenPositive;
+	}
+
+
+	public void setPercentMenNegative(double percentMenNegative) {
+		this.percentMenNegative = percentMenNegative;
+	}
+
+
+	public void setPercentWomenPositive(double percentWomenPositive) {
+		this.percentWomenPositive = percentWomenPositive;
+	}
+
+
+	public void setPercentWomenNegative(double percentWomenNegative) {
+		this.percentWomenNegative = percentWomenNegative;
+	}
+
+//	@JsonIgnore
 	public double getPercentMenPositive(){
-		double percentMenPositive=0;
 		if (numberOfMenPositive+numberOfMenNegative>0){
 			percentMenPositive=numberOfMenPositive/(numberOfMenPositive+numberOfMenNegative);
 		}
@@ -419,9 +441,8 @@ public class Statistics implements Serializable {
 	}
 
 
-	@JsonIgnore
+//	@JsonIgnore
 	public double getPercentMenNegative(){
-		double percentMenNegative=0;
 		if (numberOfMenPositive+numberOfMenNegative>0){
 			percentMenNegative=numberOfMenNegative/(numberOfMenPositive+numberOfMenNegative);
 		}
@@ -431,9 +452,8 @@ public class Statistics implements Serializable {
 		return percentMenNegative;
 	}
 
-	@JsonIgnore
+//	@JsonIgnore
 	public double getPercentWomenPositive(){
-		double percentWomenPositive=0;
 		if (numberOfWomenPositive+numberOfWomenNegative>0){
 			percentWomenPositive=numberOfWomenPositive/(numberOfWomenPositive+numberOfWomenNegative);
 		}
@@ -443,9 +463,9 @@ public class Statistics implements Serializable {
 		return percentWomenPositive;
 	}
 
-	@JsonIgnore
+//	@JsonIgnore
 	public double getPercentWomenNegative(){
-		double percentWomenNegative=0;
+		percentWomenNegative=0;
 		if (numberOfWomenPositive+numberOfWomenNegative>0){
 			percentWomenNegative=numberOfWomenNegative/(numberOfWomenPositive+numberOfWomenNegative);
 		}
