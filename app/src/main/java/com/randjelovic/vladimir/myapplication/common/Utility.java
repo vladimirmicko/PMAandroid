@@ -16,11 +16,18 @@ public class Utility {
         );
     }
 
-    public static double round(double value, int places) {
+    public static double round(Double value, int places) {
         if (places < 0) throw new IllegalArgumentException();
+        double result;
 
-        BigDecimal bd = new BigDecimal(value);
-        bd = bd.setScale(places, RoundingMode.HALF_UP);
-        return bd.doubleValue();
+        if(!value.isNaN() && !value.isInfinite()){
+            BigDecimal bd = new BigDecimal(value);
+            bd = bd.setScale(places, RoundingMode.HALF_UP);
+            result = bd.doubleValue();
+        }
+        else{
+            result=0;
+        }
+        return result;
     }
 }

@@ -216,6 +216,9 @@ public class SelectorActivity extends AppCompatActivity implements TaskListener 
                         try {
                             Object value = field.get(statistics);
                             if (value != null) {
+                                if(value.getClass()==Double.class){
+                                    value=Utility.round((Double)value,2);
+                                }
                                 stringValue = value.toString();
                             } else {
                                 stringValue = "---";
@@ -225,7 +228,7 @@ public class SelectorActivity extends AppCompatActivity implements TaskListener 
                         }
 
                         String label = Utility.splitCamelCase(field.getName()).toLowerCase().replace("$","");
-                        label = label.substring(label.indexOf("_")<0? 0 : label.indexOf("_"));
+                        label = label.substring(label.indexOf("__")<0? 0 : label.indexOf("__")+2);
                         tvLabel.setText(label);
                         tvResult.setText(stringValue);
 
@@ -255,7 +258,7 @@ public class SelectorActivity extends AppCompatActivity implements TaskListener 
                         }
 
                         String label = Utility.splitCamelCase(field.getName()).toLowerCase().replace("$","");
-                        label = label.substring(label.indexOf("_")<0? 0 : label.indexOf("_"));
+                        label = label.substring(label.indexOf("__")<0? 0 : label.indexOf("__")+2);
                         tvLabel.setText(label);
                         tvResult.setText(stringValue);
 
