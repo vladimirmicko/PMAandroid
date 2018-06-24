@@ -224,7 +224,9 @@ public class SelectorActivity extends AppCompatActivity implements TaskListener 
                             e.printStackTrace();
                         }
 
-                        tvLabel.setText(Utility.splitCamelCase(field.getName()).toLowerCase());
+                        String label = Utility.splitCamelCase(field.getName()).toLowerCase().replace("$","");
+                        label = label.substring(label.indexOf("_")<0? 0 : label.indexOf("_"));
+                        tvLabel.setText(label);
                         tvResult.setText(stringValue);
 
                         tableRow.addView(tvLabel);
@@ -235,7 +237,7 @@ public class SelectorActivity extends AppCompatActivity implements TaskListener 
                         resultLayoutParams.setMargins(50, 0, 0, 0);
                         tvResult.setLayoutParams(resultLayoutParams);
                     }
-                    if(field.getName().contains("$")){
+                    else if(field.getName().contains("$$")){
                         TableRow tableRow = new TableRow(rootView.getContext());
                         TextView tvLabel = new TextView(rootView.getContext());
                         TextView tvResult = new TextView(rootView.getContext());
@@ -252,7 +254,9 @@ public class SelectorActivity extends AppCompatActivity implements TaskListener 
                             e.printStackTrace();
                         }
 
-                        tvLabel.setText(Utility.splitCamelCase(field.getName()).toLowerCase());
+                        String label = Utility.splitCamelCase(field.getName()).toLowerCase().replace("$","");
+                        label = label.substring(label.indexOf("_")<0? 0 : label.indexOf("_"));
+                        tvLabel.setText(label);
                         tvResult.setText(stringValue);
 
                         tableRow.addView(tvLabel);
@@ -269,7 +273,6 @@ public class SelectorActivity extends AppCompatActivity implements TaskListener 
                         TableRow.LayoutParams resultLayoutParams = (TableRow.LayoutParams) tvResult.getLayoutParams();
                         resultLayoutParams.setMargins(50, 50, 0, 0);
                         tvResult.setLayoutParams(resultLayoutParams);
-
                     }
                 }
             }

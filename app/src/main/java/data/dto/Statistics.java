@@ -1,13 +1,14 @@
 package data.dto;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.randjelovic.vladimir.myapplication.common.Utility;
 
 import java.io.Serializable;
 
 
 public class Statistics implements Serializable {
 
-	private int testId;
+	private int $testId;
 	private int totalNumberOfResultsForTest=0;
 
 	private int numberOfMen=0;
@@ -19,7 +20,7 @@ public class Statistics implements Serializable {
 	private int numberOfWomen31_50=0;
 	private int numberOfWomen51_=0;
 
-	private String numberOfMen$=" ";
+	private String numberOfMen$$=" ";
 	private int numberOfMenPositive=0;
 	private int numberOfMenNegative=0;
 	private int numberOfWomenPositive=0;
@@ -59,24 +60,21 @@ public class Statistics implements Serializable {
 	public Statistics() {
 	}
 
-	public String getNumberOfMen$() {
-		return numberOfMen$;
+	public String getNumberOfMen$$() {
+		return numberOfMen$$;
 	}
 
-	public void setNumberOfMen$(String numberOfMen$) {
-		this.numberOfMen$ = numberOfMen$;
+	public void setNumberOfMen$$(String numberOfMen$$) {
+		this.numberOfMen$$ = numberOfMen$$;
 	}
 
-	public int getTestId() {
-		return testId;
+	public int get$testId() {
+		return $testId;
 	}
 
-
-	public void setTestId(int testId) {
-		this.testId = testId;
+	public void set$testId(int $testId) {
+		this.$testId = $testId;
 	}
-
-
 
 	public int getNumberOfMen() {
 		return numberOfMen;
@@ -320,12 +318,14 @@ public class Statistics implements Serializable {
 
 
 	public double getAverageResponseTime() {
-		return averageResponseTime;
+		double ddd = Utility.round(averageResponseTime,2);
+		return Utility.round(averageResponseTime,2);
 	}
 
 
 	public void setAverageResponseTime(double averageResponseTime) {
-		this.averageResponseTime = averageResponseTime;
+		this.averageResponseTime = Utility.round(averageResponseTime,2);
+		double ddd = Utility.round(averageResponseTime,2);
 	}
 
 
