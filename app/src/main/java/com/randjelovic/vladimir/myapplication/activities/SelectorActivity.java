@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Typeface;
 import android.support.design.widget.TabLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -16,6 +17,7 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.os.Bundle;
 import android.util.SparseArray;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -30,6 +32,7 @@ import android.widget.TextView;
 import com.randjelovic.vladimir.myapplication.AsyncTasks.SynchDatabase;
 import com.randjelovic.vladimir.myapplication.AsyncTasks.TaskListener;
 import com.randjelovic.vladimir.myapplication.common.MyApplication;
+import com.randjelovic.vladimir.myapplication.common.Utility;
 import com.randjelovic.vladimir.myapplication.expandableadapter.Group;
 import com.randjelovic.vladimir.myapplication.expandableadapter.MyExpandableListAdapter;
 import com.randjelovic.vladimir.myapplication.R;
@@ -204,7 +207,7 @@ public class SelectorActivity extends AppCompatActivity implements TaskListener 
                 List<Field> allFields = listAllFields(statistics);
 
                 for(Field field : allFields){
-                    if(!field.getName().equals("testId") && !field.getName().equals("$change")) {
+                    if(!field.getName().contains("$") && !field.getName().equals("testId") && !field.getName().equals("$change")) {
                         TableRow tableRow = new TableRow(rootView.getContext());
                         TextView tvLabel = new TextView(rootView.getContext());
                         TextView tvResult = new TextView(rootView.getContext());
@@ -221,7 +224,7 @@ public class SelectorActivity extends AppCompatActivity implements TaskListener 
                             e.printStackTrace();
                         }
 
-                        tvLabel.setText(field.getName());
+                        tvLabel.setText(Utility.splitCamelCase(field.getName()).toLowerCase());
                         tvResult.setText(stringValue);
 
                         tableRow.addView(tvLabel);
@@ -232,21 +235,41 @@ public class SelectorActivity extends AppCompatActivity implements TaskListener 
                         resultLayoutParams.setMargins(50, 0, 0, 0);
                         tvResult.setLayoutParams(resultLayoutParams);
                     }
-                    if(field.getName().startsWith("_brake")){
+                    if(field.getName().contains("$")){
                         TableRow tableRow = new TableRow(rootView.getContext());
                         TextView tvLabel = new TextView(rootView.getContext());
                         TextView tvResult = new TextView(rootView.getContext());
 
-                        tvLabel.setText(" ");
-                        tvResult.setText(" ");
+                        field.setAccessible(true);
+                        try {
+                            Object value = field.get(statistics);
+                            if (value != null) {
+                                stringValue = value.toString();
+                            } else {
+                                stringValue = "---";
+                            }
+                        } catch (IllegalAccessException e) {
+                            e.printStackTrace();
+                        }
+
+                        tvLabel.setText(Utility.splitCamelCase(field.getName()).toLowerCase());
+                        tvResult.setText(stringValue);
 
                         tableRow.addView(tvLabel);
                         tableRow.addView(tvResult);
                         tableLayout.addView(tableRow);
 
+                        tvLabel.setTypeface(null, Typeface.BOLD);
+                        tvResult.setTypeface(null, Typeface.BOLD);
+
+                        TableRow.LayoutParams labelLayoutParams = (TableRow.LayoutParams) tvLabel.getLayoutParams();
+                        labelLayoutParams.setMargins(0, 50, 0, 0);
+                        tvLabel.setLayoutParams(labelLayoutParams);
+
                         TableRow.LayoutParams resultLayoutParams = (TableRow.LayoutParams) tvResult.getLayoutParams();
-                        resultLayoutParams.setMargins(50, 0, 0, 0);
+                        resultLayoutParams.setMargins(50, 50, 0, 0);
                         tvResult.setLayoutParams(resultLayoutParams);
+
                     }
                 }
             }

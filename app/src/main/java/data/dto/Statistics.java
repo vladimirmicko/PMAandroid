@@ -19,6 +19,7 @@ public class Statistics implements Serializable {
 	private int numberOfWomen31_50=0;
 	private int numberOfWomen51_=0;
 
+	private String numberOfMen$=" ";
 	private int numberOfMenPositive=0;
 	private int numberOfMenNegative=0;
 	private int numberOfWomenPositive=0;
@@ -58,6 +59,13 @@ public class Statistics implements Serializable {
 	public Statistics() {
 	}
 
+	public String getNumberOfMen$() {
+		return numberOfMen$;
+	}
+
+	public void setNumberOfMen$(String numberOfMen$) {
+		this.numberOfMen$ = numberOfMen$;
+	}
 
 	public int getTestId() {
 		return testId;
@@ -429,7 +437,6 @@ public class Statistics implements Serializable {
 		this.percentWomenNegative = percentWomenNegative;
 	}
 
-//	@JsonIgnore
 	public double getPercentMenPositive(){
 		if (numberOfMenPositive+numberOfMenNegative>0){
 			percentMenPositive=numberOfMenPositive/(numberOfMenPositive+numberOfMenNegative);
@@ -441,7 +448,6 @@ public class Statistics implements Serializable {
 	}
 
 
-//	@JsonIgnore
 	public double getPercentMenNegative(){
 		if (numberOfMenPositive+numberOfMenNegative>0){
 			percentMenNegative=numberOfMenNegative/(numberOfMenPositive+numberOfMenNegative);
@@ -452,7 +458,6 @@ public class Statistics implements Serializable {
 		return percentMenNegative;
 	}
 
-//	@JsonIgnore
 	public double getPercentWomenPositive(){
 		if (numberOfWomenPositive+numberOfWomenNegative>0){
 			percentWomenPositive=numberOfWomenPositive/(numberOfWomenPositive+numberOfWomenNegative);
@@ -463,7 +468,6 @@ public class Statistics implements Serializable {
 		return percentWomenPositive;
 	}
 
-//	@JsonIgnore
 	public double getPercentWomenNegative(){
 		percentWomenNegative=0;
 		if (numberOfWomenPositive+numberOfWomenNegative>0){
