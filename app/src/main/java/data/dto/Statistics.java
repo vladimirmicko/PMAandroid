@@ -40,7 +40,7 @@ public class Statistics implements Serializable {
 	private double _24__percentMenNegative=0;
 
 	private String _25__ResultsByAgeForWomen$$ = "";
-	private int _26_numberOfWomenPositive12_30=0;
+	private int _26__numberOfWomenPositive12_30=0;
 	private int _27__numberOfWomenNegative12_30=0;
 	private int _28__numberOfWomenPositive31_50=0;
 	private int _29__numberOfWomenNegative31_50=0;
@@ -261,8 +261,8 @@ public class Statistics implements Serializable {
 	}
 
 
-	public int get_26_numberOfWomenPositive12_30() {
-		return _26_numberOfWomenPositive12_30;
+	public int get_26__numberOfWomenPositive12_30() {
+		return _26__numberOfWomenPositive12_30;
 	}
 
 
@@ -486,8 +486,8 @@ public class Statistics implements Serializable {
 	}
 
 
-	public void set_26_numberOfWomenPositive12_30(int _26_numberOfWomenPositive12_30) {
-		this._26_numberOfWomenPositive12_30 = _26_numberOfWomenPositive12_30;
+	public void set_26__numberOfWomenPositive12_30(int _26__numberOfWomenPositive12_30) {
+		this._26__numberOfWomenPositive12_30 = _26__numberOfWomenPositive12_30;
 	}
 
 
