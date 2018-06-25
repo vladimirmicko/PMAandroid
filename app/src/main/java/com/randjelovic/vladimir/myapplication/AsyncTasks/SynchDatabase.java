@@ -54,7 +54,7 @@ public class SynchDatabase extends AsyncTask<String, Integer, List<Test>> {
         ResponseEntity<Test[]> responseEntityTests = null;
 
         try {
-            responseEntityTests = restTemplate.exchange(MyApplication.getAppContext().getResources().getString(R.string.url_tests), HttpMethod.GET, requestEntity, Test[].class);
+            responseEntityTests = restTemplate.exchange(MyApplication.getAppContext().getResources().getString(R.string.url_base)+MyApplication.getAppContext().getResources().getString(R.string.url_tests), HttpMethod.GET, requestEntity, Test[].class);
             testList= Arrays.asList(responseEntityTests.getBody());
         } catch (Exception e) {
             Log.v(TAG, "Exception: " + e.getMessage());

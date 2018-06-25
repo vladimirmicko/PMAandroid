@@ -72,7 +72,7 @@ public class ResultsAcitivity extends AppCompatActivity {
 
 
             try {
-                responseEntity = restTemplate.exchange(MyApplication.getAppContext().getResources().getString(R.string.url_results) + "/" + MyApplication.getSelectedTest().getId(), HttpMethod.POST, requestEntity, String.class);
+                responseEntity = restTemplate.exchange(MyApplication.getAppContext().getResources().getString(R.string.url_base)+MyApplication.getAppContext().getResources().getString(R.string.url_results) + "/" + MyApplication.getSelectedTest().getId(), HttpMethod.POST, requestEntity, String.class);
                 results = responseEntity.getBody();
             } catch (Exception e) {
                 Log.v(TAG, "Exception: " + e.getMessage());
@@ -119,7 +119,7 @@ public class ResultsAcitivity extends AppCompatActivity {
 
 
             try {
-                responseEntity = restTemplate.exchange(MyApplication.getAppContext().getResources().getString(R.string.url_results) + "/statisticsForTest/" + MyApplication.getSelectedTest().getId(), HttpMethod.GET, requestEntity, Statistics.class);
+                responseEntity = restTemplate.exchange(MyApplication.getAppContext().getResources().getString(R.string.url_base)+MyApplication.getAppContext().getResources().getString(R.string.url_results) + "/statisticsForTest/" + MyApplication.getSelectedTest().getId(), HttpMethod.GET, requestEntity, Statistics.class);
                 results = responseEntity.getBody();
             } catch (Exception e) {
                 Log.v(TAG, "Exception: " + e.getMessage());

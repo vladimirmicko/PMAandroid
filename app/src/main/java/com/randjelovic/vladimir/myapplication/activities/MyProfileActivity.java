@@ -99,7 +99,7 @@ public class MyProfileActivity extends AppCompatActivity {
             ResponseEntity<UserAccount> responseEntity = null;
 
             try {
-                responseEntity = restTemplate.exchange(MyApplication.getAppContext().getResources().getString(R.string.url_my_profile), HttpMethod.POST, requestEntity, UserAccount.class);
+                responseEntity = restTemplate.exchange(MyApplication.getAppContext().getResources().getString(R.string.url_base)+MyApplication.getAppContext().getResources().getString(R.string.url_my_profile), HttpMethod.POST, requestEntity, UserAccount.class);
                 userAccount= responseEntity.getBody();
                 HttpStatus responseCode = responseEntity.getStatusCode();
 
