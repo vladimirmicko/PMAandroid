@@ -64,7 +64,7 @@ public class MyProfileActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 userAccount=MyApplication.getUserAccount();
-                sex = rbMale.isSelected() ? "M" : "F";
+                sex = rbMale.isChecked() ? "M" : "F";
                 userAccount.setSex(sex);
 
                 Calendar calendar = Calendar.getInstance();

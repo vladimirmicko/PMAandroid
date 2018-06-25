@@ -54,7 +54,7 @@ public class Statistics implements Serializable {
 	private double _36__averageResponseTimeMen=0;
 	private double _37__averageResponseTimeWomen=0;
 
-	private String _38__ResponseTimeByAge$$S = "";
+	private String _38__ResponseTimeByAge$$ = "";
 	private double _39__averageResponseTimeMen12_30=0;
 	private double _40__averageResponseTimeMen31_50=0;
 	private double _41__averageResponseTimeMen51_75=0;
@@ -321,8 +321,8 @@ public class Statistics implements Serializable {
 	}
 
 
-	public String get_38__ResponseTimeByAge$$S() {
-		return _38__ResponseTimeByAge$$S;
+	public String get_38__ResponseTimeByAge$$() {
+		return _38__ResponseTimeByAge$$;
 	}
 
 
@@ -546,8 +546,8 @@ public class Statistics implements Serializable {
 	}
 
 
-	public void set_38__ResponseTimeByAge$$S(String _38__ResponseTimeByAge$$S) {
-		this._38__ResponseTimeByAge$$S = _38__ResponseTimeByAge$$S;
+	public void set_38__ResponseTimeByAge$$(String _38__ResponseTimeByAge$$) {
+		this._38__ResponseTimeByAge$$ = _38__ResponseTimeByAge$$;
 	}
 
 
