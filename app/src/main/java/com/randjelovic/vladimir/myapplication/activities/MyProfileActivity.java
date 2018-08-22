@@ -39,6 +39,9 @@ public class MyProfileActivity extends AppCompatActivity {
     private DatePicker dpBirthdate;
     private String sex;
     private UserAccount userAccount;
+    private int year=1972;
+    private int month=10;
+    private int day=5;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,10 +57,25 @@ public class MyProfileActivity extends AppCompatActivity {
         userAccount=MyApplication.getUserAccount();
         etUsername.setText(userAccount.getUsername());
         rbFemale.setSelected("F".equals(userAccount.getSex()));
-        if(userAccount.getBirthdate()!=null){
-            dpBirthdate.updateDate(userAccount.getBirthdate().getYear(), userAccount.getBirthdate().getMonth(), userAccount.getBirthdate().getDay());
-        }
 
+        year=userAccount.getBirthdate().getYear();
+        month=userAccount.getBirthdate().getMonth()+1;
+        day=userAccount.getBirthdate().getDay();
+
+//        year=1972;
+//        month=10;
+//        day =5;
+
+        dpBirthdate.invalidate();
+        if(userAccount.getBirthdate()!=null){
+            dpBirthdate.init(year,month,day, null);
+            dpBirthdate.updateDate(year, month, day);
+            dpBirthdate.invalidate();
+//            dpBirthdate.updateDate(year,month,day);
+        }
+        dpBirthdate.invalidate();
+        dpBirthdate.refreshDrawableState();
+        dpBirthdate.invalidate();
 
 
         btSubmit.setOnClickListener(new View.OnClickListener() {
