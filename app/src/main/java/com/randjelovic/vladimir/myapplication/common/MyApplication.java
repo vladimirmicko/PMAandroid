@@ -27,6 +27,7 @@ public class MyApplication extends Application {
     private static TestDao testDao;
     private static String lastResults;
     private static Statistics statistics;
+    private static Long deltaT;
 
     public void onCreate() {
         super.onCreate();
@@ -115,6 +116,14 @@ public class MyApplication extends Application {
 
     public static void setStatistics(Statistics statistics) {
         MyApplication.statistics = statistics;
+    }
+
+    public static Long getDeltaT() {
+        return deltaT;
+    }
+
+    public static void setDeltaT(Long deltaT) {
+        MyApplication.deltaT = deltaT;
     }
 }
 
