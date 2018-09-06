@@ -14,6 +14,9 @@ public class UserAccount {
     private String sex;
     private Date birthdate;
     private String sessionId;
+    private Long tsMobile;
+    private Long tsServer;
+    private Long deltaT;
 
 
     public UserAccount() {
@@ -71,5 +74,29 @@ public class UserAccount {
 
     public void setId(Integer id) {
         this.id = id;
+    }
+
+    public Long getTsMobile() {
+        return tsMobile;
+    }
+
+    public void setTsMobile(Long tsMobile) {
+        this.tsMobile = tsMobile;
+    }
+
+    public Long getTsServer() {
+        return tsServer;
+    }
+
+    public void setTsServer(Long tsServer) {
+        this.tsServer = tsServer;
+    }
+
+    public Long getDeltaT() {
+        return deltaT;
+    }
+
+    public void setDeltaT(Long deltaT) {
+        this.deltaT = deltaT;
     }
 }

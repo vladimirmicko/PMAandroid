@@ -62,20 +62,15 @@ public class MyProfileActivity extends AppCompatActivity {
         month=userAccount.getBirthdate().getMonth()+1;
         day=userAccount.getBirthdate().getDay();
 
-//        year=1972;
-//        month=10;
-//        day =5;
+        year=1972;
+        month=9;
+        day =5;
 
         dpBirthdate.invalidate();
         if(userAccount.getBirthdate()!=null){
-            dpBirthdate.init(year,month,day, null);
             dpBirthdate.updateDate(year, month, day);
-            dpBirthdate.invalidate();
-//            dpBirthdate.updateDate(year,month,day);
         }
-        dpBirthdate.invalidate();
-        dpBirthdate.refreshDrawableState();
-        dpBirthdate.invalidate();
+
 
 
         btSubmit.setOnClickListener(new View.OnClickListener() {
