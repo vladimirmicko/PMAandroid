@@ -79,8 +79,7 @@ public class TestIntroActivity extends AppCompatActivity {
                 HttpStatus responseCode = responseEntity.getStatusCode();
 
                 if (responseCode.value()==200){
-                    deltaT=(time2-time1)/1000000;
-                    MyApplication.setDeltaT(deltaT);
+                    deltaT=(time2-time1)/2000000;
                 }
                 publishProgress(1);
             } catch (Exception e) {
@@ -88,7 +87,7 @@ public class TestIntroActivity extends AppCompatActivity {
             }
 
             try {
-                responseEntity = restTemplate.exchange(MyApplication.getAppContext().getResources().getString(R.string.url_base)+MyApplication.getAppContext().getResources().getString(R.string.url_synchronization)+"/"+System.nanoTime()+"/"+MyApplication.getDeltaT(), HttpMethod.GET, requestEntity, Long.class);
+                responseEntity = restTemplate.exchange(MyApplication.getAppContext().getResources().getString(R.string.url_base)+MyApplication.getAppContext().getResources().getString(R.string.url_synchronization)+"/"+System.nanoTime()+"/"+deltaT, HttpMethod.GET, requestEntity, Long.class);
                 HttpStatus responseCode = responseEntity.getStatusCode();
                 publishProgress(2);
             } catch (Exception e) {
@@ -107,7 +106,7 @@ public class TestIntroActivity extends AppCompatActivity {
         protected void onPostExecute(String result) {
             super.onPostExecute(result);
             Log.d(TAG, "Server time: " + result);
-            Log.d(TAG, "Delta T: " + MyApplication.getDeltaT());
+            Log.d(TAG, "Delta T: " + deltaT);
         }
     }
 }
